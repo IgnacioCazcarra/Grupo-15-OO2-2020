@@ -11,7 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 97632ef2fb85451952e9a799f546dd0c5f3bd65f
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
