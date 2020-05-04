@@ -10,33 +10,42 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
-
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
-@Table(name = "producto")
+@Table(name="producto")
 public class Producto {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idProducto;
-
-	@Column(name = "nombre")
+	
+	@Column(name="nombre")
 	private String nombre;
-
-	@Column(name = "descripcion")
+	
+	@Column(name="descripcion")
 	private String descripcion;
-
-	@Column(name = "precio")
+	
+	@Column(name="precio")
 	private float precio;
-
-	@Column(name = "fechaAlta")
-	@CreationTimestamp
+	
+	@Column(name="fechaAlta")
 	private LocalDate fechaAlta;
+	
+	
+	@Column(name="createdat")
+	@CreationTimestamp
+	private LocalDate createdAt;
+	
+	@Column(name="updatedat")
+	@UpdateTimestamp
+	private LocalDate updatedAt;
 
 	public Producto() {
-
+		super();
 	}
 
-	public Producto(long idProducto, String nombre, String descripcion, float precio, LocalDate fechaAlta) {
+	public Producto(long idProducto,String nombre, String descripcion, float precio, LocalDate fechaAlta) {
 		super();
 		this.idProducto = idProducto;
 		this.nombre = nombre;
@@ -44,7 +53,6 @@ public class Producto {
 		this.precio = precio;
 		this.fechaAlta = fechaAlta;
 	}
-
 
 	public long getIdProducto() {
 		return idProducto;
@@ -86,9 +94,31 @@ public class Producto {
 		this.fechaAlta = fechaAlta;
 	}
 
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalDate getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalDate updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductoModel [idProducto=" + idProducto + ", nombre=" + nombre + "]";
+		return "Producto [idProducto=" + idProducto + ", nombre=" + nombre + ", descripcion=" + descripcion
+				+ ", precio=" + precio + ", fechaAlta=" + fechaAlta + "]";
 	}
+	
+	
+
+
+
 
 }

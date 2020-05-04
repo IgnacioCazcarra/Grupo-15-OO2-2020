@@ -1,29 +1,31 @@
 package com.unla.Grupo15OO22020.entities;
 
 
-import java.time.LocalDateTime;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import javax.persistence.FetchType;
-
-import javax.persistence.OneToMany;
-
 import org.hibernate.annotations.CreationTimestamp;
-@Entity
-@Table(name = "local")
-public class Local {
+import org.hibernate.annotations.UpdateTimestamp;
 
+@Entity
+@Table(name="local")
+public class Local {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long idLocal;
@@ -32,10 +34,10 @@ public class Local {
 	private String direccion;
 	
 	@Column(name = "latitud")
-	private String latitud;
+	private double latitud;
 	
 	@Column(name = "longitud")
-	private String longitud;
+	private double longitud;
 
 	@Column(name = "telefono")
 	private String telefono;
@@ -62,17 +64,32 @@ public class Local {
 	@CreationTimestamp
 	private LocalDateTime updateAt;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "stock_id", referencedColumnName = "idStock")
+    private Stock stock;
 	
 	public Local() {}
 	
-	public Local(long idLocal, String direccion, String latitud, String longitud, String telefono) {
+
+	public Local(long idLocal, String direccion, double latitud, double longitud, String telefono) {
 		super();
 		this.idLocal = idLocal;
 		this.direccion = direccion;
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.telefono = telefono;
-		
+
+
+	}
+
+	
+
+	public Stock getStock() {
+		return stock;
+	}
+
+	public void setStock(Stock stock) {
+		this.stock = stock;
 	}
 
 	public long getIdLocal() {
@@ -92,19 +109,19 @@ public class Local {
 		this.direccion = direccion;
 	}
 
-	public String getLatitud() {
+	public double getLatitud() {
 		return latitud;
 	}
 
-	public void setLatitud(String latitud) {
+	public void setLatitud(double latitud) {
 		this.latitud = latitud;
 	}
 
-	public String getLongitud() {
+	public double getLongitud() {
 		return longitud;
 	}
 
-	public void setLongitud(String longitud) {
+	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
 
@@ -124,4 +141,17 @@ public class Local {
 		this.listaClientes = listaClientes;
 	}
 
+
+	public Set<Empleado> getListaEmpleados() {
+		return listaEmpleados;
+	}
+
+
+	public void setListaEmpleados(Set<Empleado> listaEmpleados) {
+		this.listaEmpleados = listaEmpleados;
+	}
+
+
 }
+
+	
