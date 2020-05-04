@@ -14,9 +14,9 @@ public class ProductoModel {
 		
 	}
 	
-	public ProductoModel(String nombre, String descripcion, float precio, LocalDate fechaAlta) {
+	public ProductoModel(long idProducto,String nombre, String descripcion, float precio, LocalDate fechaAlta) {
 		super();
-		
+		this.idProducto = idProducto;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.precio = precio;
