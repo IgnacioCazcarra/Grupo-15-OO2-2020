@@ -48,13 +48,13 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/delete/{id}")
-	public RedirectView eliminar(@PathVariable("id") long id) {
+	public RedirectView eliminar(@PathVariable("id") int id) {
 		productoService.remove(id);
 		return new RedirectView(ViewRouteHelpers.PRODUCTO_ROOT);
 	}
 	
 	@GetMapping("/{id}")
-	public ModelAndView get(@PathVariable("id") long idProducto) {
+	public ModelAndView get(@PathVariable("id") int idProducto) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PRODUCTO_UPDATE);
 		mAV.addObject("producto", productoService.findByIdProducto(idProducto));
 		return mAV;

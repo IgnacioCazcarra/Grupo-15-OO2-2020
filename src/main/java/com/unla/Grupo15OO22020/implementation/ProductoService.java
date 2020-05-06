@@ -35,12 +35,12 @@ public class ProductoService implements IProductoService{
 	}
 	
 	@Override
-	public ProductoModel findByIdProducto(long id) {
+	public ProductoModel findByIdProducto(int id) {
 		return productoConverter.entityToModel(productoRepository.findByIdProducto(id));
 	}
  
 	@Override
-	public boolean remove(long id) {
+	public boolean remove(int id) {
 		try {
 			productoRepository.deleteById(id);
 			return true;
