@@ -11,7 +11,7 @@ public interface IProductoService {
 
 	public ProductoModel insertOrUpdate(ProductoModel productoModel);
 
-	public ProductoModel findByIdProducto(int id);
+	public ProductoModel findByIdProducto(long id);
 
-	public boolean remove(int id);
+	public boolean remove(long id);
 }

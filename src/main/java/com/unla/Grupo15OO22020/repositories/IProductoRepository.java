@@ -9,6 +9,6 @@ import com.unla.Grupo15OO22020.entities.Producto;
 
 @Repository("productoRepository")
 public interface IProductoRepository extends JpaRepository<Producto, Serializable>{
-	public abstract Producto findByIdProducto(int id);
+	public abstract Producto findByIdProducto(long id);
 
 }

@@ -3,7 +3,7 @@ package com.unla.Grupo15OO22020.models;
 import java.time.LocalDate;;
 
 public class ProductoModel {
-	private int idProducto;
+	private long idProducto;
 
 	private String nombre;
 
@@ -17,7 +17,7 @@ public class ProductoModel {
 
 	}
 
-	public ProductoModel(int idProducto, String nombre, String descripcion, float precio, LocalDate fechaAlta) {
+	public ProductoModel(long idProducto, String nombre, String descripcion, float precio, LocalDate fechaAlta) {
 		super();
 		this.idProducto = idProducto;
 		this.nombre = nombre;
@@ -28,11 +28,11 @@ public class ProductoModel {
 
 
 
-	public int getIdProducto() {
+	public long getIdProducto() {
 		return idProducto;
 	}
 
-	public void setIdProducto(int idProducto) {
+	public void setIdProducto(long idProducto) {
 		this.idProducto = idProducto;
 	}
 

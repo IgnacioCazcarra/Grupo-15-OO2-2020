@@ -17,7 +17,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 public class Producto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idProducto;
+	private long idProducto;
 
 	@Column(name = "nombre")
 	private String nombre;
@@ -36,7 +36,7 @@ public class Producto {
 
 	}
 
-	public Producto(int idProducto, String nombre, String descripcion, float precio, LocalDate fechaAlta) {
+	public Producto(long idProducto, String nombre, String descripcion, float precio, LocalDate fechaAlta) {
 		super();
 		this.idProducto = idProducto;
 		this.nombre = nombre;
@@ -46,11 +46,11 @@ public class Producto {
 	}
 
 
-	public int getIdProducto() {
+	public long getIdProducto() {
 		return idProducto;
 	}
 
-	public void setIdProducto(int idProducto) {
+	public void setIdProducto(long idProducto) {
 		this.idProducto = idProducto;
 	}
 
