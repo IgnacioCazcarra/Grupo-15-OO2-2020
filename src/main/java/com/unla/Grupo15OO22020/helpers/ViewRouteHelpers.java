@@ -8,11 +8,18 @@ public class ViewRouteHelpers {
 	public final static String CLIENT_ADD = "cliente/new";
 	public final static String CLIENT_INDEX = "cliente/index";
 	
+	//Local
+	public final static String LOCAL_UPDATE = "local/update";
+	public final static String LOCAL_ADD = "local/new";
+	public final static String LOCAL_INDEX = "local/index";
+	public final static String LOCAL_DISTANCE = "local/distanciaentrelocales";
+	
 	//redirects	
 	public final static String ROUTE_INDEX = "/index";
 	public final static String CLIENT_ROOT = "/clientes";
 	public final static String EMPLEADO_ROOT="/empleados";
 	public final static String PRODUCTO_ROOT="/productos";
+	public final static String LOCAL_ROOT = "/locales";
 
 	
 	//Empleado

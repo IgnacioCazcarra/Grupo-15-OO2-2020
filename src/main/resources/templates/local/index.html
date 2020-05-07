@@ -1,0 +1,24 @@
+<table>
+	<thead>
+		<tr>
+			<th>Direccion</th>
+			<th>Latitud</th>
+			<th>Longitud</th>
+			<th>Telefono</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="local : ${locales}">
+			<td><span th:text="${local.direccion}" /></td>
+			<td><span th:text="${local.latitud}" /></td>
+			<td><span th:text="${local.longitud}" /></td>
+			<td><span th:text="${local.telefono}" /></td>
+			<td><a th:href="@{/locales/{id}(id=${local.idLocal})}">Ver</a></td>
+		</tr>
+	</tbody>
+</table>
+<a href="/locales/new">Crear</a>
+<p></p>
+<a href="/locales/distanciaentrelocales">Distancia entre locales</a>
+
+

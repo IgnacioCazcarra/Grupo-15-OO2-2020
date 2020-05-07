@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<p>Local 1: </p>
+<p>Latitud: <span th:text="${lat1}"/>, longitud:  <span th:text="${lng1}"/></p>
+
+
+<p>Local 2: </p>
+<p>Latitud: <span th:text="${lat2}"/>, longitud:  <span th:text="${lng2}"/></p>
+
+<p>Distancia en kilometros: </p>
+<td><span th:text="${distancia}"/></td>
+<form action="#" th:action="@{/locales/atras}" method="post">
+	<input type="submit" value="volver" />
+</form>
+
+</body>
+</html>

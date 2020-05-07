@@ -10,8 +10,8 @@ public class LocalModel {
 
 	private long idLocal;
 	private String direccion;
-	private String latitud;
-	private String longitud;
+	private double latitud;
+	private double longitud;
 	private String telefono;
 	private StockModel stock;
 	private Set<ClienteModel> listaClientes = new HashSet<ClienteModel>();
@@ -22,8 +22,9 @@ public class LocalModel {
 	public LocalModel() {
 	}
 	
-	public LocalModel(String direccion, String latitud, String longitud, String telefono, EmpleadoModel gerente) {
+	public LocalModel(long idLocal, String direccion, double latitud, double longitud, String telefono) {
 		super();
+		this.idLocal = idLocal;
 		this.direccion = direccion;
 		this.latitud = latitud;
 		this.longitud = longitud;
@@ -35,7 +36,7 @@ public class LocalModel {
 		return idLocal;
 	}
 
-	protected void setIdLocal(long idLocal) {
+	public void setIdLocal(long idLocal) {
 		this.idLocal = idLocal;
 	}
 
@@ -55,19 +56,19 @@ public class LocalModel {
 		this.direccion = direccion;
 	}
 
-	public String getLatitud() {
+	public double getLatitud() {
 		return latitud;
 	}
 
-	public void setLatitud(String latitud) {
+	public void setLatitud(double latitud) {
 		this.latitud = latitud;
 	}
 
-	public String getLongitud() {
+	public double getLongitud() {
 		return longitud;
 	}
 
-	public void setLongitud(String longitud) {
+	public void setLongitud(double longitud) {
 		this.longitud = longitud;
 	}
 

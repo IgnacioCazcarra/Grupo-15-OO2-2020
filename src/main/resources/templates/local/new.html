@@ -1,0 +1,7 @@
+<form action="#" th:action="@{/locales/create}" th:object="${local}" method="post">
+	<p> Direccion: <input type="text" th:field="*{direccion}" /></p>
+	<p> Latitud: <input type="number" th:field="*{latitud}" /></p>
+	<p> Longitud: <input type="number" th:field="*{longitud}" /></p>
+	<p> Telefono: <input type="text" th:field="*{telefono}" /></p>
+	<input type="submit" value="Crear"/>
+</form>
