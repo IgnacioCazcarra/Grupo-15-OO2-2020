@@ -20,6 +20,7 @@ public class ViewRouteHelpers {
 	public final static String EMPLEADO_ROOT="/empleados";
 	public final static String PRODUCTO_ROOT="/productos";
 	public final static String LOCAL_ROOT = "/locales";
+	public final static String PEDIDO_ROOT="/pedidos";
 
 	
 	//Empleado
@@ -31,5 +32,10 @@ public class ViewRouteHelpers {
 	public final static String PRODUCTO_INDEX = "producto/index";
 	public final static String PRODUCTO_ADD = "producto/new";
 	public final static String PRODUCTO_UPDATE = "producto/update";
+	
+	//Pedido
+	public final static String PEDIDO_INDEX = "pedido/index";
+	public final static String PEDIDO_ADD = "pedido/new";
+	public final static String PEDIDO_UPDATE = "pedido/update";
 	
 }

@@ -50,7 +50,7 @@ public class EmpleadoModel extends PersonaModel {
 	public void setTipoEmpleado(boolean tipoEmpleado) {
 		this.tipoEmpleado = tipoEmpleado;
 	}
-
+/*
 	public float calcularSueldo(List<CarritoModel> listaCarrito, EmpleadoModel empleado, int mes) {
 		float sueldo = 0;
 		double porcentajeSueldo = 0;
@@ -85,5 +85,5 @@ public class EmpleadoModel extends PersonaModel {
 		}
 		return sueldo;
 	}
-
+*/
 }
