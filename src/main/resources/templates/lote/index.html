@@ -1,0 +1,24 @@
+<table>
+	<thead>
+		<tr>
+			<th>Cantidad</th>
+			<th>Fecha de ingreso</th>
+			<th>Producto</th>
+			<th>Estado</th>
+			<th>Local</th>
+			<th>Stock</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="lote : ${lotes}">
+			<td><span th:text="${lote.cantidadActual}" /></td>
+			<td><span th:text="${lote.fechaIngreso}" /></td>
+			<td><span th:text="${lote.producto.nombre}" /></td>
+			<td><span th:text="${lote.estado}" /></td>
+			<td><span th:text="${lote.stock.local.direccion}" /></td>
+			<td><span th:text="${lote.stock.idStock}" /></td>
+			<td><a th:href="@{/lotes/{id}(id=${lote.idLote})}">Ver</a></td>
+		</tr>
+	</tbody>
+</table>
+<a href="/lotes/new">Crear</a>

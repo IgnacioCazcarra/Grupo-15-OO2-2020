@@ -4,6 +4,7 @@ import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,9 +33,23 @@ public class Stock {
 	private int cantidad;
 	
 	
-	@OneToOne(mappedBy = "stock")
-    private Local local;
+	
+	
+	@OneToOne(cascade = CascadeType.MERGE)
+	private Local local;
+	
+	
+	//@OneToOne(cascade = CascadeType.MERGE)
+//	private Local local;
+	
+	
+	//@OneToOne(cascade = CascadeType.MERGE)
+	//private Local local;
 
+	
+//	@OneToOne
+  //  @JoinColumn(name = "FK_STOCK", updatable = false, nullable = false)
+  //  private Local local;
 	
 	@Column(name="createdat")
 	@CreationTimestamp
@@ -44,12 +59,18 @@ public class Stock {
 	@UpdateTimestamp
 	private LocalTime updatedAt;
 
+	
+	
+	
+	
 	public Stock() {
 		super();
 	}
 
-	public Stock(Local local) {
+	public Stock(long idStock, Local local) {
 		super();
+		this.idStock = idStock;
+		this.cantidad = 0;
 		this.local = local;
 	}
 
@@ -84,6 +105,24 @@ public class Stock {
 	public void setLocal(Local local) {
 		this.local = local;
 	}
+
+	public LocalTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public LocalTime getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(LocalTime updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+	
 	
 	
 	

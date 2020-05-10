@@ -3,5 +3,6 @@
 	<p> Latitud: <input type="number" th:field="*{latitud}" /></p>
 	<p> Longitud: <input type="number" th:field="*{longitud}" /></p>
 	<p> Telefono: <input type="text" th:field="*{telefono}" /></p>
+	<input type="hidden" id="stock" name="stock" th:if="${stock}" th:value="${stock}"/>
 	<input type="submit" value="Crear"/>
 </form>

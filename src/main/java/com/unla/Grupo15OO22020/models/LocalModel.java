@@ -29,7 +29,6 @@ public class LocalModel {
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.telefono = telefono;
-		this.stock = new StockModel();
 	}
 
 	public long getIdLocal() {

@@ -14,6 +14,17 @@ public class ViewRouteHelpers {
 	public final static String LOCAL_INDEX = "local/index";
 	public final static String LOCAL_DISTANCE = "local/distanciaentrelocales";
 	
+	
+	//Lote
+	public final static String LOTE_UPDATE = "lote/update";
+	public final static String LOTE_ADD = "lote/new";
+	public final static String LOTE_INDEX = "lote/index";
+
+	//Stock
+	public final static String STOCK_UPDATE = "stock/update";
+	public final static String STOCK_ADD = "stock/new";
+	public final static String STOCK_INDEX = "stock/index";
+	
 	//redirects	
 	public final static String ROUTE_INDEX = "/index";
 	public final static String CLIENT_ROOT = "/clientes";
@@ -21,7 +32,8 @@ public class ViewRouteHelpers {
 	public final static String PRODUCTO_ROOT="/productos";
 	public final static String LOCAL_ROOT = "/locales";
 	public final static String PEDIDO_ROOT="/pedidos";
-
+	public final static String LOTE_ROOT = "/lotes";
+	public final static String STOCK_ROOT = "/stocks";
 	
 	//Empleado
 	public final static String EMPLEADO_INDEX = "empleado/index";

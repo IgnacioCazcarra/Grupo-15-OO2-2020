@@ -1,0 +1,20 @@
+<table>
+	<thead>
+		<tr>
+			<th>Stock del local</th>
+			<th>Local al que pertenece</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="stock : ${stocks}">
+			<td><span th:text="${stock.idStock}" /></td>
+			<td><span th:text="${stock.local.direccion}" /></td>
+			<td><a th:href="@{/stocks/{id}(id=${stock.idStock})}">Ver</a></td>
+		</tr>
+	</tbody>
+</table>
+<a href="/stocks/new">Crear</a>
+<p></p>
+<a href="/lotes/new">Agregar Lote</a>
+
+

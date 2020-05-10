@@ -1,0 +1,26 @@
+<form action="#" th:action="@{/lotes/update}" th:object="${lote}" method="post">
+<input type="hidden" th:field="*{idLote}" />
+<p>
+	Cantidad: <input type="number" th:field="*{cantidadActual}" />
+</p>
+
+<p>
+	Fecha de ingreso: <input type="date" th:field="*{fechaIngreso}" />
+</p>
+<p> Producto </p>
+	<select placeholder="Producto" th:field="*{producto.idProducto}" >
+		<option th:each= "p : ${productos}" th:value="${p.idProducto}" th:text= "${p.descripcion}"></option> 
+	</select>
+	<p> Stock </p>
+	<select placeholder="Stock" th:field="*{stock.idStock}" >
+		<option th:each= "s : ${stocks}" th:value="${s.idStock}" th:text= "${s.idStock}"></option> 
+	</select>
+<input type="submit" value="Editar" />
+</form>
+<form action="#" th:action="@{/lotes/delete/{id}(id=${lote.idLote})}" method="post">
+	<input type="submit" value="delete lote" />
+</form>
+<form action="#" th:action="@{/lotes/atras}" method="post">
+	<input type="submit" value="volver" />
+</form>
+	

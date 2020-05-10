@@ -3,7 +3,7 @@ package com.unla.Grupo15OO22020.entities;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
+import java.sql.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,12 +34,12 @@ public class Lote {
 	private int cantidadActual;
 	
 	@Column(name="fechaIngreso")
-	private LocalDate fechaIngreso;
+	//@CreationTimestamp
+	private Date fechaIngreso;
 	
-	
-	
-	@OneToOne(cascade = CascadeType.ALL)
-   @JoinColumn(name = "producto_idProducto", referencedColumnName = "idProducto")
+	//@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
+  // @JoinColumn(name = "producto_idProducto", referencedColumnName = "idProducto")
     private Producto producto;
 	
 	
@@ -64,11 +64,12 @@ public class Lote {
 		super();
 	}
 
-	public Lote(int cantidadInicial, int cantidadActual, LocalDate fechaIngreso, Producto producto, Stock stock) {
+	public Lote(long idLote, int cantidadActual, Date date, Producto producto, Stock stock) {
 		super();
-		this.cantidadInicial = cantidadInicial;
+		this.idLote = idLote;
+		this.cantidadInicial = cantidadActual;
 		this.cantidadActual = cantidadActual;
-		this.fechaIngreso = fechaIngreso;
+		this.fechaIngreso =  date;
 		this.producto = producto;
 		this.estado = true;
 		this.stock = stock;
@@ -98,11 +99,13 @@ public class Lote {
 		this.cantidadActual = cantidadActual;
 	}
 
-	public LocalDate getFechaIngreso() {
+	
+
+	public Date getFechaIngreso() {
 		return fechaIngreso;
 	}
 
-	public void setFechaIngreso(LocalDate fechaIngreso) {
+	public void setFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 	}
 

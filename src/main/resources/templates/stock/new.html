@@ -1,0 +1,7 @@
+<form action="#" th:action="@{/stocks/create}" th:object="${stock}" method="post">
+	<p> Lote para el local: </p>
+	<select placeholder="Local" th:field="*{local.idLocal}" >
+		<option th:each= "l : ${locales}" th:value="${l.idLocal}" th:text= "${l.direccion}"></option> 
+	</select>
+	<input type="submit" value="Crear"/>
+</form>

@@ -1,17 +1,19 @@
 package com.unla.Grupo15OO22020.models;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.unla.Grupo15OO22020.entities.Local;
 
 public class StockModel {
 
 	private long idStock;
 	private Set<LoteModel> lotes = new HashSet<LoteModel>();
 	private int cantidad;
-	private long idLocal;
+	//private long idLocal;
+	private LocalModel local;
 	
 	//REVISAR SI IDLOCAL VA, Y SI VA EN EL CONSTRUCTOR.
 	
@@ -19,10 +21,11 @@ public class StockModel {
 		
 	}
 	
-	public StockModel(long idLocal) {
+	public StockModel(long idStock, LocalModel local) {
 		super();
+		this.idStock = idStock;
 		this.cantidad = 0;
-		this.idLocal = idLocal;
+		this.local = local;
 
 	}
 
@@ -34,23 +37,26 @@ public class StockModel {
 
 
 
-	protected void setIdStock(long idStock) {
+	public void setIdStock(long idStock) {
 		this.idStock = idStock;
 	}
 
 
 
-	public long getIdLocal() {
-		return idLocal;
+	
+
+
+	public LocalModel getLocal() {
+		return local;
 	}
 
-
-
-	protected void setIdLocal(long idLocal) {
-		this.idLocal = idLocal;
+	public void setLocal(LocalModel local) {
+		this.local = local;
 	}
 
-
+	public void setLotes(Set<LoteModel> lotes) {
+		this.lotes = lotes;
+	}
 
 	public Set<LoteModel> getLotes() {
 		return lotes;

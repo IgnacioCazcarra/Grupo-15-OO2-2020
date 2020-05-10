@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.Grupo15OO22020.converters.StockConverter;
+import com.unla.Grupo15OO22020.entities.Stock;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.models.LocalModel;
+import com.unla.Grupo15OO22020.models.StockModel;
 import com.unla.Grupo15OO22020.services.ILocalService;
+import com.unla.Grupo15OO22020.services.IStockService;
 
 
 @Controller
@@ -27,6 +31,13 @@ public class LocalController {
 	@Qualifier("localService")
 	private ILocalService localService;
 	
+	@Autowired
+	@Qualifier("stockService")
+	private IStockService stockService;
+	
+	@Autowired
+	@Qualifier("stockConverter")
+	private StockConverter stockConverter;
 	
 	@GetMapping("")
 	public ModelAndView index() {
@@ -34,6 +45,7 @@ public class LocalController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.LOCAL_INDEX);
 		mAV.addObject("locales", localService.getAll());
 		mAV.addObject("local", new LocalModel());
+	//	mAV.addObject("stock", new StockModel());
 		return mAV;
 		
 	}
@@ -49,24 +61,53 @@ public class LocalController {
 	public ModelAndView create() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.LOCAL_ADD);
 		mAV.addObject("local", new LocalModel());
+
 		return mAV;
 	}
-	
+
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("local") LocalModel localModel) {
+		
+		int i = 0;
+		while(i < localService.getAll().size()) {
+			if(localService.getAll().get(i).getDireccion().equalsIgnoreCase((localModel.getDireccion()))) {
+				System.out.println("Ya hay un local que tiene esa direccion.");
+				return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
+			}
+			i++; 
+		}
+		
+		
+		
 		localService.insertOrUpdate(localModel);
+
 		return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
+		
 	}
 	
 	@GetMapping("/{id}")
 	public ModelAndView get(@PathVariable("id") long idLocal) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.LOCAL_UPDATE);
-		mAV.addObject("local", localService.findByIdLocal(idLocal));
+		mAV.addObject("local", localService.findByIdLocal(idLocal));	
+		mAV.addObject("stock", stockService.getAll());
+
 		return mAV;
+		
 	}
 	
 	@PostMapping("/update")
 	public RedirectView update(@ModelAttribute("local") LocalModel localModel) {
+	
+		int i = 0;
+		while(i < localService.getAll().size()) {
+			if(localService.getAll().get(i).getDireccion().equalsIgnoreCase((localModel.getDireccion()))) {
+				System.out.println("Ya hay un local que tiene esa direccion.");
+				return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
+			}
+			i++; 
+		}
+		
+		
 		localService.insertOrUpdate(localModel);
 		return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
 	}

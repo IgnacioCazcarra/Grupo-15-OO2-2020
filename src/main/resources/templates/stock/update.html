@@ -1,0 +1,16 @@
+<form action="#" th:action="@{/stocks/update}" th:object="${stock}" method="post">
+<input type="hidden" th:field="*{idStock}" />
+	<p> Stock del local: </p>
+	<select placeholder="Local" th:field="*{local.idLocal}" >
+		<option th:each= "l : ${locales}" th:value="${l.idLocal}" th:text= "${l.direccion}"></option> 
+	</select>
+<input type="submit" value="Editar" />
+</form>
+<form action="#" th:action="@{/stocks/delete/{id}(id=${stock.idStock})}" method="post">
+	<input type="submit" value="delete stock" />
+</form>
+<form action="#" th:action="@{/stocks/atras}" method="post">
+	<input type="submit" value="volver" />
+</form>
+
+

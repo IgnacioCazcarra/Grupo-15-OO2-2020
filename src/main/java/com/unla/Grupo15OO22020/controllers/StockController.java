@@ -1,0 +1,116 @@
+package com.unla.Grupo15OO22020.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
+
+import com.unla.Grupo15OO22020.converters.StockConverter;
+import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
+import com.unla.Grupo15OO22020.implementation.LocalService;
+import com.unla.Grupo15OO22020.models.StockModel;
+import com.unla.Grupo15OO22020.services.IStockService;
+
+
+@Controller
+@RequestMapping("/stocks")
+public class StockController {
+
+	@Autowired
+	@Qualifier("stockService")
+	private IStockService stockService;
+
+	@Autowired
+	@Qualifier("localService")
+	private LocalService localService;
+
+	@Autowired
+	@Qualifier("stockConverter")
+	private StockConverter stockConverter;
+	
+	@GetMapping("")
+	public ModelAndView index() {		
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.STOCK_INDEX);
+		mAV.addObject("stocks", stockService.getAll());
+		mAV.addObject("stock", new StockModel());
+		mAV.addObject("locales", localService.getAll());
+		return mAV;
+		
+	}
+	
+	@PostMapping("")
+	public RedirectView redirect(@ModelAttribute("stock") StockModel stockModel){
+		
+		return new RedirectView(ViewRouteHelpers.STOCK_INDEX);
+		
+	}
+	
+	@GetMapping("/new")
+	public ModelAndView create() {
+	ModelAndView mAV = new ModelAndView(ViewRouteHelpers.STOCK_ADD);
+		mAV.addObject("stock", new StockModel());
+		mAV.addObject("locales", localService.getAll());
+		return mAV;
+	}
+	
+	@PostMapping("/create")
+	public RedirectView create(@ModelAttribute("stock") StockModel stockModel) {	
+
+				
+				stockService.insertOrUpdate(stockModel);
+				return new RedirectView(ViewRouteHelpers.STOCK_ROOT);
+	}
+	
+	@GetMapping("/{id}")
+	public ModelAndView get(@PathVariable("id") long idStock) {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.STOCK_UPDATE);
+		mAV.addObject("stock", stockService.findByIdStock(idStock));
+		mAV.addObject("locales", localService.getAll());
+		
+		return mAV;
+	}
+	
+	@PostMapping("/update")
+	public RedirectView update(@ModelAttribute("stock") StockModel stockModel) {
+	
+		int i = 0;
+		while(i < stockService.getAll().size()) {
+			if(stockService.getAll().get(i).getLocal().getDireccion().equalsIgnoreCase(stockService.findByIdStock(stockModel.getIdStock()).getLocal().getDireccion())) {
+				System.out.println("Ya hay un local que tiene ese stock.");
+				return new RedirectView(ViewRouteHelpers.STOCK_ROOT);
+			}
+			i++; 
+		}
+	
+		stockModel.setLocal(localService.findByIdLocal(stockModel.getLocal().getIdLocal()));
+		
+		
+		stockService.insertOrUpdate(stockModel);
+		return new RedirectView(ViewRouteHelpers.STOCK_ROOT);
+	}
+
+	
+	@PostMapping("/delete/{id}")
+	public RedirectView delete(@PathVariable("id") long idStock) {
+		stockService.remove(idStock);
+		return new RedirectView(ViewRouteHelpers.STOCK_ROOT);
+	}
+
+	
+	@PostMapping("/atras")
+	public RedirectView atras() {
+		
+		return new RedirectView(ViewRouteHelpers.STOCK_ROOT);
+	}
+
+	
+
+	
+	
+}

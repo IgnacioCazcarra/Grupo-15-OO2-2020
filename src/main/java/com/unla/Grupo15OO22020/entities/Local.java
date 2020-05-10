@@ -45,8 +45,8 @@ public class Local {
 	@ManyToMany(mappedBy = "listaLocales")
 	private Set<Cliente> listaClientes = new HashSet<Cliente>();
 
-//	@Column(name = "stock")
-//	private StockModel stock;
+	//@OneToOne(cascade = CascadeType.MERGE)
+	//private Stock stock;
 	
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablaLocal")
 //	private Set<Cliente> listaClientes = new HashSet<Cliente>();
@@ -57,6 +57,21 @@ public class Local {
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablaLocal")
 //	private Set<SolicitudStock> listaSolicitudesStock = new HashSet<SolicitudStock>();
 
+//	@OneToOne(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "idStock", referencedColumnName = "idStock")
+ //   private Stock stock;
+	
+	//@OneToOne(cascade = CascadeType.MERGE)
+	//private Stock stock;
+	
+	
+	@OneToOne(mappedBy = "local")
+    private Stock stock;
+	
+	// @OneToOne(mappedBy = "local", cascade = CascadeType.ALL)
+//  private Stock stock;
+	
+	
 	@Column(name = "createdAt")
 	@CreationTimestamp
 	private LocalDateTime createdAt;
@@ -64,9 +79,7 @@ public class Local {
 	@CreationTimestamp
 	private LocalDateTime updateAt;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "stock_id", referencedColumnName = "idStock")
-    private Stock stock;
+	
 	
 	public Local() {}
 	
@@ -78,8 +91,6 @@ public class Local {
 		this.latitud = latitud;
 		this.longitud = longitud;
 		this.telefono = telefono;
-
-
 	}
 
 	
@@ -150,6 +161,10 @@ public class Local {
 	public void setListaEmpleados(Set<Empleado> listaEmpleados) {
 		this.listaEmpleados = listaEmpleados;
 	}
+
+	
+	
+	
 
 
 }
