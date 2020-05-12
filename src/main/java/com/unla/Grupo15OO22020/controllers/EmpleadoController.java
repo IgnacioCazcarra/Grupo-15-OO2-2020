@@ -2,6 +2,8 @@ package com.unla.Grupo15OO22020.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,7 +15,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.models.EmpleadoModel;
+import com.unla.Grupo15OO22020.models.LocalModel;
 import com.unla.Grupo15OO22020.services.IEmpleadoService;
+import com.unla.Grupo15OO22020.services.ILocalService;
 
 @Controller
 @RequestMapping("/empleados")
@@ -22,6 +26,12 @@ public class EmpleadoController{
 	@Autowired
     @Qualifier("empleadoService")
 	private IEmpleadoService empleadoService;
+	
+	
+	@Autowired
+	@Qualifier("localService")
+	private ILocalService localService;
+	
 	
 	@GetMapping("")
 	public ModelAndView index() {
@@ -40,6 +50,7 @@ public class EmpleadoController{
 	public ModelAndView create() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.EMPLEADO_ADD);
 		mAV.addObject("empleado", new EmpleadoModel());
+		mAV.addObject("locales", localService.getAll());
 		return mAV;
 	}
 	
@@ -53,11 +64,14 @@ public class EmpleadoController{
 	public ModelAndView get(@PathVariable("id") long idPersona) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.EMPLEADO_UPDATE);
 		mAV.addObject("empleado", empleadoService.findByIdPersona(idPersona));
+		mAV.addObject("locales", localService.getAll());
 		return mAV;
 	}
 	
 	@PostMapping("/update")
 	public RedirectView update(@ModelAttribute("empleado") EmpleadoModel empleadoModel) {
+		LocalModel l  = localService.findByIdLocal(empleadoModel.getLocal().getIdLocal());
+		empleadoModel.setLocal(l);
 		empleadoService.insertOrUpdate(empleadoModel);
 		return new RedirectView(ViewRouteHelpers.EMPLEADO_ROOT);
 	}

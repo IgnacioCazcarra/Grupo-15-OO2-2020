@@ -18,6 +18,6 @@ public interface IEmpleadoService {
 	
 	public boolean remove(long idPersona);
 	
-	public List<EmpleadoModel> findByTipoEmpleado(boolean tipoEmpleado);
+	public List<EmpleadoModel> findByGerente(boolean gerente);
 
 }

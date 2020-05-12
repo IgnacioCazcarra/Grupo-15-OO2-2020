@@ -58,10 +58,10 @@ public class EmpleadoService implements IEmpleadoService{
 	}
 
 	@Override
-	public List<EmpleadoModel> findByTipoEmpleado(boolean tipoEmpleado) {
+	public List<EmpleadoModel> findByGerente(boolean gerente) {
 		List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 		
-		for(Empleado e : empleadoRepository.findByTipoEmpleado(tipoEmpleado)) {
+		for(Empleado e : empleadoRepository.findByGerente(gerente)) {
 			listaEmpleados.add(empleadoConverter.entityToModel(e));
 		}
 		return listaEmpleados;

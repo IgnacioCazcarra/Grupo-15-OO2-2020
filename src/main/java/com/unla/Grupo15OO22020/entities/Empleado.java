@@ -2,9 +2,9 @@ package com.unla.Grupo15OO22020.entities;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -16,10 +16,10 @@ public class Empleado extends Persona {
 	@Column(name = "franjaHoraria")
 	private String franjaHoraria;
 
-	@Column(name = "tipoEmpleado")
-	private boolean tipoEmpleado;
+	@Column(name = "gerente")
+	private boolean gerente;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "idLocal")
 	private Local local;
 
@@ -28,10 +28,11 @@ public class Empleado extends Persona {
 	}
 
 	public Empleado(long idPersona, String nombre, String apellido, Date fechaNacimiento, long dni, String franjaHoraria,
-			boolean tipoEmpleado, Local local) {
+			boolean gerente, Local local) {
 		super(idPersona, nombre, apellido, fechaNacimiento, dni);
 		this.franjaHoraria = franjaHoraria;
-		this.tipoEmpleado = tipoEmpleado;
+		this.gerente = gerente;
+		this.local = local;
 	}
 
 
@@ -44,12 +45,12 @@ public class Empleado extends Persona {
 		this.franjaHoraria = franjaHoraria;
 	}
 
-	public boolean isTipoEmpleado() {
-		return tipoEmpleado;
+	public boolean isGerente() {
+		return gerente;
 	}
 
-	public void setTipoEmpleado(boolean tipoEmpleado) {
-		this.tipoEmpleado = tipoEmpleado;
+	public void setGerente(boolean gerente) {
+		this.gerente = gerente;
 	}
 
 	public Local getLocal() {

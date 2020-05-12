@@ -16,8 +16,8 @@ public interface IEmpleadoRepository extends JpaRepository<Empleado, Serializabl
 	
 	public abstract Empleado findByNombre(String nombre);
 		
-	@Query("SELECT e from Empleado e where e.tipoEmpleado= (:tipoEmpleado)")
-	public abstract List<Empleado> findByTipoEmpleado(boolean tipoEmpleado);
+	@Query("SELECT e from Empleado e where e.gerente= (:gerente)")
+	public abstract List<Empleado> findByGerente(boolean gerente);
 
 	
 }

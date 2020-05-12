@@ -1,21 +1,20 @@
 package com.unla.Grupo15OO22020.models;
 
 import java.sql.Date;
-import java.util.List;
 
 public class EmpleadoModel extends PersonaModel {
 	private String franjaHoraria;
-	private boolean tipoEmpleado; // true = Vendedor, false = Gerente.
+	private boolean gerente; 
 	private LocalModel local;
 	private long idEmpleado;
 
 	public EmpleadoModel() {
 	}
 
-	public EmpleadoModel(long idPersona, String nombre, String apellido, Date fechaNacimiento, long dni, String franjaHoraria, boolean tipoEmpleado, LocalModel local) {
+	public EmpleadoModel(long idPersona, String nombre, String apellido, Date fechaNacimiento, long dni, String franjaHoraria, boolean gerente, LocalModel local) {
 		super(idPersona, nombre, apellido, fechaNacimiento, dni);
 		this.franjaHoraria = franjaHoraria;
-		this.tipoEmpleado = tipoEmpleado;
+		this.gerente = gerente;
 		this.local = local;
 	}
 
@@ -43,12 +42,12 @@ public class EmpleadoModel extends PersonaModel {
 		this.local = local;
 	}
 
-	public boolean isTipoEmpleado() {
-		return tipoEmpleado;
+	public boolean isGerente() {
+		return gerente;
 	}
 
-	public void setTipoEmpleado(boolean tipoEmpleado) {
-		this.tipoEmpleado = tipoEmpleado;
+	public void setGerente(boolean gerente) {
+		this.gerente = gerente;
 	}
 /*
 	public float calcularSueldo(List<CarritoModel> listaCarrito, EmpleadoModel empleado, int mes) {
