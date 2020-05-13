@@ -1,0 +1,11 @@
+<form action="mostrarStockPorProducto" method="Post">
+<p> Producto </p>
+	<select placeholder="Producto" th:field="*{producto.idProducto}" >
+		<option th:each= "p : ${productos}" th:value="${p.idProducto}" th:text= "${p.descripcion}"></option> 
+	</select>
+	<p> Stock </p>
+	<select placeholder="Stock" th:field="*{stock.idStock}" >
+		<option th:each= "s : ${stocks}" th:value="${s.idStock}" th:text= "${s.idStock}"></option> 
+	</select>
+<input type="submit"/>
+</form>

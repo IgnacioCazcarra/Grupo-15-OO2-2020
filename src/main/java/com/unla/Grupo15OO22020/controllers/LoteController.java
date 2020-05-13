@@ -17,6 +17,7 @@ import com.unla.Grupo15OO22020.implementation.LocalService;
 import com.unla.Grupo15OO22020.implementation.ProductoService;
 import com.unla.Grupo15OO22020.implementation.StockService;
 import com.unla.Grupo15OO22020.models.LoteModel;
+import com.unla.Grupo15OO22020.models.StockModel;
 import com.unla.Grupo15OO22020.services.ILoteService;
 
 @Controller
@@ -76,6 +77,13 @@ public class LoteController {
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("lote") LoteModel loteModel) {
 		loteService.insertOrUpdate(loteModel);
+	StockModel stockModel =	stockService.findByIdStock(loteModel.getStock().getIdStock());
+	System.out.println("Se trajo bien: " + stockService.findByIdStock(loteModel.getStock().getIdStock()).getIdStock());
+		stockModel.getLotes().add(loteModel);
+		stockService.insertOrUpdate(stockModel);
+		System.out.println("TRAIDO: " + stockModel.getLotes().get(0).getCantidadActual());
+		
+		
 		return new RedirectView(ViewRouteHelpers.LOTE_ROOT);
 	}
 	

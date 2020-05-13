@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Set;
 
 import com.unla.Grupo15OO22020.entities.Local;
+import com.unla.Grupo15OO22020.entities.Lote;
 
 public class StockModel {
 
 	private long idStock;
-	private Set<LoteModel> lotes = new HashSet<LoteModel>();
+	private List<LoteModel> lotes = new ArrayList<LoteModel>();
 	private int cantidad;
 	//private long idLocal;
 	private LocalModel local;
@@ -29,6 +30,14 @@ public class StockModel {
 
 	}
 
+	public StockModel(long idStock, LocalModel local, List<LoteModel> lotes) {
+		super();
+		this.idStock = idStock;
+		this.cantidad = 0;
+		this.local = local;
+		this.lotes = lotes;
+
+	}
 	
 	
 	public long getIdStock() {
@@ -54,11 +63,11 @@ public class StockModel {
 		this.local = local;
 	}
 
-	public void setLotes(Set<LoteModel> lotes) {
+	public void setLotes(List<LoteModel> lotes) {
 		this.lotes = lotes;
 	}
 
-	public Set<LoteModel> getLotes() {
+	public List<LoteModel> getLotes() {
 		return lotes;
 	}
 
@@ -72,8 +81,11 @@ public class StockModel {
 
 	public List<LoteModel> lotesDelProducto(ProductoModel producto){
 		List<LoteModel> lotesActivos = new ArrayList<LoteModel>();
+		System.out.println("cantidad LOTE: "  + lotes.size());
 		for(LoteModel l : lotes) {
-			if(l.getProducto().equals(producto) && l.isEstado()) {
+		//	if(l.getProducto().equals(producto) && l.isEstado()) {
+			if(l.getProducto().getIdProducto() == producto.getIdProducto() && l.isEstado()) {				
+				System.out.println("ENTRO BUCLE INTERNO: " );
 				lotesActivos.add(l);
 				
 			}
@@ -86,8 +98,10 @@ public class StockModel {
 		for(LoteModel l : lotesDelProducto(producto)) {
 			total += l.getCantidadActual();
 		}
+		System.out.println("TOTAL DESDE CALCULAR STOCK: " + total);
 		return total;
 	}
+
 	
 
 	public boolean stockValido(ProductoModel producto, int cantidad) {

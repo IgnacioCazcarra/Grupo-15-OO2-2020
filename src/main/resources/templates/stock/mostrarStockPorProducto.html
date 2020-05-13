@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<p>Stock: </p>
+<p>Producto ID: <span th:text="${producto.idProducto}"/></p>
+<p>Cantidad en stock: <span th:text="${total}"/></p>
+
+<form action="#" th:action="@{/stocks/atras}" method="post">
+	<input type="submit" value="volver" />
+</form>
+
+</body>
+</html>

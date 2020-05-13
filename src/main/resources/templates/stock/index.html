@@ -16,5 +16,19 @@
 <a href="/stocks/new">Crear</a>
 <p></p>
 <a href="/lotes/new">Agregar Lote</a>
+<p>------------------------------------</p>
+<p></p>
 
+<th>Lotes de stocks:</th>
+			<p></p>
+			<td> <tr th:each="lote : ${lotes}">
+			<td>Stock: <span th:text="${lote.stock.idStock}" /></td>
+			<td>Producto: <span th:text="${lote.producto.nombre}" /></td>
+			<td>Cantidad: <span th:text="${lote.cantidadActual}" /></td>
+			<p></p>
+</tr></td>
+
+<p></p>
+
+<a href="/stocks/calcularStockPorProducto">Calcular stock por producto: </a>
 

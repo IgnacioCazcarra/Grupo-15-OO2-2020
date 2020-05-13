@@ -1,7 +1,7 @@
 package com.unla.Grupo15OO22020.converters;
 
-import java.sql.Date;
-import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,15 +16,34 @@ public class LoteConverter {
 	@Autowired
 	@Qualifier("productoConverter")
 	private ProductoConverter productoConverter;
-	
-public	LoteModel entityToModel(Lote lote) {
-	
+
+	public	LoteModel entityToModel(Lote lote) {
+
 		return new LoteModel(lote.getIdLote(), lote.getCantidadActual(), lote.getFechaIngreso() , productoConverter.entityToModel(lote.getProducto()), lote.getStock());
 	}
-	
+
 	public Lote modelToEntity(LoteModel loteModel) {
 		return new Lote(loteModel.getIdLote(), loteModel.getCantidadActual(), loteModel.getFechaIngreso() , productoConverter.modelToEntity(loteModel.getProducto()), loteModel.getStock());
 
 	}
-	
+
+	public List<LoteModel> loteToLoteModel (List<Lote> lote) {
+		List<LoteModel> nuevoLotes = new ArrayList<LoteModel>();
+		for(int i = 0 ; i < lote.size(); i ++) {
+			LoteModel loteEntidad = new LoteModel();
+			loteEntidad.setIdLote(lote.get(i).getIdLote());
+			loteEntidad.setCantidadActual(lote.get(i).getCantidadActual());
+			loteEntidad.setCantidadInicial(lote.get(i).getCantidadInicial());
+			loteEntidad.setEstado(lote.get(i).isEstado());
+			loteEntidad.setFechaIngreso(lote.get(i).getFechaIngreso());
+			loteEntidad.setProducto(productoConverter.entityToModel(lote.get(i).getProducto()));
+			loteEntidad.setStock(lote.get(i).getStock());
+			nuevoLotes.add(loteEntidad);
+		}
+
+
+		return nuevoLotes;
+	}
+
+
 }

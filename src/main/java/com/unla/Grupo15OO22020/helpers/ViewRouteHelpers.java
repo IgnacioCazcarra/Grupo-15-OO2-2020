@@ -24,6 +24,8 @@ public class ViewRouteHelpers {
 	public final static String STOCK_UPDATE = "stock/update";
 	public final static String STOCK_ADD = "stock/new";
 	public final static String STOCK_INDEX = "stock/index";
+	public final static String STOCK_CALCULOSTOCK = "stock/calcularStockPorProducto";
+	
 	
 	//redirects	
 	public final static String ROUTE_INDEX = "/index";
