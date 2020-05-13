@@ -15,9 +15,8 @@
 <p>
 	Cantidad: <input type="number" th:field="*{cantidad}" />
 </p>
-<p>
-	Subtotal: <input type="hidden" th:field="*{subtotal}" />
-</p>
+
+	<input type="hidden" th:field="*{subtotal}" />
 
 	<select placeholder="Producto" th:field="*{producto.idProducto}"> 
 		<option th:each="p : ${productos}" th:value="${p.idProducto}" th:text="${p.nombre}"> </option>
@@ -36,6 +35,8 @@
 		<option th:each="e : ${empleados}" th:value="${e.idPersona}" th:text="${e.nombre} + ' ' + ${e.apellido}"> </option>
 	
 	</select>
+	
+	<input type="hidden" th:field="*{empleado.Local.idLocal}"/>
 
 <p>
 	Estado: <input type="text" th:field="*{aceptado}" />

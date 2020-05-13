@@ -1,4 +1,12 @@
-<form action="#" th:action="@{/productos/update}"
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css">
+</head>
+<body>
+
+	<form action="#" th:action="@{/productos/update}"
 	th:object="${producto}" method="post">
 	<input type="hidden" th:field="*{idProducto}" />
 	</p>
@@ -23,3 +31,9 @@
 <form action="#" th:action="@{/productos/back}" method="post">
 	<input type="submit" value="volver" />
 </form>
+
+
+</body>
+
+</html>
+

@@ -1,4 +1,12 @@
-<form action="#" th:action="@{/productos/create}" th:object="${producto}"
+<!DOCTYPE html>
+<html>
+<head>
+<title>Agregar Producto</title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css">
+</head>
+<body>
+	
+	<form action="#" th:action="@{/productos/create}" th:object="${producto}"
 	method="post">
 	<p>
 		Nombre: <input type="text" th:field="*{nombre}" />
@@ -11,3 +19,9 @@
 	</p>
 	<input type="submit" />
 </form>
+
+
+</body>
+
+</html>
+

@@ -20,6 +20,7 @@
 			<th>Precio Unitario</th>
 			<th>Cliente</th>
 			<th>Empleado</th>
+			<th>Local</th>
 			<th>Estado</th>
 			<th>Accion</th>
 		</tr>
@@ -32,6 +33,7 @@
 			<td><span th:text="${pedido.Producto.precio}" /></td>
 			<td><span th:text="${pedido.Cliente.nombre} +' ' + ${pedido.Cliente.apellido}" /></td>
 			<td><span th:text="${pedido.Empleado.nombre} +' ' + ${pedido.Empleado.apellido}" /></td>
+			<td><span th:text="${pedido.Local.direccion}" /></td>
 			<td><span th:text="${pedido.aceptado}" /></td>
 			<td><a th:href="@{/pedidos/{id}(id=${pedido.idPedido})}">Ver</a></td> 
 			

@@ -38,6 +38,9 @@ public class Pedido {
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Empleado empleado;
 	
+	@OneToOne(cascade = CascadeType.MERGE)
+	private Local local;
+	
 	@Column(name="createdat")
 	@CreationTimestamp
 	private LocalTime createdAt;
@@ -50,7 +53,7 @@ public class Pedido {
 		
 	}
 
-	public Pedido(long idPedido, int cantidad, float subtotal, boolean aceptado,Producto producto,Cliente cliente,Empleado empleado) {
+	public Pedido(long idPedido, int cantidad, float subtotal, boolean aceptado,Producto producto,Cliente cliente,Empleado empleado,Local local) {
 		super();
 		this.idPedido = idPedido;
 		this.cantidad = cantidad;
@@ -59,6 +62,7 @@ public class Pedido {
 		this.producto = producto;
 		this.cliente = cliente;
 		this.empleado = empleado;
+		this.local = local;
 	}
 
 	public long getIdPedido() {
@@ -120,7 +124,14 @@ public class Pedido {
 	public void setEmpleado(Empleado empleado) {
 		this.empleado = empleado;
 	}
-	
 
+	public Local getLocal() {
+		return local;
+	}
+
+	public void setLocal(Local local) {
+		this.local = local;
+	}
+	
 }
 
