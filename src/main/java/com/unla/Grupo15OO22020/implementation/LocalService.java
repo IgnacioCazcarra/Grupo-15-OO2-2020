@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.unla.Grupo15OO22020.converters.LocalConverter;
-import com.unla.Grupo15OO22020.entities.Cliente;
 import com.unla.Grupo15OO22020.entities.Local;
 import com.unla.Grupo15OO22020.models.LocalModel;
 import com.unla.Grupo15OO22020.repositories.ILocalRepository;
@@ -36,6 +35,7 @@ public class LocalService implements ILocalService{
 		return localConverter.entityToModel(localRepository.findByIdLocal(idLocal));
 		
 	}
+	
 	
 	@Override
 	public LocalModel insertOrUpdate(LocalModel localModel) {

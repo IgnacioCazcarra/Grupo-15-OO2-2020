@@ -97,17 +97,6 @@ public class LocalController {
 	
 	@PostMapping("/update")
 	public RedirectView update(@ModelAttribute("local") LocalModel localModel) {
-	
-		int i = 0;
-		while(i < localService.getAll().size()) {
-			if(localService.getAll().get(i).getDireccion().equalsIgnoreCase((localModel.getDireccion()))) {
-				System.out.println("Ya hay un local que tiene esa direccion.");
-				return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
-			}
-			i++; 
-		}
-		
-		
 		localService.insertOrUpdate(localModel);
 		return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
 	}
