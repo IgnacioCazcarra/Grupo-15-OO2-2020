@@ -1,6 +1,6 @@
 package com.unla.Grupo15OO22020.controllers;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,6 @@ import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.implementation.LocalService;
 import com.unla.Grupo15OO22020.implementation.LoteService;
 import com.unla.Grupo15OO22020.implementation.ProductoService;
-import com.unla.Grupo15OO22020.models.LocalModel;
 import com.unla.Grupo15OO22020.models.LoteModel;
 import com.unla.Grupo15OO22020.models.ProductoModel;
 import com.unla.Grupo15OO22020.models.StockModel;

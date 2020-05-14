@@ -45,9 +45,6 @@ public class Local {
 	@ManyToMany(mappedBy = "listaLocales")
 	private Set<Cliente> listaClientes = new HashSet<Cliente>();
 
-	//@OneToOne(cascade = CascadeType.MERGE)
-	//private Stock stock;
-	
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablaLocal")
 //	private Set<Cliente> listaClientes = new HashSet<Cliente>();
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "local")
@@ -57,20 +54,11 @@ public class Local {
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablaLocal")
 //	private Set<SolicitudStock> listaSolicitudesStock = new HashSet<SolicitudStock>();
 
-//	@OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "idStock", referencedColumnName = "idStock")
- //   private Stock stock;
-	
-	//@OneToOne(cascade = CascadeType.MERGE)
-	//private Stock stock;
-	
-	
+
 	@OneToOne(mappedBy = "local")
     private Stock stock;
 	
-	// @OneToOne(mappedBy = "local", cascade = CascadeType.ALL)
-//  private Stock stock;
-	
+
 	
 	@Column(name = "createdAt")
 	@CreationTimestamp
