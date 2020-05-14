@@ -1,7 +1,12 @@
 <form action="sacardistancia" method="Post">
-<p>Latitud: <input name="lat1" type="double"/><br/> </p>
-<p>Longitud: <input name="lng1" type="double"/><br/> </p>
-<p>Latitud: <input name="lat2" type="double"/><br/> </p>
-<p>Longitud: <input name="lng2" type="double"/><br/> </p>
+	<p> Local 1: </p>
+	<select placeholder="Local1" name="local1.idLocal">
+		<option  th:each= "l : ${locales}" th:value="${l.idLocal}" th:text= "${l.direccion}" ></option> 
+		</select>
+
+	<p> Local 2: </p>
+	<select placeholder="Local2" name="local2.idLocal">
+		<option th:each= "l : ${locales}" th:value="${l.idLocal}" th:text= "${l.direccion}"> </option> 
+		</select>
 <input type="submit"/>
 </form>

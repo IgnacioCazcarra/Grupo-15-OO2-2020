@@ -10,15 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo15OO22020.converters.StockConverter;
-import com.unla.Grupo15OO22020.entities.Stock;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.models.LocalModel;
-import com.unla.Grupo15OO22020.models.StockModel;
+import com.unla.Grupo15OO22020.models.LocalesModel;
 import com.unla.Grupo15OO22020.services.ILocalService;
 import com.unla.Grupo15OO22020.services.IStockService;
 
@@ -123,25 +121,44 @@ public class LocalController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.LOCAL_DISTANCE);
 	//	mAV.addObject("locales", localService.getAll());
 	//	mAV.addObject("local", new LocalModel());
+		mAV.addObject("locales", localService.getAll());
+		
 		return mAV;
 	}
 	
 
+//@RequestMapping(value="/sacardistancia", method=RequestMethod.POST)
+//public ModelAndView sacardistancia(@RequestParam("lat1") double lat1,
+//		@RequestParam("lng1") double lng1,
+//		@RequestParam("lat2") double lat2,
+//		@RequestParam("lng2") double lng2
+//		, Model model) {
+//	model.addAttribute("lat1", lat1);
+//	model.addAttribute("lng1", lng1);
+//	model.addAttribute("lat2", lat2);
+//	model.addAttribute("lng2", lng2);
+//	ModelAndView mAV = new ModelAndView("local/mostrarDistancia");
+//	double distancia=	distanciaCoord(lat1, lng1, lat2, lng2);
+//	model.addAttribute("distancia", distancia);
+//	return mAV;
+//}
+
 @RequestMapping(value="/sacardistancia", method=RequestMethod.POST)
-public ModelAndView sacardistancia(@RequestParam("lat1") double lat1,
-		@RequestParam("lng1") double lng1,
-		@RequestParam("lat2") double lat2,
-		@RequestParam("lng2") double lng2
-		, Model model) {
-	model.addAttribute("lat1", lat1);
-	model.addAttribute("lng1", lng1);
-	model.addAttribute("lat2", lat2);
-	model.addAttribute("lng2", lng2);
+public ModelAndView sacardistancia(LocalesModel locales, Model model) {
+	System.out.println("ID: " + locales.getLocal1().getIdLocal());
+	System.out.println("ID 2: " + locales.getLocal2().getIdLocal());
+	
+	model.addAttribute("lat1", localService.findByIdLocal(locales.getLocal1().getIdLocal()).getLatitud());
+	model.addAttribute("lng1", localService.findByIdLocal(locales.getLocal1().getIdLocal()).getLongitud());
+	model.addAttribute("lat2", localService.findByIdLocal(locales.getLocal2().getIdLocal()).getLatitud());
+	model.addAttribute("lng2", localService.findByIdLocal(locales.getLocal2().getIdLocal()).getLongitud());
 	ModelAndView mAV = new ModelAndView("local/mostrarDistancia");
-	double distancia=	distanciaCoord(lat1, lng1, lat2, lng2);
+	double distancia=	distanciaCoord(localService.findByIdLocal(locales.getLocal1().getIdLocal()).getLatitud(), localService.findByIdLocal(locales.getLocal1().getIdLocal()).getLongitud(), localService.findByIdLocal(locales.getLocal2().getIdLocal()).getLatitud(), localService.findByIdLocal(locales.getLocal2().getIdLocal()).getLongitud());
 	model.addAttribute("distancia", distancia);
 	return mAV;
 }
+
+
 
 	
 	public double distanciaCoord(double lat1, double lng1, double lat2, double lng2) {
