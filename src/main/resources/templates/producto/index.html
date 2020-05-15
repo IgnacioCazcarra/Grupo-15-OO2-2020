@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Productos</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css">
+    <title>Productos</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
 </head>
+
 <body>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Descripcion</th>
-				<th>Precio</th>
-				<th>Fecha Alta</th>
-				<th>Accion</th>
-			</tr>
+    <table class="table table-striped">
+        <thead class="bg-info">
+            <tr>
+                <th>Nombre</th>
+                <th>Descripcion</th>
+                <th>Precio</th>
+                <th>Fecha Alta</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="producto : ${productos}">
+                <td><span th:text="${producto.nombre}" /></td>
+                <td><span th:text="${producto.descripcion}" /></td>
+                <td><span th:text="${producto.precio}" /></td>
+                <td><span th:text="${producto.fechaAlta}" /></td>
+                <td><a th:href="@{/productos/{id}(id=${producto.idProducto})}">Ver</a></td>
 
-		</thead>
-		<tbody>
-			<tr th:each="producto : ${productos}">
-				<td><span th:text="${producto.nombre}" /></td>
-				<td><span th:text="${producto.descripcion}" /></td>
-				<td><span th:text="${producto.precio}" /></td>
-				<td><span th:text="${producto.fechaAlta}" /></td>
-				<td><a th:href="@{/productos/{id}(id=${producto.idProducto})}">Ver</a></td>
-	
-			</tr>
-		</tbody>
-	</table>
+            </tr>
+        </tbody>
+    </table>
 
-	<a th:href="@{/productos/new}">agregar</a>
+    <a class="btn btn-success" href="#" th:href="@{/productos/new}">agregar</a>
 
 </body>
 
 </html>
-

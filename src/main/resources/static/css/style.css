@@ -3,13 +3,12 @@
 }
 
 body{
-    height: 100vh;
-    background: linear-gradient(to bottom, #44a08d, #093637) no-repeat;
+    background-color: #50d890 !important;
 }
 
 .banner{
     text-align: center;
-    margin-top: 160px;
+    margin-top: 130px;
     color: rgb(0, 0, 0);
 }
 

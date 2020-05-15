@@ -1,8 +1,22 @@
-<form action="#" th:action="@{/locales/create}" th:object="${local}" method="post">
-	<p> Direccion: <input type="text" th:field="*{direccion}" /></p>
-	<p> Latitud: <input type="number" step="any" th:field="*{latitud}" /></p>
-	<p> Longitud: <input type="number" step="any" th:field="*{longitud}" /></p>
-	<p> Telefono: <input type="text" th:field="*{telefono}" /></p>
-	<input type="hidden" id="stock" name="stock" th:if="${stock}" th:value="${stock}"/>
-	<input type="submit" value="Crear"/>
-</form>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Agregar Local</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+</head>
+
+<body>
+
+    <form action="#" th:action="@{/locales/create}" th:object="${local}" method="post">
+        <p> Direccion: <input type="text" th:field="*{direccion}" /></p>
+        <p> Latitud: <input type="number" step="any" th:field="*{latitud}" /></p>
+        <p> Longitud: <input type="number" step="any" th:field="*{longitud}" /></p>
+        <p> Telefono: <input type="text" th:field="*{telefono}" /></p>
+        <input type="hidden" id="stock" name="stock" th:if="${stock}" th:value="${stock}" />
+        <input type="submit" value="Crear" />
+    </form>
+
+</body>
+
+</html>

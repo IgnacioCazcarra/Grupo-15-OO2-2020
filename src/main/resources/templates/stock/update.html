@@ -1,16 +1,31 @@
-<form action="#" th:action="@{/stocks/update}" th:object="${stock}" method="post">
-<input type="hidden" th:field="*{idStock}" />
-	<p> Stock del local: </p>
-	<select placeholder="Local" th:field="*{local.idLocal}" >
-		<option th:each= "l : ${locales}" th:value="${l.idLocal}" th:text= "${l.direccion}"></option> 
-	</select>
-<input type="submit" value="Editar" />
-</form>
-<form action="#" th:action="@{/stocks/delete/{id}(id=${stock.idStock})}" method="post">
-	<input type="submit" value="delete stock" />
-</form>
-<form action="#" th:action="@{/stocks/atras}" method="post">
-	<input type="submit" value="volver" />
-</form>
+<!DOCTYPE html>
 
+<html lang="en">
 
+<head>
+    <title>Agregar Pedido</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <form action="#" th:action="@{/stocks/update}" th:object="${stock}" method="post">
+        <input type="hidden" th:field="*{idStock}" />
+        <p> Stock del local: </p>
+        <select placeholder="Local" th:field="*{local.idLocal}">
+			<option th:each= "l : ${locales}" th:value="${l.idLocal}" th:text= "${l.direccion}"></option> 
+		</select>
+        <br>
+        <input type="submit" value="Editar" />
+    </form>
+    <form action="#" th:action="@{/stocks/delete/{id}(id=${stock.idStock})}" method="post">
+        <input type="submit" value="delete stock" />
+    </form>
+    <form action="#" th:action="@{/stocks/atras}" method="post">
+        <input type="submit" value="volver" />
+    </form>
+
+</body>
+
+</html>

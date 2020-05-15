@@ -1,23 +1,37 @@
-<table>
-	<thead>
-		<tr>
-			<th>Nombre</th>
-			<th>Apellido</th>
-			<th>Fecha de Nacimiento</th>
-			<th>DNI</th>
-			<th>Email</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr th:each="cliente : ${clientes}">
-			<td><span th:text="${cliente.nombre}" /></td>
-			<td><span th:text="${cliente.apellido}" /></td>
-			<td><span th:text="${cliente.fechaNacimiento}" /></td>
-			<td><span th:text="${cliente.dni}" /></td>
-			<td><span th:text="${cliente.email}" /></td>
-			<td><a th:href="@{/clientes/{id}(id=${cliente.idPersona})}">Ver</a></td>
-		</tr>
-	</tbody>
-</table>
-<a href="/clientes/new">Crear</a>
+<!DOCTYPE html>
+<html>
 
+<head>
+    <title>Clientes</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+</head>
+
+<body>
+
+    <table class="table table-striped">
+        <thead class="bg-info">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Fecha de Nacimiento</th>
+                <th>DNI</th>
+                <th>Email</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="cliente : ${clientes}">
+                <td><span th:text="${cliente.nombre}" /></td>
+                <td><span th:text="${cliente.apellido}" /></td>
+                <td><span th:text="${cliente.fechaNacimiento}" /></td>
+                <td><span th:text="${cliente.dni}" /></td>
+                <td><span th:text="${cliente.email}" /></td>
+                <td><a th:href="@{/clientes/{id}(id=${cliente.idPersona})}">Ver</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-success" href="/clientes/new">Crear</a>
+
+</body>
+
+</html>

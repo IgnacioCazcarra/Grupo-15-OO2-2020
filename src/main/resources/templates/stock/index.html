@@ -1,34 +1,50 @@
-<table>
-	<thead>
-		<tr>
-			<th>Stock del local</th>
-			<th>Local al que pertenece</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr th:each="stock : ${stocks}">
-			<td><span th:text="${stock.idStock}" /></td>
-			<td><span th:text="${stock.local.direccion}" /></td>
-			<td><a th:href="@{/stocks/{id}(id=${stock.idStock})}">Ver</a></td>
-		</tr>
-	</tbody>
-</table>
-<a href="/stocks/new">Crear</a>
-<p></p>
-<a href="/lotes/new">Agregar Lote</a>
-<p>------------------------------------</p>
-<p></p>
+<!DOCTYPE html>
+<html>
 
-<th>Lotes de stocks:</th>
-			<p></p>
-			<td> <tr th:each="lote : ${lotes}">
-			<td>Stock: <span th:text="${lote.stock.idStock}" /></td>
-			<td>Producto: <span th:text="${lote.producto.nombre}" /></td>
-			<td>Cantidad: <span th:text="${lote.cantidadActual}" /></td>
-			<p></p>
-</tr></td>
+<head>
+    <title>Stock</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+</head>
 
-<p></p>
+<body>
 
-<a href="/stocks/calcularStockPorProducto">Calcular stock por producto: </a>
+    <table class="table table-striped">
+        <thead class="bg-info">
+            <tr>
+                <th>Stock del local</th>
+                <th>Local al que pertenece</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="stock : ${stocks}">
+                <td><span th:text="${stock.idStock}" /></td>
+                <td><span th:text="${stock.local.direccion}" /></td>
+                <td><a th:href="@{/stocks/{id}(id=${stock.idStock})}">Ver</a></td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-success" href="/stocks/new">Crear</a>
+    <p></p>
+    <a class="btn btn-success" href="/lotes/new">Agregar Lote</a>
 
+    <hr>
+
+    <th>Lotes de stocks:</th>
+    <p></p>
+    <td>
+        <tr th:each="lote : ${lotes}">
+            <td>Stock: <span th:text="${lote.stock.idStock}" /></td>
+            <td>Producto: <span th:text="${lote.producto.nombre}" /></td>
+            <td>Cantidad: <span th:text="${lote.cantidadActual}" /></td>
+            <p></p>
+        </tr>
+    </td>
+
+    <p></p>
+
+    <a href="/stocks/calcularStockPorProducto">Calcular stock por producto: </a>
+
+</body>
+
+</html>
