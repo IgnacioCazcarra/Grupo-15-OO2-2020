@@ -17,29 +17,30 @@
 </p>
 
 	<input type="hidden" th:field="*{subtotal}" />
-
+	<p>Producto:
 	<select placeholder="Producto" th:field="*{producto.idProducto}"> 
 		<option th:each="p : ${productos}" th:value="${p.idProducto}" th:text="${p.nombre}"> </option>
 	
 	</select>
-	
+	</p>
+	<p>Cliente:
 	<select placeholder="Cliente" th:field="*{cliente.idPersona}"> 
 		<option th:each="c : ${clientes}" th:value="${c.idPersona}" th:text="${c.nombre} + '' + ${c.apellido}"> </option>
 	
 	</select>
-	
-	<p> Empleado:</p>
+	</p>
+	<p> Empleado:
 	
 	
 	<select placeholder="Empleado" th:field="*{empleado.idPersona}"> 
 		<option th:each="e : ${empleados}" th:value="${e.idPersona}" th:text="${e.nombre} + ' ' + ${e.apellido}"> </option>
 	
 	</select>
-	
+	</p>
 	<input type="hidden" th:field="*{empleado.Local.idLocal}"/>
 
 <p>
-	Estado: <input type="text" th:field="*{aceptado}" />
+	Estado: <input type="checkbox" th:field="*{aceptado}" />
 </p>
 
 <input type="submit" value="Editar" />

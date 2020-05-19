@@ -14,6 +14,10 @@ public class ViewRouteHelpers {
 	public final static String LOCAL_INDEX = "local/index";
 	public final static String LOCAL_DISTANCE = "local/distanciaentrelocales";
 	
+	//Ranking
+	public final static String RANKING_INDEX = "ranking/index";
+	public final static String RANKING_PRODUCTO = "ranking/ranking";
+
 	
 	//Lote
 	public final static String LOTE_UPDATE = "lote/update";

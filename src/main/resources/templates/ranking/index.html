@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Ranking de productos mas vendidos</title>
+</head>
+<body>
+
+	<td>
+	<tr th:each="r : ${rankingProductos}">
+		<p>
+		<td>Nombre del producto: <span th:text="${r.nombre}" /></td>
+		<td>Cantidad vendida: <span th:text="${r.cantidadVendida}" /></td>
+		</p>
+	</tr>
+</body>
+</html>
+
+

@@ -35,16 +35,14 @@
 			Franja Horaria: <input type="text" th:field="*{franjaHoraria}" />
 		</p>
 		<p>
-			Es gerente: <input type="text" th:field="*{gerente}" />
+			Es gerente: <input type="checkbox" th:field="*{gerente}" />
 		</p>
-		<p>
-			Local:
-		</p>
+		<p>Local:
 		<select placeholder="Local" th:field="*{local.idLocal}">
 			<option th:each="l : ${locales}" th:value="${l.idLocal}"
 				th:text="${l.idLocal}"></option>
 		</select> 
-		
+		</p>
 		<input type="submit" value="Editar" />
 	</form>
 	<form action="#"

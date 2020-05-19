@@ -1,13 +1,23 @@
-<form action="#" th:action="@{/lotes/create}" th:object="${lote}" method="post">
-	<p> Cantidad: <input type="text" th:field="*{cantidadActual}" /></p>
-	<p> Fecha de ingreso: <input type="date" th:field="*{fechaIngreso}" /></p>
-	<p> Producto </p>
-	<select placeholder="Producto" th:field="*{producto.idProducto}" >
-		<option th:each= "p : ${productos}" th:value="${p.idProducto}" th:text= "${p.descripcion}"></option> 
-	</select>
-	<p> Stock </p>
-	<select placeholder="Stock" th:field="*{stock.idStock}" >
-		<option th:each= "s : ${stocks}" th:value="${s.idStock}" th:text= "${s.idStock}"></option> 
-	</select>
-	<input type="submit" value="Crear"/>
+<form action="#" th:action="@{/lotes/create}" th:object="${lote}"
+	method="post">
+	<p>
+		Cantidad: <input type="text" th:field="*{cantidadActual}" />
+	</p>
+	<p>
+		Fecha de ingreso: <input type="date" th:field="*{fechaIngreso}" />
+	</p>
+	<p>
+		Producto <select placeholder="Producto"
+			th:field="*{producto.idProducto}">
+			<option th:each="p : ${productos}" th:value="${p.idProducto}"
+				th:text="${p.descripcion}"></option>
+		</select>
+	</p>
+	<p>
+		Stock <select placeholder="Stock" th:field="*{stock.idStock}">
+			<option th:each="s : ${stocks}" th:value="${s.idStock}"
+				th:text="${s.idStock}"></option>
+		</select>
+	</p>
+	<input type="submit" value="Crear" />
 </form>
