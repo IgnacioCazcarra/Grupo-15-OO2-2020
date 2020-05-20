@@ -25,6 +25,7 @@ import com.unla.Grupo15OO22020.services.ILocalService;
 import com.unla.Grupo15OO22020.services.ILoteService;
 import com.unla.Grupo15OO22020.services.IPedidoService;
 import com.unla.Grupo15OO22020.services.IProductoService;
+import com.unla.Grupo15OO22020.models.LoteModel;
 
 @Controller
 @RequestMapping("/pedidos")
@@ -130,6 +131,7 @@ public class PedidoController {
 	
 	public List<Lote> lotesDelProducto(ProductoModel productoModel){
 		List<Lote> lotesActivos = new ArrayList<Lote>();
+
 		for(Lote l : loteService.getAll()) {
 			if(l.getProducto().getIdProducto() == productoModel.getIdProducto() && l.isEstado()) {
 				lotesActivos.add(l);

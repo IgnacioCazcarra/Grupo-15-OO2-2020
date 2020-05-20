@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.Grupo15OO22020.entities.Empleado;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.models.EmpleadoModel;
 import com.unla.Grupo15OO22020.models.LocalModel;
@@ -55,8 +57,27 @@ public class EmpleadoController{
 	}
 	
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("empleado") EmpleadoModel empleadoModel) {
-		empleadoService.insertOrUpdate(empleadoModel);
+	public RedirectView create(@ModelAttribute("empleado") EmpleadoModel empleadoModel, RedirectAttributes redirectAttrs) {
+		int i=0;
+		boolean band = false;
+
+		while(i<empleadoService.getAll().size() && !band){
+			Empleado e = empleadoService.getAll().get(i);
+				if(e.getDni() == empleadoModel.getDni()){
+					band = true;
+				}
+			i++;
+		}
+
+		if(!band){
+			empleadoService.insertOrUpdate(empleadoModel);
+			redirectAttrs.addFlashAttribute("mensaje","Agregado Correctamente");
+			redirectAttrs.addFlashAttribute("clase", "success");
+		}else{
+			redirectAttrs.addFlashAttribute("mensaje","No se ha podido agregar debido a que ya existe un empleado con ese dni");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+		}
+
 		return new RedirectView(ViewRouteHelpers.EMPLEADO_ROOT);
 	}
 	
@@ -69,16 +90,25 @@ public class EmpleadoController{
 	}
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("empleado") EmpleadoModel empleadoModel) {
+	public RedirectView update(@ModelAttribute("empleado") EmpleadoModel empleadoModel,RedirectAttributes redirectAttrs) {
 		LocalModel l  = localService.findByIdLocal(empleadoModel.getLocal().getIdLocal());
 		empleadoModel.setLocal(l);
 		empleadoService.insertOrUpdate(empleadoModel);
+
+		redirectAttrs.addFlashAttribute("mensaje","Actualizado Correctamente");
+		redirectAttrs.addFlashAttribute("clase", "success");
+
+
 		return new RedirectView(ViewRouteHelpers.EMPLEADO_ROOT);
 	}
 	
 	@PostMapping("/delete/{id}")
-	public RedirectView delete(@PathVariable("id") long idPersona) {
+	public RedirectView delete(@PathVariable("id") long idPersona,RedirectAttributes redirectAttrs) {
 		empleadoService.remove(idPersona);
+
+		redirectAttrs.addFlashAttribute("mensaje","Eliminado Correctamente");
+		redirectAttrs.addFlashAttribute("clase", "success");
+
 		return new RedirectView(ViewRouteHelpers.EMPLEADO_ROOT);
 	}
 	

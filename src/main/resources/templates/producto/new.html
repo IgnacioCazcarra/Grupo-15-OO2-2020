@@ -1,27 +1,63 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Agregar Producto</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css">
-</head>
-<body>
-	
-	<form action="#" th:action="@{/productos/create}" th:object="${producto}"
-	method="post">
-	<p>
-		Nombre: <input type="text" th:field="*{nombre}" />
-	</p>
-	<p>
-		Descripcion: <input type="text" th:field="*{descripcion}" />
-	</p>
-	<p>
-		precio: <input type="number" th:field="*{precio}" />
-	</p>
-	<input type="submit" />
-</form>
 
+<head>
+    <title>Agregar Producto</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+        <a class="navbar-brand" th:href="@{/}">UNLa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/locales/}">Locales</a>
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
+        </form>
+        </div>
+    </nav>
+
+    <form class="formulario" action="#" th:action="@{/productos/create}" th:object="${producto}" method="post">
+        <div class="text-center">
+            <h2>Agregar Producto</h2>
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Ingrese nombre del producto" th:field="*{nombre}">
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Ingrese descripcion" th:field="*{descripcion}">
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Ingrese precio" th:field="*{precio}">
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary button">Guardar</button>
+        </div>
+    </form>
 
 </body>
 
 </html>
-

@@ -18,4 +18,9 @@ public class HomeController {
 		return ViewRouteHelpers.INDEX;
 	}
 
+	@GetMapping("info")
+	public String informacion(){
+		return ViewRouteHelpers.INFO;
+	}
+
 }

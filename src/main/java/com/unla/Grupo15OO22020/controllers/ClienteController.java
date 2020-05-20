@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.unla.Grupo15OO22020.entities.Cliente;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.models.ClienteModel;
 import com.unla.Grupo15OO22020.services.IClienteService;
@@ -49,8 +51,27 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("cliente") ClienteModel clienteModel) {
-		clienteService.insertOrUpdate(clienteModel);
+	public RedirectView create(@ModelAttribute("cliente") ClienteModel clienteModel,  RedirectAttributes redirectAttrs ) {
+		int i=0;
+		boolean band = false;
+
+		while(i<clienteService.getAll().size() && !band){
+			Cliente c = clienteService.getAll().get(i);
+				if(c.getDni() == clienteModel.getDni()){
+					band = true;
+				}
+			i++;
+		}
+
+		if(!band){
+			clienteService.insertOrUpdate(clienteModel);
+			redirectAttrs.addFlashAttribute("mensaje","Agregado Correctamente");
+			redirectAttrs.addFlashAttribute("clase", "success");
+		}else{
+			redirectAttrs.addFlashAttribute("mensaje","No se ha podido agregar debido a que ya existe un cliente con ese dni");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+		}
+
 		return new RedirectView(ViewRouteHelpers.CLIENT_ROOT);
 	}
 	
@@ -62,14 +83,22 @@ public class ClienteController {
 	}
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("cliente") ClienteModel clienteModel) {
+	public RedirectView update(@ModelAttribute("cliente") ClienteModel clienteModel, RedirectAttributes redirectAttrs) {
 		clienteService.insertOrUpdate(clienteModel);
+
+		redirectAttrs.addFlashAttribute("mensaje","Actualizado Correctamente");
+		redirectAttrs.addFlashAttribute("clase", "success");
+
 		return new RedirectView(ViewRouteHelpers.CLIENT_ROOT);
 	}
 	
 	@PostMapping("/delete/{id}")
-	public RedirectView delete(@PathVariable("id") long idPersona) {
+	public RedirectView delete(@PathVariable("id") long idPersona, RedirectAttributes redirectAttrs) {
 		clienteService.remove(idPersona);
+
+		redirectAttrs.addFlashAttribute("mensaje","Eliminado Correctamente");
+		redirectAttrs.addFlashAttribute("clase", "success");
+
 		return new RedirectView(ViewRouteHelpers.CLIENT_ROOT);
 	}
 	

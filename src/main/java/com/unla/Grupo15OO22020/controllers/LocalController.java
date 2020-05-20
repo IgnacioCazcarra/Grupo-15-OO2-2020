@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo15OO22020.converters.StockConverter;
@@ -64,18 +65,21 @@ public class LocalController {
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("local") LocalModel localModel) {
+	public RedirectView create(@ModelAttribute("local") LocalModel localModel, RedirectAttributes redirectAttrs ) {
 		
 		int i = 0;
 		while(i < localService.getAll().size()) {
 			if(localService.getAll().get(i).getDireccion().equalsIgnoreCase((localModel.getDireccion()))) {
 				System.out.println("Ya hay un local que tiene esa direccion.");
+				redirectAttrs.addFlashAttribute("mensaje","No se ha podido agregar debido a que ya existe un local con esa direccion");
+				redirectAttrs.addFlashAttribute("clase", "danger");
 				return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
 			}
 			i++; 
 		}
 		
-		
+		redirectAttrs.addFlashAttribute("mensaje","Agregado Correctamente");
+		redirectAttrs.addFlashAttribute("clase", "success");
 		
 		localService.insertOrUpdate(localModel);
 
@@ -94,15 +98,21 @@ public class LocalController {
 	}
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("local") LocalModel localModel) {
+	public RedirectView update(@ModelAttribute("local") LocalModel localModel, RedirectAttributes redirectAttrs) {
 		localService.insertOrUpdate(localModel);
+
+		redirectAttrs.addFlashAttribute("mensaje","Actualizado Correctamente");
+		redirectAttrs.addFlashAttribute("clase", "success");
 		return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
 	}
 
 	
 	
 	@PostMapping("/delete/{id}")
-	public RedirectView delete(@PathVariable("id") long idLocal) {
+	public RedirectView delete(@PathVariable("id") long idLocal, RedirectAttributes redirectAttrs) {
+		redirectAttrs.addFlashAttribute("mensaje","Eliminado Correctamente");
+		redirectAttrs.addFlashAttribute("clase", "success");
+
 		localService.remove(idLocal);
 		return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
 	}

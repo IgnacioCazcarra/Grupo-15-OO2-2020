@@ -1,39 +1,84 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<title>Example</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css">
+    <title>Example</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
+
 </head>
+
 <body>
 
-	<form action="#" th:action="@{/productos/update}"
-	th:object="${producto}" method="post">
-	<input type="hidden" th:field="*{idProducto}" />
-	</p>
-	<p>
-		Nombre: <input type="text" th:field="*{nombre}" />
-	</p>
-	<p>
-		Descripcion: <input type="text" th:field="*{descripcion}" />
-	</p>
-	<p>
-		Precio: <input type="text" th:field="*{precio}" />
-	</p>
-	<input type="hidden" th:field="*{fechaAlta}" /> <input type="submit"
-		value="Edit" />
-</form>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+        <a class="navbar-brand" th:href="@{/}">UNLa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/locales/}">Locales</a>
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
+        </form>
+        </div>
+    </nav>
 
-<form action="#"
-	th:action="@{/productos/delete/{id}(id=${producto.idProducto})}"
-	method="post">
-	<input type="submit" value="Delete Product" />
-</form>
-<form action="#" th:action="@{/productos/back}" method="post">
-	<input type="submit" value="volver" />
-</form>
+
+    <form class="formulario" action="#" th:action="@{/productos/update}" th:object="${producto}" method="post">
+        <div class="text-center">
+            <h2>Actualizar Producto</h2>
+        </div>
+
+        <input type="hidden" th:field="*{idProducto}" />
+
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Ingrese nombre del producto" th:field="*{nombre}">
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Ingrese descripcion" th:field="*{descripcion}">
+        </div>
+
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Ingrese precio" th:field="*{precio}">
+        </div>
+
+        <input type="hidden" th:field="*{fechaAlta}" />
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary button">Actualizar</button>
+        </div>
+    </form>
+
+    <form action="#" class="formulario-delete" th:action="@{/productos/delete/{id}(id=${producto.idProducto})}" method="post">
+        <div class="text-center">
+            <input type="submit" value="Eliminar Producto" class="btn btn-primary button" />
+        </div>
+
+    </form>
+
+
 
 
 </body>
 
 </html>
-

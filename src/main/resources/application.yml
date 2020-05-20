@@ -3,7 +3,7 @@ spring:
     url: jdbc:mysql://localhost/grupo15oo22020?serverTimezone=UTC
     username: root
     password: 42385689a
-    initialization-mode: always
+    #initialization-mode: always
   jpa:
     show-sql: true
     hibernate:

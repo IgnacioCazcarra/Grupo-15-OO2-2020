@@ -4,33 +4,71 @@
 <head>
     <title>Productos</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
 
 <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+        <a class="navbar-brand" th:href="@{/}">UNLa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/locales/}">Locales</a>
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
+        </form>
+        </div>
+    </nav>
 
-    <table class="table table-striped">
-        <thead class="bg-info">
-            <tr>
-                <th>Nombre</th>
-                <th>Descripcion</th>
-                <th>Precio</th>
-                <th>Fecha Alta</th>
-                <th>Accion</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="producto : ${productos}">
-                <td><span th:text="${producto.nombre}" /></td>
-                <td><span th:text="${producto.descripcion}" /></td>
-                <td><span th:text="${producto.precio}" /></td>
-                <td><span th:text="${producto.fechaAlta}" /></td>
-                <td><a th:href="@{/productos/{id}(id=${producto.idProducto})}">Ver</a></td>
+    <div class="container-fluid">
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
+        </div>
 
-            </tr>
-        </tbody>
-    </table>
 
-    <a class="btn btn-success" href="#" th:href="@{/productos/new}">agregar</a>
+        <table class="table table-striped ">
+            <thead class="bg-info ">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Precio</th>
+                    <th>Fecha Alta</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="producto : ${productos} ">
+                    <td><span th:text="${producto.nombre} " /></td>
+                    <td><span th:text="${producto.descripcion} " /></td>
+                    <td><span th:text="${producto.precio} " /></td>
+                    <td><span th:text="${producto.fechaAlta} " /></td>
+                    <td><a th:href="@{/productos/{id}(id=${producto.idProducto})} ">Ver</a></td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <a class="btn btn-success " href="# " th:href="@{/productos/new} ">agregar</a>
+
+    </div>
 
 </body>
 
