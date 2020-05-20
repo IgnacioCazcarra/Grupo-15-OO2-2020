@@ -10,7 +10,6 @@
 </head>
 
 <body>
-
     <form action="#" th:action="@{/empleados/update}" th:object="${empleado}" method="post">
         <input type="hidden" th:field="*{idPersona}" />
         <p>
@@ -29,16 +28,14 @@
             Franja Horaria: <input type="text" th:field="*{franjaHoraria}" />
         </p>
         <p>
-            Es gerente: <input type="text" th:field="*{gerente}" />
-        </p>
-        <p>
-            Local:
-        </p>
-        <select placeholder="Local" th:field="*{local.idLocal}">
+			Es gerente: <input type="checkbox" th:field="*{gerente}" />
+		</p>
+		<p>Local:
+		<select placeholder="Local" th:field="*{local.idLocal}">
 			<option th:each="l : ${locales}" th:value="${l.idLocal}"
 				th:text="${l.idLocal}"></option>
-		</select>
-
+		</select> 
+		</p>
         <br>
 
         <input type="submit" value="Editar" />

@@ -1,9 +1,10 @@
 package com.unla.Grupo15OO22020.models;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class SolicitudStockModel {
-	private LocalDate fecha;
+	private Date fecha;
 	private ProductoModel producto;
 	private int cantidad;
 	private EmpleadoModel vendedor;
@@ -11,23 +12,22 @@ public class SolicitudStockModel {
 	private boolean aceptado;
 	private long idSolicitud;
 	
-	public SolicitudStockModel() {
-		
-
-	}
+	public SolicitudStockModel() {}
 	
-	public SolicitudStockModel(LocalDate fecha, ProductoModel producto, int cantidad, EmpleadoModel vendedor) {
+	public SolicitudStockModel(long idSolicitud, Date fecha, ProductoModel producto, int cantidad, EmpleadoModel vendedor,
+			EmpleadoModel colaborador, boolean aceptado) {
 		super();
-		
+		this.idSolicitud = idSolicitud;
 		this.fecha = fecha;
 		this.producto = producto;
 		this.cantidad = cantidad;
 		this.vendedor = vendedor;
-		this.colaborador = null;
-		this.aceptado = false;
+		this.colaborador = colaborador;
+		this.aceptado = aceptado;
+		this.idSolicitud = idSolicitud;
 	}
 
-	
+
 	public long getIdSolicitud() {
 		return idSolicitud;
 	}
@@ -38,11 +38,11 @@ public class SolicitudStockModel {
 	}
 
 
-	public LocalDate getFecha() {
+	public Date getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(LocalDate fecha) {
+	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
 

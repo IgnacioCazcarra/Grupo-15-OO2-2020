@@ -13,12 +13,12 @@
         <p> Fecha de Nacimiento: <input type="date" th:field="*{fechaNacimiento}" /></p>
         <p> DNI: <input type="text" th:field="*{dni}" /></p>
         <p> Franja Horaria: <input type="text" th:field="*{franjaHoraria}" /></p>
-        <p> Es gerente: <input type="text" th:field="*{gerente}" /></p>
-        <p> Local:</p>
+        <p> Es gerente: <input type="checkbox" th:field="*{gerente}" /></p>
+        <p> Local:
         <select placeholder="Local" th:field="*{local.idLocal}"> 
 			<option th:each="l : ${locales}" th:value="${l.idLocal}" th:text="${l.idLocal}"> </option>
 		</select>
-
+		</p>
         <input type="submit" value="Crear" />
     </form>
 
