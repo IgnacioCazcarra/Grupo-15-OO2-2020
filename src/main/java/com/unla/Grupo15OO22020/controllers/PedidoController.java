@@ -114,7 +114,7 @@ public class PedidoController {
 		if(stockValido(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()), pedidoModel.getCantidad(), stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getEmpleado().getIdPersona()).getLocal().getIdLocal()).getIdStock())) {			
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(), stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getEmpleado().getIdPersona()).getLocal().getIdLocal()).getIdStock());
 			pedidoService.insertOrUpdate(pedidoModel);
-
+				//Aca se deberia crear una solicitud de stock
 
 
 		}else { //EN CASO DE QUE NO HAYA STOCK EN EL LOCAL PRINCIPAL
@@ -170,6 +170,8 @@ public class PedidoController {
 					mAV2.addObject("locales", localService.getAll());
 
 					mAV2.addObject("localesConStockPorCantidad", localesConCercania);
+					
+					//Aca se deberia crear otra solicitudstock con el local q se eligio
 					return mAV2;
 
 				}

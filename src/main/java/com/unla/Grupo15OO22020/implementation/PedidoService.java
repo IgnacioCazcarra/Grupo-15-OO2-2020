@@ -26,13 +26,11 @@ public class PedidoService implements IPedidoService{
 
 	@Override
 	public List<Pedido> getAll() {
-		// TODO Auto-generated method stub
 		return pedidoRepository.findAll();
 	}
 
 	@Override
 	public PedidoModel insertOrUpdate(PedidoModel pedidoModel) {
-		// TODO Auto-generated method stub
 		Pedido pedido = pedidoRepository.save(pedidoConverter.modelToEntity(pedidoModel));
 		return pedidoConverter.entityToModel(pedido); 
 	}
@@ -44,7 +42,6 @@ public class PedidoService implements IPedidoService{
 
 	@Override
 	public boolean remove(long idPedido) {
-		// TODO Auto-generated method stub
 		try {
 			pedidoRepository.deleteById(idPedido);
 			return true;
@@ -52,7 +49,6 @@ public class PedidoService implements IPedidoService{
 			return false;
 		}
 	}
-	
 
 }
 
