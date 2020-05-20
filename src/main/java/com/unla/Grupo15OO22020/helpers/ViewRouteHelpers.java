@@ -52,5 +52,6 @@ public class ViewRouteHelpers {
 	public final static String PEDIDO_INDEX = "pedido/index";
 	public final static String PEDIDO_ADD = "pedido/new";
 	public final static String PEDIDO_UPDATE = "pedido/update";
+	public final static String PEDIDO_LOCALPARAPETICION = "pedido/localparapeticion";
 	
 }
