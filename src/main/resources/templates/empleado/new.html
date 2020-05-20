@@ -1,15 +1,27 @@
-<form action="#" th:action="@{/empleados/create}" th:object="${empleado}"method="post">
-	<p> Nombre: <input type="text" th:field="*{nombre}" /></p>
-	<p> Apellido: <input type="text" th:field="*{apellido}" /></p>
-	<p> Fecha de Nacimiento: <input type="date" th:field="*{fechaNacimiento}" /></p>
-	<p> DNI: <input type="text" th:field="*{dni}" /></p>
-	<p> Franja Horaria: <input type="text" th:field="*{franjaHoraria}" /></p>
-	<p> Es gerente: <input type="checkbox" th:field="*{gerente}" /></p>
-	<p> Local:
-	<select placeholder="Local" th:field="*{local.idLocal}"> 
-		<option th:each="l : ${locales}" th:value="${l.idLocal}" th:text="${l.idLocal}"> </option>
-	</select>
-	</p>
-	
-	<input type="submit" value="Crear" />
-</form>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Agregar Empleado</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+</head>
+
+<body>
+    <form action="#" th:action="@{/empleados/create}" th:object="${empleado}" method="post">
+        <p> Nombre: <input type="text" th:field="*{nombre}" /></p>
+        <p> Apellido: <input type="text" th:field="*{apellido}" /></p>
+        <p> Fecha de Nacimiento: <input type="date" th:field="*{fechaNacimiento}" /></p>
+        <p> DNI: <input type="text" th:field="*{dni}" /></p>
+        <p> Franja Horaria: <input type="text" th:field="*{franjaHoraria}" /></p>
+        <p> Es gerente: <input type="checkbox" th:field="*{gerente}" /></p>
+        <p> Local:
+        <select placeholder="Local" th:field="*{local.idLocal}"> 
+			<option th:each="l : ${locales}" th:value="${l.idLocal}" th:text="${l.idLocal}"> </option>
+		</select>
+		</p>
+        <input type="submit" value="Crear" />
+    </form>
+
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+<form action="solicitudstock" method="Post">
+	<p> El local principal no dispone del suficiente stock. </p>
+
+	<p> Seleccione el local que desee que satisfaga su pedido: </p>
+	<select placeholder="Local1" name="local1.idLocal">
+		<option  th:each= "l : ${localesConStockPorCantidad}" th:value="${l.idLocal}" th:text= "${l.direccion}" ></option> 
+		</select>
+<input type="submit"/>
+</form>
+
+
+<form action="#" th:action="@{/pedidos/back}" method="post">
+	<input type="submit" value="volver" />
+</form>

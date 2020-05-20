@@ -2,39 +2,32 @@
 <html lang="en">
 
 <head>
-<title>Actualizar Empleado</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-	crossorigin="anonymous"></script>
+    <title>Actualizar Empleado</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+
 
 </head>
 
 <body>
-
-	<form action="#" th:action="@{/empleados/update}"
-		th:object="${empleado}" method="post">
-		<input type="hidden" th:field="*{idPersona}" />
-		<p>
-			Nombre: <input type="text" th:field="*{nombre}" />
-		</p>
-		<p>
-			Apellido: <input type="text" th:field="*{apellido}" />
-		</p>
-		<p>
-			Fecha de Nacimiento: <input type="date" th:field="*{fechaNacimiento}" />
-		</p>
-		<p>
-			DNI: <input type="text" th:field="*{dni}" />
-		</p>
-		<p>
-			Franja Horaria: <input type="text" th:field="*{franjaHoraria}" />
-		</p>
-		<p>
+    <form action="#" th:action="@{/empleados/update}" th:object="${empleado}" method="post">
+        <input type="hidden" th:field="*{idPersona}" />
+        <p>
+            Nombre: <input type="text" th:field="*{nombre}" />
+        </p>
+        <p>
+            Apellido: <input type="text" th:field="*{apellido}" />
+        </p>
+        <p>
+            Fecha de Nacimiento: <input type="date" th:field="*{fechaNacimiento}" />
+        </p>
+        <p>
+            DNI: <input type="text" th:field="*{dni}" />
+        </p>
+        <p>
+            Franja Horaria: <input type="text" th:field="*{franjaHoraria}" />
+        </p>
+        <p>
 			Es gerente: <input type="checkbox" th:field="*{gerente}" />
 		</p>
 		<p>Local:
@@ -43,16 +36,17 @@
 				th:text="${l.idLocal}"></option>
 		</select> 
 		</p>
-		<input type="submit" value="Editar" />
-	</form>
-	<form action="#"
-		th:action="@{/empleados/delete/{id}(id=${empleado.idPersona})}"
-		method="post">
-		<input type="submit" value="delete person" />
-	</form>
-	<form action="#" th:action="@{/empleados/back}" method="post">
-		<input type="submit" value="volver" />
-	</form>
+        <br>
+
+        <input type="submit" value="Editar" />
+
+    </form>
+    <form action="#" th:action="@{/empleados/delete/{id}(id=${empleado.idPersona})}" method="post">
+        <input type="submit" value="delete person" />
+    </form>
+    <form action="#" th:action="@{/empleados/back}" method="post">
+        <input type="submit" value="volver" />
+    </form>
 
 </body>
 

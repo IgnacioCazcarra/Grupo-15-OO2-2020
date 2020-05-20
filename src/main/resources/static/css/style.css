@@ -3,13 +3,12 @@
 }
 
 body{
-    height: 100vh;
-    background: linear-gradient(to bottom, #44a08d, #093637) no-repeat;
+    background-color: #50d890 !important;
 }
 
 .banner{
     text-align: center;
-    margin-top: 160px;
+    margin-top: 130px;
     color: rgb(0, 0, 0);
 }
 
@@ -26,12 +25,12 @@ body{
 
 
 .formulario{
-    width: 32%;
+    width: 30%;
     padding: 20px;
     background-color: white;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
+    margin-top: 70px;
 }
 
 .formulario h2{
@@ -39,3 +38,10 @@ body{
     padding-bottom: 10px;
 }
 
+.formulario-delete{
+    width: 30%;
+    background-color: white;
+    padding-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}

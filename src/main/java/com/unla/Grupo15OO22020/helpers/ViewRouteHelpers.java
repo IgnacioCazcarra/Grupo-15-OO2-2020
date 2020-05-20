@@ -3,6 +3,7 @@ package com.unla.Grupo15OO22020.helpers;
 public class ViewRouteHelpers {
 	//views
 	public final static String INDEX = "home/index";
+	public final static String INFO = "/informacion/information";
 	
 	public final static String CLIENT_UPDATE = "cliente/update";
 	public final static String CLIENT_ADD = "cliente/new";
@@ -55,5 +56,6 @@ public class ViewRouteHelpers {
 	public final static String PEDIDO_INDEX = "pedido/index";
 	public final static String PEDIDO_ADD = "pedido/new";
 	public final static String PEDIDO_UPDATE = "pedido/update";
+	public final static String PEDIDO_LOCALPARAPETICION = "pedido/localparapeticion";
 	
 }

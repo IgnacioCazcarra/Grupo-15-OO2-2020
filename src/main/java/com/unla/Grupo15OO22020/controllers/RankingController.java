@@ -73,11 +73,13 @@ public class RankingController {
 		List<RankingProductoModel> rankingProd = new ArrayList<RankingProductoModel>();
 		
 		for(Pedido p: pedidos) {
-			if(!ranking.containsKey(p.getProducto().getNombre())) {
-				ranking.put(p.getProducto().getNombre(), p.getCantidad());
-			}
-			else {
-				ranking.replace(p.getProducto().getNombre(), ranking.get(p.getProducto().getNombre())+p.getCantidad());
+			if(p.isAceptado()) {
+				if(!ranking.containsKey(p.getProducto().getNombre())) {
+					ranking.put(p.getProducto().getNombre(), p.getCantidad());
+				}
+				else {
+					ranking.replace(p.getProducto().getNombre(), ranking.get(p.getProducto().getNombre())+p.getCantidad());
+				}
 			}
 		}
 

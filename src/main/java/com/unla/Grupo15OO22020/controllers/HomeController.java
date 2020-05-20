@@ -18,15 +18,7 @@ public class HomeController {
 	public String index() {
 		return ViewRouteHelpers.INDEX;
 	}
-	
 
-	
-	
-	
-	
-	
-	
-	
 }
 
 

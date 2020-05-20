@@ -3,48 +3,49 @@
 
 <head>
     <title>Pedidos</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
+  <div class="container-fluid">
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
+        </div>
 
+    <table class="table table-striped">
+        <thead class="bg-info">
+            <tr>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Producto</th>
+                <th>Precio Unitario</th>
+                <th>Cliente</th>
+                <th>Empleado</th>
+                <th>Local</th>
+                <th>Estado</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="pedido : ${pedidos}">
+                <td><span th:text="${pedido.cantidad}" /></td>
+                <td><span th:text="${pedido.subtotal}" /></td>
+                <td><span th:text="${pedido.Producto.descripcion}" /></td>
+                <td><span th:text="${pedido.Producto.precio}" /></td>
+                <td><span th:text="${pedido.Cliente.nombre} +' ' + ${pedido.Cliente.apellido}" /></td>
+                <td><span th:text="${pedido.Empleado.nombre} +' ' + ${pedido.Empleado.apellido}" /></td>
+                <td><span th:text="${pedido.Local.direccion}" /></td>
+                <td><span th:text="${pedido.aceptado}" /></td>
+                <td><a th:href="@{/pedidos/{id}(id=${pedido.idPedido})}">Ver</a></td>
 
-<table class="table">
-	<thead>
-		<tr>
-			<th>Cantidad</th>
-			<th>Subtotal</th>
-			<th>Producto</th>
-			<th>Precio Unitario</th>
-			<th>Cliente</th>
-			<th>Empleado</th>
-			<th>Local</th>
-			<th>Estado</th>
-			<th>Accion</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr th:each="pedido : ${pedidos}">
-			<td><span th:text="${pedido.cantidad}" /></td>
-			<td><span th:text="${pedido.subtotal}" /></td>
-			<td><span th:text="${pedido.Producto.descripcion}" /></td>
-			<td><span th:text="${pedido.Producto.precio}" /></td>
-			<td><span th:text="${pedido.Cliente.nombre} +' ' + ${pedido.Cliente.apellido}" /></td>
-			<td><span th:text="${pedido.Empleado.nombre} +' ' + ${pedido.Empleado.apellido}" /></td>
-			<td><span th:text="${pedido.Local.direccion}" /></td>
-			<td><span th:text="${pedido.aceptado}" /></td>
-			<td><a th:href="@{/pedidos/{id}(id=${pedido.idPedido})}">Ver</a></td> 
-			
-		</tr>
-	</tbody>
-</table>
-<a href="/pedidos/new">Agregar</a>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/pedidos/new">Agregar</a>
 
 
 
 </body>
 
 </html>
-
