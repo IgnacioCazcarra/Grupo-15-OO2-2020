@@ -19,7 +19,7 @@ public class Empleado extends Persona {
 	@Column(name = "gerente")
 	private boolean gerente;
 
-	@ManyToOne(cascade = CascadeType.MERGE)
+	@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	@JoinColumn(name = "idLocal")
 	private Local local;
 

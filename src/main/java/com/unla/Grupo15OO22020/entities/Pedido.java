@@ -8,10 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.sun.istack.Nullable;
 
 @Entity
 public class Pedido {
@@ -36,10 +39,18 @@ public class Pedido {
 	private Cliente cliente;
 	
 	@OneToOne(cascade = CascadeType.MERGE)
-	private Empleado empleado;
+	@JoinColumn(name="id_vendedor")
+	private Empleado vendedor;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@Nullable
+	@OneToOne(cascade = CascadeType.MERGE, optional=true)
+	@JoinColumn(name="id_colaborador")
+	private Empleado colaborador;
+	
+	@OneToOne
 	private Local local;
+	
+
 	
 	@Column(name="createdat")
 	@CreationTimestamp
@@ -53,16 +64,17 @@ public class Pedido {
 		
 	}
 
-	public Pedido(long idPedido, int cantidad, float subtotal, boolean aceptado,Producto producto,Cliente cliente,Empleado empleado,Local local) {
+	public Pedido(long idPedido, int cantidad, Producto producto,Cliente cliente,Local local,  float subtotal, Empleado vendedor, Empleado colaborador, boolean aceptado) {
 		super();
 		this.idPedido = idPedido;
 		this.cantidad = cantidad;
-		this.subtotal = subtotal;
-		this.aceptado = aceptado;
 		this.producto = producto;
 		this.cliente = cliente;
-		this.empleado = empleado;
 		this.local = local;
+		this.subtotal = subtotal;
+		this.aceptado = aceptado;
+		this.vendedor = vendedor;
+		this.colaborador = colaborador;
 	}
 
 	public long getIdPedido() {
@@ -89,12 +101,20 @@ public class Pedido {
 		this.aceptado = aceptado;
 	}
 
-	public float getSubtotal() {
-		return subtotal;
+	public Empleado getVendedor() {
+		return vendedor;
 	}
 
-	public void setSubtotal(float subtotal) {
-		this.subtotal = subtotal;
+	public void setVendedor(Empleado vendedor) {
+		this.vendedor = vendedor;
+	}
+
+	public Empleado getColaborador() {
+		return colaborador;
+	}
+
+	public void setColaborador(Empleado colaborador) {
+		this.colaborador = colaborador;
 	}
 
 	public Producto getProducto() {
@@ -117,14 +137,6 @@ public class Pedido {
 		return producto.getPrecio()*cantidad;
 	}
 
-	public Empleado getEmpleado() {
-		return empleado;
-	}
-
-	public void setEmpleado(Empleado empleado) {
-		this.empleado = empleado;
-	}
-
 	public Local getLocal() {
 		return local;
 	}
@@ -132,6 +144,16 @@ public class Pedido {
 	public void setLocal(Local local) {
 		this.local = local;
 	}
+
+	public float getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(float subtotal) {
+		this.subtotal = subtotal;
+	}
+	
+	
 	
 }
 

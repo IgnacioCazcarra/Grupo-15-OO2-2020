@@ -19,13 +19,17 @@ public class EmpleadoConverter {
 	
 	
 	public EmpleadoModel entityToModel(Empleado empleado) {
-		return new EmpleadoModel(empleado.getIdPersona(), empleado.getNombre(), empleado.getApellido(), empleado.getFechaNacimiento(),
-				empleado.getDni(), empleado.getFranjaHoraria(), empleado.isGerente(), localConverter.entityToModel(empleado.getLocal()));
+		if(empleado!=null)
+			return new EmpleadoModel(empleado.getIdPersona(), empleado.getNombre(), empleado.getApellido(), empleado.getFechaNacimiento(),
+					empleado.getDni(), empleado.getFranjaHoraria(), empleado.isGerente(), localConverter.entityToModel(empleado.getLocal()));
+		else return null;
 	}
 
 	public Empleado modelToEntity(EmpleadoModel empleadoModel) {
-		return new Empleado(empleadoModel.getIdPersona(),empleadoModel.getNombre(), empleadoModel.getApellido(), empleadoModel.getFechaNacimiento(),
+		if(empleadoModel!=null)
+			return new Empleado(empleadoModel.getIdPersona(),empleadoModel.getNombre(), empleadoModel.getApellido(), empleadoModel.getFechaNacimiento(),
 				empleadoModel.getDni(), empleadoModel.getFranjaHoraria(), empleadoModel.isGerente(), localConverter.modelToEntity(empleadoModel.getLocal()));
+		else return null;
 	}
 
 }

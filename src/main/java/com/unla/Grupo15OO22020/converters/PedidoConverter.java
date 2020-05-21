@@ -9,30 +9,35 @@ import com.unla.Grupo15OO22020.models.PedidoModel;
 
 @Component("pedidoConverter")
 public class PedidoConverter {
-	
+
 	@Autowired
 	@Qualifier("productoConverter")
 	private ProductoConverter productoConverter;
-	
+
 	@Autowired
 	@Qualifier("clienteConverter")
 	private ClienteConverter clienteConverter;
-	
+
 	@Autowired
 	@Qualifier("empleadoConverter")
 	private EmpleadoConverter empleadoConverter;
-	
+
 	@Autowired
 	@Qualifier("localConverter")
 	private LocalConverter localConverter;
-	
+
+
+
 	public PedidoModel entityToModel(Pedido pedido) {
-		return new PedidoModel(pedido.getIdPedido(),pedido.getCantidad(),pedido.getSubtotal(),pedido.isAceptado(),productoConverter.entityToModel(pedido.getProducto()),clienteConverter.entityToModel(pedido.getCliente()),empleadoConverter.entityToModel(pedido.getEmpleado()),localConverter.entityToModel(pedido.getLocal()));
+		return new PedidoModel(pedido.getIdPedido(), pedido.getCantidad(), productoConverter.entityToModel(pedido.getProducto()),
+				clienteConverter.entityToModel(pedido.getCliente()), localConverter.entityToModel(pedido.getLocal()), pedido.getSubtotal(), empleadoConverter.entityToModel(pedido.getVendedor()), 
+				 empleadoConverter.entityToModel(pedido.getColaborador()), pedido.isAceptado());
 	}
-	
-	public Pedido modelToEntity(PedidoModel pedidoModel) {
-		return new Pedido(pedidoModel.getIdPedido(),pedidoModel.getCantidad(),pedidoModel.getSubtotal(),pedidoModel.isAceptado(),productoConverter.modelToEntity(pedidoModel.getProducto()),clienteConverter.modelToEntity(pedidoModel.getCliente()),empleadoConverter.modelToEntity(pedidoModel.getEmpleado()),localConverter.modelToEntity(pedidoModel.getLocal()));
+
+	public Pedido modelToEntity(PedidoModel pedido) {
+		return new Pedido(pedido.getIdPedido(), pedido.getCantidad(), productoConverter.modelToEntity(pedido.getProducto()),
+				clienteConverter.modelToEntity(pedido.getCliente()), localConverter.modelToEntity(pedido.getLocal()), pedido.getSubtotal(), empleadoConverter.modelToEntity(pedido.getVendedor()), 
+				 empleadoConverter.modelToEntity(pedido.getColaborador()), pedido.isAceptado());
 	}
 
 }
-
