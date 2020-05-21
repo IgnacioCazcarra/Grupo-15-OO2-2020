@@ -4,22 +4,25 @@ INSERT INTO `local` (id_local,direccion,latitud,longitud,telefono) VALUES(1,"Dir
 INSERT INTO `local` (direccion,latitud,longitud,telefono) VALUES("Direccion2",-3.15,1,"2222222222");
 INSERT INTO `local` (direccion,latitud,longitud,telefono) VALUES("Direccion3",6.35,2.423,"3333333333");
 INSERT INTO `local` (direccion,latitud,longitud,telefono) VALUES("Direccion4",3.145,2.1,"4444444444");
+INSERT INTO `local` (direccion,latitud,longitud,telefono) VALUES("Direccion5",3.23,1.9,"5555555555");
 
-INSERT INTO persona (id_persona,nombre,apellido,fecha_nacimiento,dni) VALUES(1,"Empleado1","A",'1990-09-01',11111111);
-INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Empleado2","A",'1990-09-11',12222222);
-INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Empleado3","A",'1990-09-21',13333333);
-INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Empleado4","A",'1990-09-21',14444444);
-INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Cliente1","A",'1990-09-22',11111111);
-INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Cliente2","A",'1990-09-01',22222222);
-INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Cliente3","A",'1990-09-01',33333333);
+INSERT INTO persona (id_persona,nombre,apellido,fecha_nacimiento,dni) VALUES(1,"Santiago","Gonzalez",'1990-09-01',11111111);
+INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Mateo","Rodriguez",'1990-09-11',12222222);
+INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Juan","Gomez",'1990-09-21',13333333);
+INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Matias","Fernandez",'1990-09-21',14444444);
+INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Nicolas","Lopez",'1990-09-22',11111111);
+INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Benjamin","Diaz",'1990-09-01',22222222);
+INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Pedro","Martinez",'1990-09-01',33333333);
+INSERT INTO persona (nombre,apellido,fecha_nacimiento,dni) VALUES("Tomas","Perez",'1990-09-19',44444444);
 
 INSERT INTO empleado (id_persona,franja_horaria,gerente,id_local) VALUES(1,"09:30-17:30",true,1);
 INSERT INTO empleado (id_persona,franja_horaria,gerente,id_local) VALUES(2,"10:00-16:00",false,2);
 INSERT INTO empleado (id_persona,franja_horaria,gerente,id_local) VALUES(3,"09:30-17:30",false,3);
 INSERT INTO empleado (id_persona,franja_horaria,gerente,id_local) VALUES(4,"10:00-16:00",false,4);
-INSERT INTO cliente (id_persona,email) VALUES(5,"cliente1@gmail.com");
-INSERT INTO cliente (id_persona,email) VALUES(6,"cliente2@gmail.com");
-INSERT INTO cliente (id_persona,email) VALUES(7,"cliente3@gmail.com");
+INSERT INTO cliente (id_persona,email) VALUES(5,"nlopez@gmail.com");
+INSERT INTO cliente (id_persona,email) VALUES(6,"bdiaz@gmail.com");
+INSERT INTO cliente (id_persona,email) VALUES(7,"pmartinez@gmail.com");
+INSERT INTO cliente (id_persona,email) VALUES(8,"tperez@gmail.com");
 
 INSERT INTO stock (id_stock,cantidad,local_id_local) VALUES (1,25,1);
 INSERT INTO stock (id_stock,cantidad,local_id_local) VALUES (2,45,2);
@@ -39,7 +42,7 @@ INSERT INTO lote (cantidad_inicial,cantidad_actual,estado,fecha_ingreso,producto
 INSERT INTO lote (cantidad_inicial,cantidad_actual,estado,fecha_ingreso,producto_id_producto,stock_id_stock) VALUES (200,200,1,"2019-05-17",2,3);
 
 
-
-
-
-
+INSERT INTO pedido (id_pedido,aceptado,cantidad,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (1,true,5,2500,5,2,1,2);
+INSERT INTO pedido (aceptado,cantidad,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (true,10,"3513.2",6,3,2,1);
+INSERT INTO pedido (aceptado,cantidad,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (true,10,10400,8,1,4,3);
+INSERT INTO pedido (aceptado,cantidad,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (true,5,"724.95",7,1,3,4);
