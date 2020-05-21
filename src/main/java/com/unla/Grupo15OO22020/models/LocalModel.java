@@ -1,6 +1,5 @@
 package com.unla.Grupo15OO22020.models;
 
-import java.time.LocalDate;
 
 import java.util.HashSet;
 
@@ -16,7 +15,6 @@ public class LocalModel {
 	private StockModel stock;
 	private Set<ClienteModel> listaClientes = new HashSet<ClienteModel>();
 	private Set<EmpleadoModel> listaEmpleados = new HashSet<EmpleadoModel>();
-//	private Set<FacturaModel> listaFacturas = new HashSet<FacturaModel>();
 //	private Set<SolicitudStockModel> listaSolicitudesStock = new HashSet<SolicitudStockModel>();
 	
 	public LocalModel() {

@@ -3,19 +3,22 @@ package com.unla.Grupo15OO22020.models;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import com.sun.istack.Nullable;
+import com.unla.Grupo15OO22020.entities.Empleado;
+
 public class SolicitudStockModel {
 	private Date fecha;
 	private ProductoModel producto;
 	private int cantidad;
 	private EmpleadoModel vendedor;
+	@Nullable
 	private EmpleadoModel colaborador;
 	private boolean aceptado;
 	private long idSolicitud;
 	
 	public SolicitudStockModel() {}
 	
-	public SolicitudStockModel(long idSolicitud, Date fecha, ProductoModel producto, int cantidad, EmpleadoModel vendedor,
-			EmpleadoModel colaborador, boolean aceptado) {
+	public SolicitudStockModel(long idSolicitud, Date fecha, ProductoModel producto, int cantidad, EmpleadoModel vendedor, EmpleadoModel colaborador, boolean aceptado) {
 		super();
 		this.idSolicitud = idSolicitud;
 		this.fecha = fecha;
@@ -75,7 +78,7 @@ public class SolicitudStockModel {
 	}
 
 	public void setColaborador(EmpleadoModel colaborador) {
-		this.colaborador = colaborador;
+			this.colaborador = colaborador;
 	}
 
 	public boolean isAceptado() {

@@ -16,6 +16,7 @@ import com.unla.Grupo15OO22020.converters.ProductoConverter;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.implementation.SolicitudService;
 import com.unla.Grupo15OO22020.models.EmpleadoModel;
+import com.unla.Grupo15OO22020.models.ProductoModel;
 import com.unla.Grupo15OO22020.models.SolicitudStockModel;
 import com.unla.Grupo15OO22020.services.IEmpleadoService;
 import com.unla.Grupo15OO22020.services.IProductoService;
@@ -75,8 +76,10 @@ public class SolicitudController {
 	public RedirectView create(@ModelAttribute("solicitud") SolicitudStockModel solicitudStockModel) {
 		solicitudStockModel.setProducto(productoService.findByIdProducto(solicitudStockModel.getProducto().getIdProducto()));
 		solicitudStockModel.setVendedor(empleadoService.findByIdPersona(solicitudStockModel.getVendedor().getIdPersona()));
-		solicitudStockModel.setColaborador(empleadoService.findByIdPersona(solicitudStockModel.getColaborador().getIdPersona()));
-
+		if(solicitudStockModel.getColaborador()==null) { solicitudStockModel.setColaborador(null);}
+		else{ 
+			solicitudStockModel.setColaborador(empleadoService.findByIdPersona(solicitudStockModel.getColaborador().getIdPersona()));
+		}
 		solicitudService.insertOrUpdate(solicitudStockModel);
 		return new RedirectView(ViewRouteHelpers.SOLICITUD_ROOT);
 	}
@@ -95,10 +98,21 @@ public class SolicitudController {
 	
 	@PostMapping("/update")
 	public RedirectView update(@ModelAttribute("solicitud") SolicitudStockModel solicitudStockModel) {
-		EmpleadoModel vm = empleadoService.findByIdPersona(solicitudStockModel.getVendedor().getIdPersona());
-		EmpleadoModel cm = empleadoService.findByIdPersona(solicitudStockModel.getColaborador().getIdPersona());
+		EmpleadoModel vm = null;
+		EmpleadoModel cm = null;
+
+		ProductoModel producto = productoService.findByIdProducto(solicitudStockModel.getProducto().getIdProducto());
+
+		if(solicitudStockModel.getVendedor()!=null) {
+			 vm = empleadoService.findByIdPersona(solicitudStockModel.getVendedor().getIdPersona());
+		}
+		if(solicitudStockModel.getColaborador()!=null) {
+			 cm = empleadoService.findByIdPersona(solicitudStockModel.getColaborador().getIdPersona());
+		}
+		
 		solicitudStockModel.setVendedor(vm);
 		solicitudStockModel.setColaborador(cm);
+		solicitudStockModel.setProducto(producto);
 		solicitudService.insertOrUpdate(solicitudStockModel);
 		return new RedirectView(ViewRouteHelpers.SOLICITUD_ROOT);
 	}

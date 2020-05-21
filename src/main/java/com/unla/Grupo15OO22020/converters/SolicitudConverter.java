@@ -19,13 +19,28 @@ public class SolicitudConverter {
 	private EmpleadoConverter empleadoConverter;
 	
 	public SolicitudStock modelToEntity(SolicitudStockModel s) {
-		return new SolicitudStock(s.getIdSolicitud(), s.getFecha(), productoConverter.modelToEntity(s.getProducto()), s.getCantidad(), 
-				empleadoConverter.modelToEntity(s.getVendedor()), empleadoConverter.modelToEntity(s.getColaborador()), s.isAceptado());
+		
+		if(s.getColaborador()!=null) {
+			System.out.println("ENTRAA");
+			return new SolicitudStock(s.getIdSolicitud(), s.getFecha(), productoConverter.modelToEntity(s.getProducto()), s.getCantidad(), 
+				empleadoConverter.modelToEntity(s.getVendedor()),
+				empleadoConverter.modelToEntity(s.getColaborador()), s.isAceptado());
+		}
+		else {
+			return new SolicitudStock(s.getIdSolicitud(), s.getFecha(), productoConverter.modelToEntity(s.getProducto()), s.getCantidad(), 
+					empleadoConverter.modelToEntity(s.getVendedor()), null, s.isAceptado());
+		}
 	}
 	
 	public SolicitudStockModel entityToModel(SolicitudStock s) {
-		return new SolicitudStockModel(s.getIdSolicitud(), s.getFecha(), productoConverter.entityToModel(s.getProducto()), s.getCantidad(), 
-				empleadoConverter.entityToModel(s.getVendedor()), empleadoConverter.entityToModel(s.getColaborador()), s.isAceptado());
+		if(s.getColaborador()!=null) {
+			return new SolicitudStockModel(s.getIdSolicitud(), s.getFecha(), productoConverter.entityToModel(s.getProducto()), s.getCantidad(), 
+					empleadoConverter.entityToModel(s.getVendedor()), empleadoConverter.entityToModel(s.getColaborador()), s.isAceptado());
+		}
+		else {
+			return new SolicitudStockModel(s.getIdSolicitud(), s.getFecha(), productoConverter.entityToModel(s.getProducto()), s.getCantidad(), 
+					empleadoConverter.entityToModel(s.getVendedor()), null, s.isAceptado());
+		}
 	}
 	
 }

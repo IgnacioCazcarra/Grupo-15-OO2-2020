@@ -31,12 +31,12 @@
             <tr th:each="pedido : ${pedidos}">
                 <td><span th:text="${pedido.cantidad}" /></td>
                 <td><span th:text="${pedido.subtotal}" /></td>
-                <td><span th:text="${pedido.Producto.descripcion}" /></td>
+                <td><span th:text="${pedido.Producto.nombre}" /></td>
                 <td><span th:text="${pedido.Producto.precio}" /></td>
                 <td><span th:text="${pedido.Cliente.nombre} +' ' + ${pedido.Cliente.apellido}" /></td>
                 <td><span th:text="${pedido.Empleado.nombre} +' ' + ${pedido.Empleado.apellido}" /></td>
                 <td><span th:text="${pedido.Local.direccion}" /></td>
-                <td><span th:text="${pedido.aceptado}" /></td>
+                <td><span th:text="${pedido.solicitud.aceptado}" /></td>
                 <td><a th:href="@{/pedidos/{id}(id=${pedido.idPedido})}">Ver</a></td>
 
             </tr>

@@ -3,33 +3,33 @@ package com.unla.Grupo15OO22020.models;
 public class PedidoModel {
 
 	private long idPedido;
-	//private ProductoModel producto;
 	private int cantidad;
 	//private ClienteModel cliente;
 	//private EmpleadoModel vendedorOriginal;
 	//private EmpleadoModel vendedorAuxiliar;
 	private float subtotal;
-	private boolean aceptado;
+	//private boolean aceptado;
 	private ProductoModel producto;
 	private ClienteModel cliente;
 	private EmpleadoModel empleado;
 	private LocalModel local;
-
+	private SolicitudStockModel solicitud;
+	
 	public PedidoModel() {
 		
 	}
 	
 
-	public PedidoModel(long idPedido, int cantidad, float subtotal, boolean aceptado,ProductoModel producto, ClienteModel cliente,EmpleadoModel empleado,LocalModel local) {
+	public PedidoModel(long idPedido, int cantidad, ProductoModel producto, ClienteModel cliente,EmpleadoModel empleado,LocalModel local, SolicitudStockModel solicitud, float subtotal) {
 		super();
 		this.idPedido = idPedido;
 		this.cantidad = cantidad;
-		this.subtotal = subtotal;
-		this.aceptado = aceptado;
 		this.setProducto(producto);
 		this.setCliente(cliente);
 		this.empleado = empleado;
 		this.local = local;
+		this.solicitud = solicitud;
+		this.subtotal = subtotal;
 	}
 
 
@@ -50,20 +50,13 @@ public class PedidoModel {
 		this.cantidad = cantidad;
 	}
 
-	public float getSubtotal() {
-		return subtotal;
+	public SolicitudStockModel getSolicitud() {
+		return solicitud;
 	}
 
-	public void setSubtotal(float subtotal) {
-		this.subtotal = subtotal;
-	}
 
-	public boolean isAceptado() {
-		return aceptado;
-	}
-
-	public void setAceptado(boolean aceptado) {
-		this.aceptado = aceptado;
+	public void setSolicitud(SolicitudStockModel solicitud) {
+		this.solicitud = solicitud;
 	}
 
 
@@ -106,6 +99,17 @@ public class PedidoModel {
 	public void setLocal(LocalModel local) {
 		this.local = local;
 	}
+
+
+	public float getSubtotal() {
+		return subtotal;
+	}
+
+
+	public void setSubtotal(float subtotal) {
+		this.subtotal = subtotal;
+	}
+	
 	
 	/*
 	public PedidoModel(ProductoModel producto, int cantidad, LocalModel local, ClienteModel cliente,

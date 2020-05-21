@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,9 +26,9 @@ public class Pedido {
 	
 	@Column(name = "subtotal")
 	private float subtotal;
-	
-	@Column(name = "aceptado")
-	private boolean aceptado;
+//	
+//	@Column(name = "aceptado")
+//	private boolean aceptado;
 	
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Producto producto;
@@ -41,6 +42,10 @@ public class Pedido {
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Local local;
 	
+	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(nullable=true)
+	private SolicitudStock solicitud;
+	
 	@Column(name="createdat")
 	@CreationTimestamp
 	private LocalTime createdAt;
@@ -53,16 +58,16 @@ public class Pedido {
 		
 	}
 
-	public Pedido(long idPedido, int cantidad, float subtotal, boolean aceptado,Producto producto,Cliente cliente,Empleado empleado,Local local) {
+	public Pedido(long idPedido, int cantidad, Producto producto,Cliente cliente,Empleado empleado,Local local, SolicitudStock solicitud, float subtotal) {
 		super();
 		this.idPedido = idPedido;
 		this.cantidad = cantidad;
-		this.subtotal = subtotal;
-		this.aceptado = aceptado;
 		this.producto = producto;
 		this.cliente = cliente;
 		this.empleado = empleado;
 		this.local = local;
+		this.solicitud = solicitud;
+		this.subtotal = subtotal;
 	}
 
 	public long getIdPedido() {
@@ -81,20 +86,12 @@ public class Pedido {
 		this.cantidad = cantidad;
 	}
 
-	public boolean isAceptado() {
-		return aceptado;
+	public SolicitudStock getSolicitud() {
+		return solicitud;
 	}
 
-	public void setAceptado(boolean aceptado) {
-		this.aceptado = aceptado;
-	}
-
-	public float getSubtotal() {
-		return subtotal;
-	}
-
-	public void setSubtotal(float subtotal) {
-		this.subtotal = subtotal;
+	public void setSolicitud(SolicitudStock solicitud) {
+		this.solicitud = solicitud;
 	}
 
 	public Producto getProducto() {
@@ -132,6 +129,16 @@ public class Pedido {
 	public void setLocal(Local local) {
 		this.local = local;
 	}
+
+	public float getSubtotal() {
+		return subtotal;
+	}
+
+	public void setSubtotal(float subtotal) {
+		this.subtotal = subtotal;
+	}
+	
+	
 	
 }
 

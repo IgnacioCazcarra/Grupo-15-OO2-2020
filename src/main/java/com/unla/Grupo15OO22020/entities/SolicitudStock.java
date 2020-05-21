@@ -13,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.sun.istack.Nullable;
+
 
 @Entity
 @Table(name="SolicitudStock")
@@ -35,7 +37,8 @@ public class SolicitudStock {
 	@JoinColumn(name="id_vendedor")
 	private Empleado vendedor;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@Nullable
+	@OneToOne(cascade = CascadeType.MERGE, optional=true)
 	@JoinColumn(name="id_colaborador")
 	private Empleado colaborador;
 	
@@ -101,7 +104,10 @@ public class SolicitudStock {
 	}
 
 	public void setColaborador(Empleado colaborador) {
-		this.colaborador = colaborador;
+		if(colaborador!=null) {
+			this.colaborador = colaborador;
+		}
+		else this.colaborador = new Empleado();
 	}
 
 	public boolean isAceptado() {
