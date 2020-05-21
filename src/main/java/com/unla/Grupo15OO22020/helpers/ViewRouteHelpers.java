@@ -41,7 +41,6 @@ public class ViewRouteHelpers {
 	public final static String PEDIDO_ROOT="/pedidos";
 	public final static String LOTE_ROOT = "/lotes";
 	public final static String STOCK_ROOT = "/stocks";
-	public final static String SOLICITUD_ROOT = "/solicitudes";
 
 	
 	//Empleado
@@ -59,9 +58,5 @@ public class ViewRouteHelpers {
 	public final static String PEDIDO_ADD = "pedido/new";
 	public final static String PEDIDO_UPDATE = "pedido/update";
 	public final static String PEDIDO_LOCALPARAPETICION = "pedido/localparapeticion";
-	
-	//SolicitudStock
-	public final static String SOLICITUD_INDEX = "solicitud/index";
-	public final static String SOLICITUD_ADD = "solicitud/new";
-	public final static String SOLICITUD_UPDATE = "solicitud/update";
+
 }

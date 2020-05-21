@@ -12,32 +12,38 @@
 	
 	<form action="#" th:action="@{/pedidos/update}" th:object="${pedido}" method="post">
 <input type="hidden" th:field="*{idPedido}" />
-<p>
-	Cantidad: <input type="number" th:field="*{cantidad}" />
-</p>
+	<p>
+			Cantidad: <input type="number" th:field="*{cantidad}" />
+		</p>
 
-	<input type="hidden" th:field="*{subtotal}" />
-	<p>Producto:
-	<select placeholder="Producto" th:field="*{producto.idProducto}"> 
-		<option th:each="p : ${productos}" th:value="${p.idProducto}" th:text="${p.nombre}"> </option>
-	
-	</select>
-	</p>
-	<p>Cliente:
-	<select placeholder="Cliente" th:field="*{cliente.idPersona}"> 
-		<option th:each="c : ${clientes}" th:value="${c.idPersona}" th:text="${c.nombre} + '' + ${c.apellido}"> </option>
-	
-	</select>
-	</p>
-	<p> Empleado:
-	
-	
-	<select placeholder="Empleado" th:field="*{empleado.idPersona}"> 
-		<option th:each="e : ${empleados}" th:value="${e.idPersona}" th:text="${e.nombre} + ' ' + ${e.apellido}"> </option>
-	
-	</select>
-	</p>
-	<input type="hidden" th:field="*{empleado.Local.idLocal}"/>
+		<p>
+			Producto: <select placeholder="Producto"
+				th:field="*{producto.idProducto}">
+				<option th:each="p : ${productos}" th:value="${p.idProducto}"
+					th:text="${p.nombre}"></option>
+
+			</select>
+		</p>
+
+		<p>
+			Cliente: <select placeholder="Cliente"
+				th:field="*{cliente.idPersona}">
+				<option th:each="c : ${clientes}" th:value="${c.idPersona}"
+					th:text="${c.nombre} + '' + ${c.apellido}"></option>
+
+			</select>
+		</p>
+		
+		<p> Vendedor:
+        <select placeholder="Empleado" th:field="*{vendedor.idPersona}"> 
+			<option th:each="e : ${empleados}" th:value="${e.idPersona}" th:text="${e.nombre} +' '+ ${e.apellido}"> </option>
+		</select>
+		</p>
+		
+		<p> Estado: <input type="checkbox" th:field="*{aceptado}" /></p>
+		
+		
+	<input type="hidden" th:field="*{vendedor.Local.idLocal}"/>
 
 <input type="submit" value="Editar" />
 </form>

@@ -26,25 +26,18 @@ public class PedidoConverter {
 	@Qualifier("localConverter")
 	private LocalConverter localConverter;
 
-	@Autowired
-	@Qualifier("solicitudConverter")
-	private SolicitudConverter solicitudConverter;
+
 
 	public PedidoModel entityToModel(Pedido pedido) {
-		return new PedidoModel(pedido.getIdPedido(), pedido.getCantidad(),
-				productoConverter.entityToModel(pedido.getProducto()),
-				clienteConverter.entityToModel(pedido.getCliente()),
-				empleadoConverter.entityToModel(pedido.getEmpleado()), localConverter.entityToModel(pedido.getLocal()),
-				solicitudConverter.entityToModel(pedido.getSolicitud()),pedido.getSubtotal());
+		return new PedidoModel(pedido.getIdPedido(), pedido.getCantidad(), productoConverter.entityToModel(pedido.getProducto()),
+				clienteConverter.entityToModel(pedido.getCliente()), localConverter.entityToModel(pedido.getLocal()), pedido.getSubtotal(), empleadoConverter.entityToModel(pedido.getVendedor()), 
+				 empleadoConverter.entityToModel(pedido.getColaborador()), pedido.isAceptado());
 	}
 
-	public Pedido modelToEntity(PedidoModel pedidoModel) {
-		return new Pedido(pedidoModel.getIdPedido(), pedidoModel.getCantidad(),
-				productoConverter.modelToEntity(pedidoModel.getProducto()),
-				clienteConverter.modelToEntity(pedidoModel.getCliente()),
-				empleadoConverter.modelToEntity(pedidoModel.getEmpleado()),
-				localConverter.modelToEntity(pedidoModel.getLocal()),
-				solicitudConverter.modelToEntity(pedidoModel.getSolicitud()),pedidoModel.getSubtotal());
+	public Pedido modelToEntity(PedidoModel pedido) {
+		return new Pedido(pedido.getIdPedido(), pedido.getCantidad(), productoConverter.modelToEntity(pedido.getProducto()),
+				clienteConverter.modelToEntity(pedido.getCliente()), localConverter.modelToEntity(pedido.getLocal()), pedido.getSubtotal(), empleadoConverter.modelToEntity(pedido.getVendedor()), 
+				 empleadoConverter.modelToEntity(pedido.getColaborador()), pedido.isAceptado());
 	}
 
 }

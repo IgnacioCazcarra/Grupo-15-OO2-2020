@@ -14,6 +14,8 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.sun.istack.Nullable;
+
 @Entity
 public class Pedido {
 	
@@ -26,9 +28,9 @@ public class Pedido {
 	
 	@Column(name = "subtotal")
 	private float subtotal;
-//	
-//	@Column(name = "aceptado")
-//	private boolean aceptado;
+	
+	@Column(name = "aceptado")
+	private boolean aceptado;
 	
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Producto producto;
@@ -37,14 +39,18 @@ public class Pedido {
 	private Cliente cliente;
 	
 	@OneToOne(cascade = CascadeType.MERGE)
-	private Empleado empleado;
+	@JoinColumn(name="id_vendedor")
+	private Empleado vendedor;
 	
-	@OneToOne(cascade = CascadeType.MERGE)
+	@Nullable
+	@OneToOne(cascade = CascadeType.MERGE, optional=true)
+	@JoinColumn(name="id_colaborador")
+	private Empleado colaborador;
+	
+	@OneToOne
 	private Local local;
 	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-	@JoinColumn(nullable=true)
-	private SolicitudStock solicitud;
+
 	
 	@Column(name="createdat")
 	@CreationTimestamp
@@ -58,16 +64,17 @@ public class Pedido {
 		
 	}
 
-	public Pedido(long idPedido, int cantidad, Producto producto,Cliente cliente,Empleado empleado,Local local, SolicitudStock solicitud, float subtotal) {
+	public Pedido(long idPedido, int cantidad, Producto producto,Cliente cliente,Local local,  float subtotal, Empleado vendedor, Empleado colaborador, boolean aceptado) {
 		super();
 		this.idPedido = idPedido;
 		this.cantidad = cantidad;
 		this.producto = producto;
 		this.cliente = cliente;
-		this.empleado = empleado;
 		this.local = local;
-		this.solicitud = solicitud;
 		this.subtotal = subtotal;
+		this.aceptado = aceptado;
+		this.vendedor = vendedor;
+		this.colaborador = colaborador;
 	}
 
 	public long getIdPedido() {
@@ -86,12 +93,28 @@ public class Pedido {
 		this.cantidad = cantidad;
 	}
 
-	public SolicitudStock getSolicitud() {
-		return solicitud;
+	public boolean isAceptado() {
+		return aceptado;
 	}
 
-	public void setSolicitud(SolicitudStock solicitud) {
-		this.solicitud = solicitud;
+	public void setAceptado(boolean aceptado) {
+		this.aceptado = aceptado;
+	}
+
+	public Empleado getVendedor() {
+		return vendedor;
+	}
+
+	public void setVendedor(Empleado vendedor) {
+		this.vendedor = vendedor;
+	}
+
+	public Empleado getColaborador() {
+		return colaborador;
+	}
+
+	public void setColaborador(Empleado colaborador) {
+		this.colaborador = colaborador;
 	}
 
 	public Producto getProducto() {
@@ -112,14 +135,6 @@ public class Pedido {
 	
 	public float CalcularSubtotal() {
 		return producto.getPrecio()*cantidad;
-	}
-
-	public Empleado getEmpleado() {
-		return empleado;
-	}
-
-	public void setEmpleado(Empleado empleado) {
-		this.empleado = empleado;
 	}
 
 	public Local getLocal() {

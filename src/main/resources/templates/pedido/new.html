@@ -40,15 +40,16 @@
 
 			</select>
 		</p>
-
-		<p>
-			Empleado: <select placeholder="Empleado"
-				th:field="*{empleado.idPersona}">
-				<option th:each="e : ${empleados}" th:value="${e.idPersona}"
-					th:text="${e.nombre} + ' ' + ${e.apellido}"></option>
-			</select>
+		
+		<p> Vendedor:
+        <select placeholder="Empleado" th:field="*{vendedor.idPersona}"> 
+			<option th:each="e : ${empleados}" th:value="${e.idPersona}" th:text="${e.nombre} +' '+ ${e.apellido}"> </option>
+		</select>
 		</p>
-		<input type="hidden" th:field="*{empleado.Local.idLocal}" /> <input
+		
+		<p> Estado: <input type="checkbox" th:field="*{aceptado}" /></p>
+		
+		<input type="hidden" th:field="*{vendedor.Local.idLocal}" /> <input
 			type="submit" value="Agregar" />
 	</form>
 
