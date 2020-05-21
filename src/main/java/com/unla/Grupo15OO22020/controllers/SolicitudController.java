@@ -45,6 +45,7 @@ public class SolicitudController {
 	@Qualifier("empleadoConverter")
 	private EmpleadoConverter empleadoConverter;
 	
+	
 	@GetMapping("")
 	public ModelAndView index() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.SOLICITUD_INDEX);
@@ -98,14 +99,11 @@ public class SolicitudController {
 	
 	@PostMapping("/update")
 	public RedirectView update(@ModelAttribute("solicitud") SolicitudStockModel solicitudStockModel) {
-		EmpleadoModel vm = null;
+		EmpleadoModel vm = empleadoService.findByIdPersona(solicitudStockModel.getVendedor().getIdPersona());
 		EmpleadoModel cm = null;
 
 		ProductoModel producto = productoService.findByIdProducto(solicitudStockModel.getProducto().getIdProducto());
 
-		if(solicitudStockModel.getVendedor()!=null) {
-			 vm = empleadoService.findByIdPersona(solicitudStockModel.getVendedor().getIdPersona());
-		}
 		if(solicitudStockModel.getColaborador()!=null) {
 			 cm = empleadoService.findByIdPersona(solicitudStockModel.getColaborador().getIdPersona());
 		}
@@ -114,6 +112,7 @@ public class SolicitudController {
 		solicitudStockModel.setColaborador(cm);
 		solicitudStockModel.setProducto(producto);
 		solicitudService.insertOrUpdate(solicitudStockModel);
+		
 		return new RedirectView(ViewRouteHelpers.SOLICITUD_ROOT);
 	}
 

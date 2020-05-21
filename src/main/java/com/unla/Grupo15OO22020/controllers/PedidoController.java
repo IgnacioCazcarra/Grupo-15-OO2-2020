@@ -25,6 +25,7 @@ import com.unla.Grupo15OO22020.converters.LocalConverter;
 import com.unla.Grupo15OO22020.converters.PedidoConverter;
 import com.unla.Grupo15OO22020.converters.StockConverter;
 import com.unla.Grupo15OO22020.entities.Lote;
+import com.unla.Grupo15OO22020.entities.Pedido;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.implementation.SolicitudService;
 import com.unla.Grupo15OO22020.models.LocalModel;
@@ -129,7 +130,7 @@ public class PedidoController {
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
 			stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getEmpleado().getIdPersona()).getLocal().getIdLocal()).getIdStock());
 			
-			SolicitudStockModel s = new SolicitudStockModel(pedidoModel.getIdPedido(), Date.valueOf(LocalDate.now()),pedidoModel.getProducto(), pedidoModel.getCantidad(), pedidoModel.getEmpleado(), 
+			SolicitudStockModel s = new SolicitudStockModel(idSolicitudSetter(), Date.valueOf(LocalDate.now()),pedidoModel.getProducto(), pedidoModel.getCantidad(), pedidoModel.getEmpleado(), 
 					null, false);
 			pedidoModel.setSolicitud(s);
 			
@@ -255,9 +256,8 @@ public class PedidoController {
 		pedidoModel.setEmpleado(empleadoService.findByIdPersona(pedidoModel.getEmpleado().getIdPersona()));
 		pedidoModel.setLocal(localService.findByIdLocal(
 				empleadoService.findByIdPersona(pedidoModel.getEmpleado().getIdPersona()).getLocal().getIdLocal()));
-		pedidoModel.setSubtotal(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getPrecio()
-				* pedidoModel.getCantidad());
-		pedidoModel.setSolicitud(solicitudService.findByIdSolicitud(pedidoModel.getSolicitud().getIdSolicitud()));
+		pedidoModel.setSubtotal(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getPrecio() * pedidoModel.getCantidad());
+		pedidoModel.setSolicitud(solicitudService.findByIdSolicitud(idSolicitudSetter()));
 		pedidoService.insertOrUpdate(pedidoModel);
 		return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
 	}
@@ -442,6 +442,12 @@ public class PedidoController {
 
 		return localesConStockPorCantidad;
 
+	}
+	
+	public long idSolicitudSetter() {
+		List<Pedido> p = pedidoService.getAll();
+		if(p.isEmpty()) return 1;
+		else return p.get(p.size()-1).getSolicitud().getIdSolicitud();
 	}
 
 }
