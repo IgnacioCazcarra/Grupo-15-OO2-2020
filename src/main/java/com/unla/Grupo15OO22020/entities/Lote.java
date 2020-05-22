@@ -64,10 +64,10 @@ public class Lote {
 		super();
 	}
 
-	public Lote(long idLote, int cantidadActual, Date date, Producto producto, Stock stock) {
+	public Lote(long idLote, int cantidadInicial, int cantidadActual, Date date, Producto producto, Stock stock) {
 		super();
 		this.idLote = idLote;
-		this.cantidadInicial = cantidadActual;
+		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso =  date;
 		this.producto = producto;

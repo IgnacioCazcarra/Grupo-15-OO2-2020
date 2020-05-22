@@ -19,10 +19,10 @@ public class LoteModel {
 
 	}
 
-	public LoteModel(long idLote, int cantidadActual, Date fechaIngreso, ProductoModel producto, Stock stock) {
+	public LoteModel(long idLote, int cantidadInicial, int cantidadActual, Date fechaIngreso, ProductoModel producto, Stock stock) {
 		super();
 		this.idLote = idLote;
-		this.cantidadInicial = cantidadActual;
+		this.cantidadInicial = cantidadInicial;
 		this.cantidadActual = cantidadActual;
 		this.fechaIngreso = fechaIngreso;
 		this.producto = producto;

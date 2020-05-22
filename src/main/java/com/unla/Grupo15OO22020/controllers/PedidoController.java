@@ -120,6 +120,9 @@ public class PedidoController {
 		pedidoModel.getCantidad(), stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock())) {
 			
 			pedidoService.insertOrUpdate(pedidoModel);
+			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
+			stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock());
+			
 
 		} else { // EN CASO DE QUE NO HAYA STOCK EN EL LOCAL PRINCIPAL
 
@@ -310,13 +313,10 @@ public class PedidoController {
 				l.setCantidadActual(0);
 				l.setEstado(false);
 			}
-
 			LoteModel lM = loteService.findByIdLote(l.getIdLote());
 			lM.setCantidadActual(l.getCantidadActual());
 			lM.setEstado(l.isEstado());
-
 			loteService.insertOrUpdate(lM);
-
 			x++;
 
 		}

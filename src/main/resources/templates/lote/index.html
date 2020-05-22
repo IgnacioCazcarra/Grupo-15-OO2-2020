@@ -38,7 +38,8 @@
     <table class="table table-striped">
         <thead class="bg-info">
             <tr>
-                <th>Cantidad</th>
+                <th>Cantidad inicial</th>
+                <th>Cantidad actual</th>
                 <th>Fecha de ingreso</th>
                 <th>Producto</th>
                 <th>Estado</th>
@@ -49,6 +50,7 @@
         </thead>
         <tbody>
             <tr th:each="lote : ${lotes}">
+                <td><span th:text="${lote.cantidadInicial}" /></td>
                 <td><span th:text="${lote.cantidadActual}" /></td>
                 <td><span th:text="${lote.fechaIngreso}" /></td>
                 <td><span th:text="${lote.producto.nombre}" /></td>

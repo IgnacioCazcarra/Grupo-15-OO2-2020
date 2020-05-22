@@ -76,6 +76,7 @@ public class LoteController {
 	
 	@PostMapping("/create")
 	public RedirectView create(@ModelAttribute("lote") LoteModel loteModel) {
+		loteModel.setCantidadInicial(loteModel.getCantidadActual());
 		loteService.insertOrUpdate(loteModel);
 	StockModel stockModel =	stockService.findByIdStock(loteModel.getStock().getIdStock());
 	System.out.println("Se trajo bien: " + stockService.findByIdStock(loteModel.getStock().getIdStock()).getIdStock());
