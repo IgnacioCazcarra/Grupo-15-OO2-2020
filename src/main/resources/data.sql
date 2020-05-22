@@ -24,10 +24,10 @@ INSERT INTO cliente (id_persona,email) VALUES(6,"bdiaz@gmail.com");
 INSERT INTO cliente (id_persona,email) VALUES(7,"pmartinez@gmail.com");
 INSERT INTO cliente (id_persona,email) VALUES(8,"tperez@gmail.com");
 
-INSERT INTO stock (id_stock,cantidad,local_id_local) VALUES (1,25,1);
-INSERT INTO stock (id_stock,cantidad,local_id_local) VALUES (2,45,2);
-INSERT INTO stock (id_stock,cantidad,local_id_local) VALUES (3,200,3);
-INSERT INTO stock (id_stock,cantidad,local_id_local) VALUES (4,11,4);
+INSERT INTO stock (id_stock,local_id_local) VALUES (1,1);
+INSERT INTO stock (id_stock,local_id_local) VALUES (2,2);
+INSERT INTO stock (id_stock,local_id_local) VALUES (3,3);
+INSERT INTO stock (id_stock,local_id_local) VALUES (4,4);
 
 INSERT INTO producto (id_producto,descripcion,fecha_alta,nombre,precio) VALUES(1,"Este es el producto 1","2019-05-16","Producto1",500);
 INSERT INTO producto (descripcion,fecha_alta,nombre,precio) VALUES("Este es el producto 2","2018-05-12","Producto2",351.32);

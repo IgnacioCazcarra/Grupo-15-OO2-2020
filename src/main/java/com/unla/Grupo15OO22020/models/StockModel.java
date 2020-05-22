@@ -12,11 +12,7 @@ public class StockModel {
 
 	private long idStock;
 	private List<LoteModel> lotes = new ArrayList<LoteModel>();
-	private int cantidad;
-	//private long idLocal;
 	private LocalModel local;
-	
-	//REVISAR SI IDLOCAL VA, Y SI VA EN EL CONSTRUCTOR.
 	
 	public StockModel() {
 		
@@ -25,7 +21,6 @@ public class StockModel {
 	public StockModel(long idStock, LocalModel local) {
 		super();
 		this.idStock = idStock;
-		this.cantidad = 0;
 		this.local = local;
 
 	}
@@ -33,7 +28,6 @@ public class StockModel {
 	public StockModel(long idStock, LocalModel local, List<LoteModel> lotes) {
 		super();
 		this.idStock = idStock;
-		this.cantidad = 0;
 		this.local = local;
 		this.lotes = lotes;
 
@@ -71,13 +65,6 @@ public class StockModel {
 		return lotes;
 	}
 
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
 
 	public List<LoteModel> lotesDelProducto(ProductoModel producto){
 		List<LoteModel> lotesActivos = new ArrayList<LoteModel>();

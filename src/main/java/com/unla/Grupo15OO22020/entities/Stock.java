@@ -31,11 +31,6 @@ public class Stock {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy="stock")
 	private List<Lote> lotes = new ArrayList<Lote>();
 	
-	@Column(name="cantidad")
-	private int cantidad;
-	
-	
-	
 	
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Local local;
@@ -72,7 +67,6 @@ public class Stock {
 	public Stock(long idStock, Local local ) {
 		super();
 		this.idStock = idStock;
-		this.cantidad = 0;
 		this.local = local;
 	}
 
@@ -92,13 +86,6 @@ public class Stock {
 		this.lotes = lotes;
 	}
 
-	public int getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
-	}
 
 	public Local getLocal() {
 		return local;
