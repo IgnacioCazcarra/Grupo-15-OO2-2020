@@ -302,7 +302,7 @@ public class PedidoController {
 			Lote l = lotesDelProducto(productoModel, id).get(x);
 
 			if (l.getCantidadActual() > aux) {
-				l.setCantidadActual(l.getCantidadActual() - cantidad);
+				l.setCantidadActual(l.getCantidadActual() - aux);
 				aux = 0;
 			} else if (l.getCantidadActual() < aux) {
 				aux -= l.getCantidadActual();
