@@ -13,7 +13,7 @@
 	<form action="#" th:action="@{/pedidos/update}" th:object="${pedido}" method="post">
 <input type="hidden" th:field="*{idPedido}" />
 	<p>
-			Cantidad: <input type="number" th:field="*{cantidad}" />
+			Cantidad: <input type="number" min="1" th:field="*{cantidad}" />
 		</p>
 
 		<p>
