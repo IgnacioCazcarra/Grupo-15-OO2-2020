@@ -29,13 +29,13 @@ public class PedidoConverter {
 
 
 	public PedidoModel entityToModel(Pedido pedido) {
-		return new PedidoModel(pedido.getIdPedido(), pedido.getCantidad(), productoConverter.entityToModel(pedido.getProducto()),
+		return new PedidoModel(pedido.getIdPedido(), pedido.getCantidad(),pedido.getFecha(), productoConverter.entityToModel(pedido.getProducto()),
 				clienteConverter.entityToModel(pedido.getCliente()), localConverter.entityToModel(pedido.getLocal()), pedido.getSubtotal(), empleadoConverter.entityToModel(pedido.getVendedor()), 
 				 empleadoConverter.entityToModel(pedido.getColaborador()), pedido.isAceptado());
 	}
 
 	public Pedido modelToEntity(PedidoModel pedido) {
-		return new Pedido(pedido.getIdPedido(), pedido.getCantidad(), productoConverter.modelToEntity(pedido.getProducto()),
+		return new Pedido(pedido.getIdPedido(), pedido.getCantidad(),pedido.getFecha(), productoConverter.modelToEntity(pedido.getProducto()),
 				clienteConverter.modelToEntity(pedido.getCliente()), localConverter.modelToEntity(pedido.getLocal()), pedido.getSubtotal(), empleadoConverter.modelToEntity(pedido.getVendedor()), 
 				 empleadoConverter.modelToEntity(pedido.getColaborador()), pedido.isAceptado());
 	}
