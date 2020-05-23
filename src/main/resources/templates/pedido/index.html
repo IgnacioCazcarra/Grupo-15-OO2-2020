@@ -51,6 +51,7 @@
                 <th>Vendedor</th>
                 <th>Colaborador</th>
                 <th>Estado</th>
+                <th>Fecha</th>
                 <th>Accion</th>
             </tr>
         </thead>
@@ -65,13 +66,14 @@
                 <td><span th:if="${pedido.vendedor}" th:text="${pedido.vendedor.nombre} +' '+ ${pedido.vendedor.apellido}" /></td>
                    <td><span th:if="${pedido.colaborador}" th:text="${pedido.colaborador.nombre} +' '+ ${pedido.colaborador.apellido}" /></td>
                 <td><span th:text="${pedido.aceptado}" /></td>
+                <td><span th:text="${pedido.fecha}" /></td>
                 <td><a th:href="@{/pedidos/{id}(id=${pedido.idPedido})}">Ver</a></td>
 
             </tr>
         </tbody>
     </table>
     <a href="/pedidos/new">Agregar</a>
-
+	<a href="/pedidos/productosentrefechas">Pedidos entre Fechas</a>
 
 
 </body>

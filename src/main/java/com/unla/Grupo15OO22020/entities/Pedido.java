@@ -1,5 +1,6 @@
 package com.unla.Grupo15OO22020.entities;
 
+import java.sql.Date;
 import java.time.LocalTime;
 
 import javax.persistence.CascadeType;
@@ -31,6 +32,9 @@ public class Pedido {
 	
 	@Column(name = "aceptado")
 	private boolean aceptado;
+	
+	@Column(name="fecha")
+	private Date fecha;
 	
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Producto producto;
@@ -64,7 +68,7 @@ public class Pedido {
 		
 	}
 
-	public Pedido(long idPedido, int cantidad, Producto producto,Cliente cliente,Local local,  float subtotal, Empleado vendedor, Empleado colaborador, boolean aceptado) {
+	public Pedido(long idPedido, int cantidad, Date fecha, Producto producto,Cliente cliente,Local local,  float subtotal, Empleado vendedor, Empleado colaborador, boolean aceptado) {
 		super();
 		this.idPedido = idPedido;
 		this.cantidad = cantidad;
@@ -75,6 +79,7 @@ public class Pedido {
 		this.aceptado = aceptado;
 		this.vendedor = vendedor;
 		this.colaborador = colaborador;
+		this.fecha = fecha;
 	}
 
 	public long getIdPedido() {
@@ -151,6 +156,14 @@ public class Pedido {
 
 	public void setSubtotal(float subtotal) {
 		this.subtotal = subtotal;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 	
 	
