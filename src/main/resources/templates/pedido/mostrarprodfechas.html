@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<p>fecha 1: <span th:date="${fecha1}"/></p>
+
+
+
+<p>fecha 2: <span th:date="${fecha2}"/></p>
+
+
+<p>Pedidos entre fechas: </p>
+
+<tr th:each="p : ${productosFecha}">
+		<p>
+		<td>Nombre del producto: <span th:text="${p.nombre}" /></td>
+		</p>
+</tr>
+
+<form action="#" th:action="@{/pedidos/back}" method="post">
+	<input type="submit" value="volver" />
+</form>
+
+</body>
+</html>

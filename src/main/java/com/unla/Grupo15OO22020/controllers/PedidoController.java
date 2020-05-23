@@ -1,5 +1,6 @@
 package com.unla.Grupo15OO22020.controllers;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
@@ -23,11 +25,16 @@ import com.unla.Grupo15OO22020.converters.LocalConverter;
 import com.unla.Grupo15OO22020.converters.PedidoConverter;
 import com.unla.Grupo15OO22020.converters.StockConverter;
 import com.unla.Grupo15OO22020.entities.Lote;
+import com.unla.Grupo15OO22020.entities.Pedido;
+import com.unla.Grupo15OO22020.entities.Producto;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
+import com.unla.Grupo15OO22020.models.FechasModel;
 import com.unla.Grupo15OO22020.models.LocalModel;
+import com.unla.Grupo15OO22020.models.LocalesModel;
 import com.unla.Grupo15OO22020.models.LoteModel;
 import com.unla.Grupo15OO22020.models.PedidoModel;
 import com.unla.Grupo15OO22020.models.ProductoModel;
+import com.unla.Grupo15OO22020.models.RankingProductoModel;
 import com.unla.Grupo15OO22020.services.IClienteService;
 import com.unla.Grupo15OO22020.services.IEmpleadoService;
 import com.unla.Grupo15OO22020.services.ILocalService;
@@ -263,7 +270,34 @@ public class PedidoController {
 	public RedirectView back() {
 		return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
 	}
+	
+	@GetMapping("/productosentrefechas")
+	public ModelAndView productosentrefechas() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_DATE);
+		
+		mAV.addObject("fechasmodel", new FechasModel());
+		mAV.addObject("productos", productoService.getAll());
+		
+		return mAV;
+	}
 
+	@RequestMapping(value="/sacarprodfechas", method=RequestMethod.POST)
+	public ModelAndView sacardistancia(FechasModel fechas, Model model) {
+		
+		System.out.println(fechas.getFecha1());
+		System.out.println(fechas.getFecha2());
+		model.addAttribute("fecha1", fechas.getFecha1());
+		model.addAttribute("fecha2", fechas.getFecha2());
+		ModelAndView mAV = new ModelAndView("pedidos/mostrarprodfechas");
+		List<Producto> listProduc = productosVendidosEntreFechas(fechas.getFecha1(), fechas.getFecha2());
+		model.addAttribute("productosFecha", listProduc);
+		mAV.addObject("fecha1", fechas.getFecha1());
+		mAV.addObject("fecha2", fechas.getFecha2());
+		mAV.addObject("productosFecha", listProduc);
+		return mAV;
+	}
+	
+	
 	public List<Lote> lotesDelProducto(ProductoModel productoModel, long id) {
 		List<Lote> lotesActivos = new ArrayList<Lote>();
 		for (Lote l : loteService.getAll()) {
@@ -322,7 +356,28 @@ public class PedidoController {
 		}
 
 	}
-
+	
+	public List<Producto> productosVendidosEntreFechas(Date comienzo, Date fin){
+		
+		List<Pedido> pedidos = pedidoService.getAll();
+		List<Producto> productoList = new ArrayList<Producto>();
+		
+		for(Pedido p: pedidos) {
+			
+			if(p.isAceptado() == true) {
+			
+			if(p.getFecha().after(comienzo) && p.getFecha().before(fin)) {
+				
+				productoList.add(p.getProducto());
+				
+			}
+			
+		}
+		}
+		return productoList;
+		
+	}
+	
 	public Set<LocalModel> localesConStock(ProductoModel producto, int cantidad) {
 		Set<LocalModel> locales = new HashSet<LocalModel>();
 		List<Lote> lotes = loteService.getAll();

@@ -1,5 +1,7 @@
 package com.unla.Grupo15OO22020.models;
 
+import java.sql.Date;
+
 import com.sun.istack.Nullable;
 
 public class PedidoModel {
@@ -7,6 +9,7 @@ public class PedidoModel {
 	private long idPedido;
 	private int cantidad;
 	private float subtotal;
+	private Date fecha;
 	private ProductoModel producto;
 	private ClienteModel cliente;
 	private LocalModel local;
@@ -19,7 +22,7 @@ public class PedidoModel {
 
 	}
 
-	public PedidoModel(long idPedido, int cantidad, ProductoModel producto, ClienteModel cliente,  LocalModel local, float subtotal, EmpleadoModel vendedor, EmpleadoModel colaborador,
+	public PedidoModel(long idPedido, int cantidad, Date fecha, ProductoModel producto, ClienteModel cliente,  LocalModel local, float subtotal, EmpleadoModel vendedor, EmpleadoModel colaborador,
 			boolean aceptado) {
 		super();
 		this.idPedido = idPedido;
@@ -31,6 +34,7 @@ public class PedidoModel {
 		this.vendedor = vendedor;
 		this.colaborador = colaborador;
 		this.aceptado = aceptado;
+		this.fecha = fecha;
 	}
 
 	public long getIdPedido() {
@@ -105,6 +109,16 @@ public class PedidoModel {
 		this.subtotal = subtotal;
 	}
 
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
+	
+	
 	/*
 	 * public PedidoModel(ProductoModel producto, int cantidad, LocalModel local,
 	 * ClienteModel cliente, EmpleadoModel vendedorOriginal, EmpleadoModel

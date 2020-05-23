@@ -42,7 +42,7 @@ INSERT INTO lote (cantidad_inicial,cantidad_actual,estado,fecha_ingreso,producto
 INSERT INTO lote (cantidad_inicial,cantidad_actual,estado,fecha_ingreso,producto_id_producto,stock_id_stock) VALUES (200,200,1,"2019-05-17",2,3);
 
 
-INSERT INTO pedido (id_pedido,aceptado,cantidad,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (1,true,5,2500,5,2,1,2);
-INSERT INTO pedido (aceptado,cantidad,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (true,10,"3513.2",6,3,2,1);
-INSERT INTO pedido (aceptado,cantidad,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (true,10,10400,8,1,4,3);
-INSERT INTO pedido (aceptado,cantidad,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (true,5,"724.95",7,1,3,4);
+INSERT INTO pedido (id_pedido,aceptado,cantidad,fecha,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (1,true,5,'2020-05-22',2500,5,2,1,2);
+INSERT INTO pedido (aceptado,cantidad,fecha,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (true,10,'2020-01-26',"3513.2",6,3,2,1);
+INSERT INTO pedido (aceptado,cantidad,fecha,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (true,10,'2020-03-05',10400,8,1,4,3);
+INSERT INTO pedido (aceptado,cantidad,fecha,subtotal,cliente_id_persona,local_id_local,producto_id_producto,id_vendedor) VALUES (true,5,'2020-05-10',"724.95",7,1,3,4);
