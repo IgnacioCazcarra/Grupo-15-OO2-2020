@@ -1,6 +1,8 @@
 package com.unla.Grupo15OO22020.controllers;
 
-import java.sql.Date;
+
+import java.util.Date;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -244,19 +246,32 @@ public class PedidoController {
 //	}
 
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("pedido") PedidoModel pedidoModel) {
+	public RedirectView update(@ModelAttribute("pedido") PedidoModel pedidoModel,RedirectAttributes redirectAttrs) {
 		if(pedidoModel.isAceptado()) {
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
 					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(), pedidoModel.getFecha());
+			
+			redirectAttrs.addFlashAttribute("mensaje", "No se pudo actualizar su pedido debido a que ya fue confirmado.");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+		}else {
+			
+			java.util.Date utilDate = new java.util.Date();
+		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+			pedidoModel.setProducto(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()));
+			pedidoModel.setCliente(clienteService.findByIdPersona(pedidoModel.getCliente().getIdPersona()));
+			pedidoModel.setVendedor(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()));
+			pedidoModel.setLocal(localService.findByIdLocal(
+					empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()));
+			pedidoModel.setSubtotal(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getPrecio() * pedidoModel.getCantidad());
+			pedidoModel.setFecha(sqlDate);
+			pedidoService.insertOrUpdate(pedidoModel);
+			
+			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+		
 		}
-		pedidoModel.setProducto(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()));
-		pedidoModel.setCliente(clienteService.findByIdPersona(pedidoModel.getCliente().getIdPersona()));
-		pedidoModel.setVendedor(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()));
-		pedidoModel.setLocal(localService.findByIdLocal(
-				empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()));
-		pedidoModel.setSubtotal(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getPrecio() * pedidoModel.getCantidad());
-		pedidoService.insertOrUpdate(pedidoModel);
-		return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+		
+		
 	}
 
 	@PostMapping("/delete/{id}")
