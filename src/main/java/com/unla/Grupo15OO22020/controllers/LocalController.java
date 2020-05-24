@@ -109,9 +109,7 @@ public class LocalController {
 	
 	
 	@PostMapping("/delete/{id}")
-	public RedirectView delete(@PathVariable("id") long idLocal, RedirectAttributes redirectAttrs) {
-		redirectAttrs.addFlashAttribute("mensaje","Eliminado Correctamente");
-		redirectAttrs.addFlashAttribute("clase", "success");
+	public RedirectView delete(@PathVariable("id") long idLocal) {
 
 		localService.remove(idLocal);
 		return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
@@ -160,11 +158,15 @@ public ModelAndView sacardistancia(LocalesModel locales, Model model) {
 	
 	model.addAttribute("lat1", localService.findByIdLocal(locales.getLocal1().getIdLocal()).getLatitud());
 	model.addAttribute("lng1", localService.findByIdLocal(locales.getLocal1().getIdLocal()).getLongitud());
+	model.addAttribute("dir1", localService.findByIdLocal(locales.getLocal1().getIdLocal()).getDireccion());
+
 	model.addAttribute("lat2", localService.findByIdLocal(locales.getLocal2().getIdLocal()).getLatitud());
 	model.addAttribute("lng2", localService.findByIdLocal(locales.getLocal2().getIdLocal()).getLongitud());
+	model.addAttribute("dir2", localService.findByIdLocal(locales.getLocal2().getIdLocal()).getDireccion());
+
 	ModelAndView mAV = new ModelAndView("local/mostrarDistancia");
 	double distancia=	distanciaCoord(localService.findByIdLocal(locales.getLocal1().getIdLocal()).getLatitud(), localService.findByIdLocal(locales.getLocal1().getIdLocal()).getLongitud(), localService.findByIdLocal(locales.getLocal2().getIdLocal()).getLatitud(), localService.findByIdLocal(locales.getLocal2().getIdLocal()).getLongitud());
-	model.addAttribute("distancia", distancia);
+	model.addAttribute("distancia", Math.round(distancia*100)/100.00); // REDONDEA A DOS DECIMALES
 	return mAV;
 }
 

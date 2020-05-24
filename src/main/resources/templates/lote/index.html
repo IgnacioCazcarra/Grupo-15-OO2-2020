@@ -2,18 +2,24 @@
 <html>
 
 <head>
-    <title>Stock</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+    <title>Lotes</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Merienda+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-	<script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
 
 <body>
 
-	  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
         <a class="navbar-brand" th:href="@{/}">UNLa</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -22,6 +28,7 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/stocks/}">Stock</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
@@ -35,34 +42,36 @@
         </div>
     </nav>
 
-    <table class="table table-striped">
-        <thead class="bg-info">
-            <tr>
-                <th>Cantidad inicial</th>
-                <th>Cantidad actual</th>
-                <th>Fecha de ingreso</th>
-                <th>Producto</th>
-                <th>Estado</th>
-                <th>Local</th>
-                <th>Stock</th>
-                <th>Accion</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="lote : ${lotes}">
-                <td><span th:text="${lote.cantidadInicial}" /></td>
-                <td><span th:text="${lote.cantidadActual}" /></td>
-                <td><span th:text="${lote.fechaIngreso}" /></td>
-                <td><span th:text="${lote.producto.nombre}" /></td>
-                <td><span th:text="${lote.estado}" /></td>
-                <td><span th:text="${lote.stock.local.direccion}" /></td>
-                <td><span th:text="${lote.stock.idStock}" /></td>
-                <td><a th:href="@{/lotes/{id}(id=${lote.idLote})}">Ver</a></td>
-            </tr>
-        </tbody>
-    </table>
-    <a class="btn btn-success" href="/lotes/new">Crear</a>
+    <div class="container-fluid">
+        <table class="table table-striped">
+            <thead class="bg-info">
+                <tr>
+                    <th>Cantidad inicial</th>
+                    <th>Cantidad actual</th>
+                    <th>Fecha de ingreso</th>
+                    <th>Producto</th>
+                    <th>Estado</th>
+                    <th>Local</th>
+                    <th>Stock</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="lote : ${lotes}">
+                    <td><span th:text="${lote.cantidadInicial}" /></td>
+                    <td><span th:text="${lote.cantidadActual}" /></td>
+                    <td><span th:text="${lote.fechaIngreso}" /></td>
+                    <td><span th:text="${lote.producto.nombre}" /></td>
+                    <td><span th:text="${lote.estado}" /></td>
+                    <td><span th:text="${lote.stock.local.direccion}" /></td>
+                    <td><span th:text="${lote.stock.idStock}" /></td>
+                    <td><a th:href="@{/lotes/{id}(id=${lote.idLote})}">Ver</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <a class="btn btn-success" href="/lotes/new">Agregar</a>
 
+    </div>
 
 </body>
 

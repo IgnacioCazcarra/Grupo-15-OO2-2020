@@ -3,47 +3,81 @@
 
 <head>
     <title>Stock</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
 
 <body>
 
-    <table class="table table-striped">
-        <thead class="bg-info">
-            <tr>
-                <th>Stock del local</th>
-                <th>Local al que pertenece</th>
-                <th>Accion</th>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+        <a class="navbar-brand" th:href="@{/}">UNLa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/stocks/}">Stock</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/locales/}">Locales</a>
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
+        </form>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+
+        <table class="table table-striped">
+            <thead class="bg-info">
+                <tr>
+                    <th>Stock del local</th>
+                    <th>Local al que pertenece</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="stock : ${stocks}">
+                    <td><span th:text="${stock.idStock}" /></td>
+                    <td><span th:text="${stock.local.direccion}" /></td>
+                    <td><a th:href="@{/stocks/{id}(id=${stock.idStock})}">Ver</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a class="btn btn-success" href="/stocks/new">Agregar</a>
+
+        <a class="btn btn-info" href="/lotes/new">Agregar Lote</a>
+
+        <a class="btn btn-warning" href="/stocks/calcularStockPorProducto">Calcular stock por producto: </a>
+
+        <hr>
+
+        <th>Lotes de stocks:</th>
+        <p></p>
+        <td>
+            <tr th:each="lote : ${lotes}">
+                <td>Stock: <span th:text="${lote.stock.idStock}" /></td>
+                <td>Producto: <span th:text="${lote.producto.nombre}" /></td>
+                <td>Cantidad: <span th:text="${lote.cantidadActual}" /></td>
+                <p></p>
             </tr>
-        </thead>
-        <tbody>
-            <tr th:each="stock : ${stocks}">
-                <td><span th:text="${stock.idStock}" /></td>
-                <td><span th:text="${stock.local.direccion}" /></td>
-                <td><a th:href="@{/stocks/{id}(id=${stock.idStock})}">Ver</a></td>
-            </tr>
-        </tbody>
-    </table>
-    <a class="btn btn-success" href="/stocks/new">Crear</a>
-    <p></p>
-    <a class="btn btn-success" href="/lotes/new">Agregar Lote</a>
+        </td>
 
-    <hr>
-
-    <th>Lotes de stocks:</th>
-    <p></p>
-    <td>
-        <tr th:each="lote : ${lotes}">
-            <td>Stock: <span th:text="${lote.stock.idStock}" /></td>
-            <td>Producto: <span th:text="${lote.producto.nombre}" /></td>
-            <td>Cantidad: <span th:text="${lote.cantidadActual}" /></td>
-            <p></p>
-        </tr>
-    </td>
-
-    <p></p>
-
-    <a href="/stocks/calcularStockPorProducto">Calcular stock por producto: </a>
+    </div>
 
 </body>
 

@@ -7,13 +7,13 @@
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-	<script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
 </head>
 
 <body>
-	
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
         <a class="navbar-brand" th:href="@{/}">UNLa</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -22,6 +22,7 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/stocks/}">Stock</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
@@ -33,47 +34,48 @@
             <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
         </form>
         </div>
-    </nav>	
+    </nav>
 
-  <div class="container-fluid">
+    <div class="container-fluid">
         <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
         </div>
 
-    <table class="table table-striped">
-        <thead class="bg-info">
-            <tr>
-                <th>Cantidad</th>
-                <th>Subtotal</th>
-                <th>Producto</th>
-                <th>Precio Unitario</th>
-                <th>Cliente</th>
-                <th>Local</th>
-                <th>Vendedor</th>
-                <th>Colaborador</th>
-                <th>Estado</th>
-                <th>Fecha</th>
-                <th>Accion</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="pedido : ${pedidos}">
-                <td><span th:text="${pedido.cantidad}" /></td>
-                <td><span th:text="${pedido.subtotal}" /></td>
-                <td><span th:text="${pedido.Producto.nombre}" /></td>
-                <td><span th:text="${pedido.Producto.precio}" /></td>
-                <td><span th:text="${pedido.Cliente.nombre} +' ' + ${pedido.Cliente.apellido}" /></td>
-                <td><span th:text="${pedido.Local.direccion}" /></td>
-                <td><span th:if="${pedido.vendedor}" th:text="${pedido.vendedor.nombre} +' '+ ${pedido.vendedor.apellido}" /></td>
-                   <td><span th:if="${pedido.colaborador}" th:text="${pedido.colaborador.nombre} +' '+ ${pedido.colaborador.apellido}" /></td>
-                <td><span th:text="${pedido.aceptado}" /></td>
-                <td><span th:text="${pedido.fecha}" /></td>
-                <td><a th:href="@{/pedidos/{id}(id=${pedido.idPedido})}">Ver</a></td>
+        <table class="table table-striped">
+            <thead class="bg-info">
+                <tr>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Producto</th>
+                    <th>Precio Unitario</th>
+                    <th>Cliente</th>
+                    <th>Local</th>
+                    <th>Vendedor</th>
+                    <th>Colaborador</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pedido : ${pedidos}">
+                    <td><span th:text="${pedido.cantidad}" /></td>
+                    <td><span th:text="${pedido.subtotal}" /></td>
+                    <td><span th:text="${pedido.Producto.nombre}" /></td>
+                    <td><span th:text="${pedido.Producto.precio}" /></td>
+                    <td><span th:text="${pedido.Cliente.nombre} +' ' + ${pedido.Cliente.apellido}" /></td>
+                    <td><span th:text="${pedido.Local.direccion}" /></td>
+                    <td><span th:if="${pedido.vendedor}" th:text="${pedido.vendedor.nombre} +' '+ ${pedido.vendedor.apellido}" /></td>
+                    <td><span th:if="${pedido.colaborador}" th:text="${pedido.colaborador.nombre} +' '+ ${pedido.colaborador.apellido}" /></td>
+                    <td><span th:text="${pedido.aceptado}" /></td>
+                    <td><span th:text="${pedido.fecha}" /></td>
+                    <td><a th:href="@{/pedidos/{id}(id=${pedido.idPedido})}">Ver</a></td>
 
-            </tr>
-        </tbody>
-    </table>
-    <a href="/pedidos/new">Agregar</a>
-	<a href="/pedidos/productosentrefechas">Pedidos entre Fechas</a>
+                </tr>
+            </tbody>
+        </table>
+        <a href="/pedidos/new" class="btn btn-success ">Agregar</a>
+        <br><br>
+        <a href="/pedidos/productosentrefechas" class="btn btn-info">Pedidos entre Fechas</a>
 
 
 </body>

@@ -51,15 +51,18 @@
 
 
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Ingrese nombre del producto" th:field="*{nombre}">
+            <strong>Nombre</strong>
+            <input type="text" class="form-control form-control-sm" placeholder="Ingrese nombre del producto" th:field="*{nombre}">
         </div>
 
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Ingrese descripcion" th:field="*{descripcion}">
+            <strong>Descripcion</strong>
+            <input type="text" class="form-control form-control-sm" placeholder="Ingrese descripcion" th:field="*{descripcion}">
         </div>
 
         <div class="form-group">
-            <input type="text" class="form-control" placeholder="Ingrese precio" th:field="*{precio}">
+            <strong>Precio</strong>
+            <input type="text" class="form-control form-control-sm" placeholder="Ingrese precio" th:field="*{precio}">
         </div>
 
         <input type="hidden" th:field="*{fechaAlta}" />
@@ -71,7 +74,7 @@
 
     <form action="#" class="formulario-delete" th:action="@{/productos/delete/{id}(id=${producto.idProducto})}" method="post">
         <div class="text-center">
-            <input type="submit" value="Eliminar Producto" class="btn btn-primary button" />
+            <input type="submit" value="Eliminar Producto" class="btn btn-danger" />
         </div>
 
     </form>
