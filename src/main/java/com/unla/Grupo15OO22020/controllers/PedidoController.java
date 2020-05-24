@@ -2,6 +2,7 @@ package com.unla.Grupo15OO22020.controllers;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -115,18 +116,18 @@ public class PedidoController {
 
 	@PostMapping("/create")
 	public ModelAndView create(@ModelAttribute("pedido") PedidoModel pedidoModel, Model model,
-			RedirectAttributes redirectAttrs) {
+			RedirectAttributes redirectAttrs) {		
 		pedidoModel.setLocal(localService.findByIdLocal(
 				empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()));
 		pedidoModel.setSubtotal(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getPrecio()
 				* pedidoModel.getCantidad());
 
 		if (stockValido(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
-		pedidoModel.getCantidad(), stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock())) {
+		pedidoModel.getCantidad(), stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(),  pedidoModel.getFecha())) {
 			
 			pedidoService.insertOrUpdate(pedidoModel);
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
-			stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock());
+			stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(), pedidoModel.getFecha());
 			
 
 		} else { // EN CASO DE QUE NO HAYA STOCK EN EL LOCAL PRINCIPAL
@@ -137,15 +138,15 @@ public class PedidoController {
 				int cantidadFaltante = pedidoModel.getCantidad() - cantidadLocalPrincipal(pedidoModel.getProducto(),
 						stockService.findByIdStock(empleadoService
 								.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal())
-								.getIdStock());
+								.getIdStock(), pedidoModel.getFecha());
 
 				if (localesConStockConDistancia(
 						localService.findByIdLocal(empleadoService
 								.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()),
 						productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
-						cantidadFaltante) != null) {
+						cantidadFaltante, pedidoModel.getFecha()) != null) {
 					localesConStock = localesConStockConDistancia(pedidoModel.getLocal(), pedidoModel.getProducto(),
-							cantidadFaltante);
+							cantidadFaltante, pedidoModel.getFecha());
 
 					if (localesConStock.size() <= 1) { // SI EL UNICO LOCAL QUE TIENE STOCK DEL PRODUCTO ES EL PRINCIPAL
 						for (LocalModel l : localesConStock) {
@@ -166,7 +167,7 @@ public class PedidoController {
 						for (LocalModel l : localesConStock) {
 							try {
 								buscarLocal = localesConStockConDistanciaPorLocal(pedidoModel.getProducto(),
-										cantidadFaltante, l);
+										cantidadFaltante, l, pedidoModel.getFecha());
 								if (buscarLocal != null && !buscarLocal.equals(localService.findByIdLocal(
 										empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona())
 												.getLocal().getIdLocal()))) {
@@ -246,7 +247,7 @@ public class PedidoController {
 	public RedirectView update(@ModelAttribute("pedido") PedidoModel pedidoModel) {
 		if(pedidoModel.isAceptado()) {
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
-					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock());
+					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(), pedidoModel.getFecha());
 		}
 		pedidoModel.setProducto(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()));
 		pedidoModel.setCliente(clienteService.findByIdPersona(pedidoModel.getCliente().getIdPersona()));
@@ -298,42 +299,42 @@ public class PedidoController {
 	}
 	
 	
-	public List<Lote> lotesDelProducto(ProductoModel productoModel, long id) {
+	public List<Lote> lotesDelProducto(ProductoModel productoModel, long id, Date fecha) {
 		List<Lote> lotesActivos = new ArrayList<Lote>();
 		for (Lote l : loteService.getAll()) {
 			if (l.getProducto().getIdProducto() == productoModel.getIdProducto() && l.isEstado()
-					&& l.getStock().getIdStock() == id) {
+					&& l.getStock().getIdStock() == id && l.getFechaIngreso().before(fecha)) {
 				lotesActivos.add(l);
 			}
 		}
 		return lotesActivos;
 	}
 
-	public int calcularStock(ProductoModel productoModel, long id) {
+	public int calcularStock(ProductoModel productoModel, long id, Date fecha) {
 		int total = 0;
-		for (Lote l : lotesDelProducto(productoModel, id)) {
+		for (Lote l : lotesDelProducto(productoModel, id, fecha)) {
 			total += l.getCantidadActual();
 		}
 		return total;
 	}
 
-	public boolean stockValido(ProductoModel productoModel, int cantidad, long id) {
-		return (calcularStock(productoModel, id) >= cantidad) ? true : false; // SI EL STOCK DISPONIBLE ES MAYOR O IGUAL
+	public boolean stockValido(ProductoModel productoModel, int cantidad, long id, Date fecha) {
+		return (calcularStock(productoModel, id, fecha) >= cantidad) ? true : false; // SI EL STOCK DISPONIBLE ES MAYOR O IGUAL
 																				// A LA CANTIDAD
 	}
 
-	public int cantidadLocalPrincipal(ProductoModel productoModel, long id) {
+	public int cantidadLocalPrincipal(ProductoModel productoModel, long id, Date fecha) {
 		int totalLocal = 0;
-		totalLocal = calcularStock(productoModel, id);
+		totalLocal = calcularStock(productoModel, id, fecha);
 		return totalLocal; // SI EL STOCK DISPONIBLE ES MAYOR O IGUAL A LA CANTIDAD
 	}
 
-	public void consumoStock(ProductoModel productoModel, int cantidad, long id) {
+	public void consumoStock(ProductoModel productoModel, int cantidad, long id, Date fecha) {
 		int aux = cantidad;
 		int x = 0;
 
-		while (x < lotesDelProducto(productoModel, id).size() && aux > 0) {
-			Lote l = lotesDelProducto(productoModel, id).get(x);
+		while (x < lotesDelProducto(productoModel, id, fecha).size() && aux > 0) {
+			Lote l = lotesDelProducto(productoModel, id, fecha).get(x);
 
 			if (l.getCantidadActual() > aux) {
 				l.setCantidadActual(l.getCantidadActual() - aux);
@@ -378,12 +379,12 @@ public class PedidoController {
 		
 	}
 	
-	public Set<LocalModel> localesConStock(ProductoModel producto, int cantidad) {
+	public Set<LocalModel> localesConStock(ProductoModel producto, int cantidad, Date fecha) {
 		Set<LocalModel> locales = new HashSet<LocalModel>();
 		List<Lote> lotes = loteService.getAll();
 		int total = 0;
 		for (Lote l : lotes) {
-			if (l.getProducto().getIdProducto() == producto.getIdProducto()) {
+			if (l.getProducto().getIdProducto() == producto.getIdProducto() && l.getFechaIngreso().before(fecha)) {
 				total = total + l.getCantidadActual();
 
 			}
@@ -392,7 +393,7 @@ public class PedidoController {
 
 		if (total >= cantidad) {
 			for (Lote l : lotes) {
-				if (l.getProducto().getIdProducto() == producto.getIdProducto()) {
+				if (l.getProducto().getIdProducto() == producto.getIdProducto()  && l.getFechaIngreso().before(fecha)) {
 					locales.add(localService.findByIdLocal(l.getStock().getIdStock()));
 				}
 			}
@@ -402,9 +403,9 @@ public class PedidoController {
 		return locales;
 	}
 
-	public Set<LocalModel> localesConStockConDistancia(LocalModel local, ProductoModel producto, int cantidad) {
+	public Set<LocalModel> localesConStockConDistancia(LocalModel local, ProductoModel producto, int cantidad, Date fecha) {
 		Set<LocalModel> listaLocales = new HashSet<LocalModel>();
-		for (LocalModel l : this.localesConStock(producto, cantidad)) {
+		for (LocalModel l : this.localesConStock(producto, cantidad, fecha)) {
 			// CALCULAR DISTANCIA.
 			listaLocales.add(l);
 		}
@@ -423,10 +424,10 @@ public class PedidoController {
 		return radioTierra * va2;
 	}
 
-	public LocalModel localesConStockConDistanciaPorLocal(ProductoModel producto, int cantidad, LocalModel local) {
+	public LocalModel localesConStockConDistanciaPorLocal(ProductoModel producto, int cantidad, LocalModel local, Date fecha) {
 		LocalModel localModel = null;
 		try {
-			localModel = this.localesConStockPorLocal(producto, cantidad, local);
+			localModel = this.localesConStockPorLocal(producto, cantidad, local, fecha);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Este local no tiene suficiente cantidad para ceder mercaderìa.");
@@ -435,13 +436,13 @@ public class PedidoController {
 		return localModel;
 	}
 
-	public LocalModel localesConStockPorLocal(ProductoModel producto, int cantidad, LocalModel local) {
+	public LocalModel localesConStockPorLocal(ProductoModel producto, int cantidad, LocalModel local, Date fecha) {
 		LocalModel localRetorno = null;
 		List<Lote> lotes = loteService.getAll();
 		int total = 0;
 		for (Lote l : lotes) {
 			if (l.getProducto().getIdProducto() == producto.getIdProducto()
-					&& l.getStock().getIdStock() == local.getIdLocal()) {
+					&& l.getStock().getIdStock() == local.getIdLocal() && l.getFechaIngreso().before(fecha)) {
 				total = total + l.getCantidadActual();
 			}
 
