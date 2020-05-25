@@ -104,11 +104,15 @@ public class EmpleadoController{
 	
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") long idPersona,RedirectAttributes redirectAttrs) {
-		empleadoService.remove(idPersona);
-
-		redirectAttrs.addFlashAttribute("mensaje","Eliminado Correctamente");
-		redirectAttrs.addFlashAttribute("clase", "success");
-
+		
+		if(empleadoService.remove(idPersona)) {
+			redirectAttrs.addFlashAttribute("mensaje","Eliminado Correctamente");
+			redirectAttrs.addFlashAttribute("clase", "success");			
+		} 	else{
+			redirectAttrs.addFlashAttribute("mensaje","No se ha podido eliminar, debido a que el empleado tiene dependencias con algún pedido o local.");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+		}
+		
 		return new RedirectView(ViewRouteHelpers.EMPLEADO_ROOT);
 	}
 	
