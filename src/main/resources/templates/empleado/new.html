@@ -83,8 +83,9 @@
         <div class="form-group row">
             <strong class="col-sm-2 col-form-label col-form-label-sm">Local</strong>
             <div class="col-sm-10">
-                <select placeholder="Local" th:field="*{local.idLocal}" class="form-control form-control-sm"> 
-			        <option th:each="l : ${locales}" th:value="${l.idLocal}" th:text="${l.idLocal}"> </option>
+                <select placeholder="Local" th:field="*{local.idLocal}">
+                    <option th:each="l : ${locales}" th:value="${l.idLocal}"
+                        th:text="${l.idLocal}"></option>
                 </select>
             </div>
         </div>

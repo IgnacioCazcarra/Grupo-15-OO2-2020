@@ -88,7 +88,6 @@ public class PedidoController {
 	@Qualifier("pedidoConverter")
 	private PedidoConverter pedidoConverter;
 	
-
 	
 
 	@GetMapping("")
@@ -195,6 +194,22 @@ public class PedidoController {
 
 					model.addAttribute("locales", localService.getAll());
 					model.addAttribute("localesConStockPorCantidad", localesConCercania);
+
+					model.addAttribute("localPrincipal", localService.findByIdLocal(empleadoService
+					.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getDireccion());
+					
+					ArrayList<Double> mostrarDistancias = new ArrayList<Double>();
+
+					for(LocalModel l : localesConCercania){
+						double distancia = l.distanciaCoord(localService.findByIdLocal(empleadoService
+						.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getLatitud(),localService.findByIdLocal(empleadoService
+						.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getLongitud(),l.getLatitud(), l.getLongitud());
+						
+						mostrarDistancias.add(Math.round(distancia*100)/100.00);
+					}
+
+					model.addAttribute("listaDistancias", mostrarDistancias);
+
 					ModelAndView mAV2 = new ModelAndView(ViewRouteHelpers.PEDIDO_LOCALPARAPETICION);
 
 					mAV2.addObject("locales", localService.getAll());
