@@ -14,6 +14,7 @@ public class ViewRouteHelpers {
 	public final static String LOCAL_ADD = "local/new";
 	public final static String LOCAL_INDEX = "local/index";
 	public final static String LOCAL_DISTANCE = "local/distanciaentrelocales";
+	public final static String LOCAL_ELIMINARCLIENTE = "local/eliminarcliente";
 	
 	//Ranking
 	public final static String RANKING_INDEX = "ranking/index";

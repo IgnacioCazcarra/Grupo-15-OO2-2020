@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Locales</title>
+    <title>Eliminar cliente</title>
 
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
@@ -16,7 +16,6 @@
 
 <body>
 
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
         <a class="navbar-brand" th:href="@{/}">UNLa</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -26,7 +25,6 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
-                <a class="nav-item nav-link" href="#" th:href="@{/stocks/}">Stock</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
@@ -40,37 +38,22 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
+    <form action="deletecliente" class="formulario" method="Post">
 
-        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
+        <div class="text-center">
+            <h2>Cliente a eliminar:</h2>
         </div>
+        
+     	<p> Cliente:
+        <select placeholder="Cliente" th:field="*{cliente.idPersona}"> 
+			<option th:each="c : ${clientes}" th:value="${c.idPersona}" th:text="${c.nombre} +' '+ ${c.apellido}"> </option>
+		</select>
+		</p>
 
-        <table class="table table-striped">
-            <thead>
-                <tr class="bg-info">
-                    <th>Direccion</th>
-                    <th>Latitud</th>
-                    <th>Longitud</th>
-                    <th>Telefono</th>
-                    <th>Accion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="local : ${locales}">
-                    <td><span th:text="${local.direccion}" /></td>
-                    <td><span th:text="${local.latitud}" /></td>
-                    <td><span th:text="${local.longitud}" /></td>
-                    <td><span th:text="${local.telefono}" /></td>
-                    <td><a th:href="@{/locales/{id}(id=${local.idLocal})}">Ver</a></td>
-                </tr>
-            </tbody>
-        </table>
-        <a class="btn btn-success" href="/locales/new">Crear</a>
-        <p></p>
-        <a class="btn btn-info" href="/locales/distanciaentrelocales">Distancia entre locales</a>
-		<p></p>
-	    <a class="btn btn-success" href="/locales/eliminarcliente">Eliminar cliente</a>
-    </div>
+        <div class="text-center">
+            <input class="btn btn-primary button" type="submit" />
+        </div>
+    </form>
 
 </body>
 

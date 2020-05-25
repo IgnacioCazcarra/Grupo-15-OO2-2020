@@ -15,7 +15,13 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo15OO22020.converters.StockConverter;
+import com.unla.Grupo15OO22020.entities.Cliente;
+import com.unla.Grupo15OO22020.entities.Local;
+import com.unla.Grupo15OO22020.entities.Pedido;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
+import com.unla.Grupo15OO22020.implementation.ClienteService;
+import com.unla.Grupo15OO22020.implementation.PedidoService;
+import com.unla.Grupo15OO22020.models.ClienteModel;
 import com.unla.Grupo15OO22020.models.LocalModel;
 import com.unla.Grupo15OO22020.models.LocalesModel;
 import com.unla.Grupo15OO22020.services.ILocalService;
@@ -37,6 +43,14 @@ public class LocalController {
 	@Autowired
 	@Qualifier("stockConverter")
 	private StockConverter stockConverter;
+	
+	@Autowired
+	@Qualifier("clienteService")
+	private ClienteService clienteService;
+	
+	@Autowired
+	@Qualifier("pedidoService")
+	private PedidoService pedidoService;
 	
 	@GetMapping("")
 	public ModelAndView index() {
@@ -185,6 +199,44 @@ public ModelAndView sacardistancia(LocalesModel locales, Model model) {
 		return radioTierra * va2;
 		}
 
+	@GetMapping("/eliminarcliente")
+	public ModelAndView eliminarcliente() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.LOCAL_ELIMINARCLIENTE);
+	//	mAV.addObject("locales", localService.getAll());
+	//	mAV.addObject("local", new LocalModel());
+		
+		mAV.addObject("locales", localService.getAll());
+		mAV.addObject("clientes", clienteService.getAll());
+		mAV.addObject("cliente", new ClienteModel());
+		return mAV;
+	}
 	
+
+	@RequestMapping(value="/deletecliente", method=RequestMethod.POST)
+	public ModelAndView deleteCliente(ClienteModel cliente, RedirectAttributes redirectAttrs) {
+		try {
+			for (Pedido p : pedidoService.getAll()) {
+				if(p.getCliente().getIdPersona() == cliente.getIdPersona()) {
+					pedidoService.remove(p.getIdPedido());			
+					redirectAttrs.addFlashAttribute("mensaje","La persona ya no es cliente del local.");
+					redirectAttrs.addFlashAttribute("clase", "success");
+				}
+			}
+					
+	
+		}catch(Exception e) {
+			
+			System.out.println("Se produjo un error al querer eliminar un cliente de un local.");
+			redirectAttrs.addFlashAttribute("mensaje", "No se ha podido eliminar el cliente del local.");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+		}		
+		finally {
+			// TODO: handle finally clause
+		}
+		ModelAndView mAV = new ModelAndView("redirect:/locales");
+		return mAV;
+	}
+
+
 	
 }
