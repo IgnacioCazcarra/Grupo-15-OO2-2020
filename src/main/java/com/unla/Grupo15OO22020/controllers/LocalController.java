@@ -20,8 +20,10 @@ import com.unla.Grupo15OO22020.entities.Local;
 import com.unla.Grupo15OO22020.entities.Pedido;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.implementation.ClienteService;
+import com.unla.Grupo15OO22020.implementation.EmpleadoService;
 import com.unla.Grupo15OO22020.implementation.PedidoService;
 import com.unla.Grupo15OO22020.models.ClienteModel;
+import com.unla.Grupo15OO22020.models.EmpleadoModel;
 import com.unla.Grupo15OO22020.models.LocalModel;
 import com.unla.Grupo15OO22020.models.LocalesModel;
 import com.unla.Grupo15OO22020.services.ILocalService;
@@ -47,6 +49,10 @@ public class LocalController {
 	@Autowired
 	@Qualifier("clienteService")
 	private ClienteService clienteService;
+	
+	@Autowired
+	@Qualifier("empleadoService")
+	private EmpleadoService empleadoService;
 	
 	@Autowired
 	@Qualifier("pedidoService")
@@ -211,6 +217,18 @@ public ModelAndView sacardistancia(LocalesModel locales, Model model) {
 		return mAV;
 	}
 	
+	@GetMapping("/eliminarempleado")
+	public ModelAndView eliminarempleado() {
+		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.LOCAL_ELIMINAREMPLEADO);
+	//	mAV.addObject("locales", localService.getAll());
+	//	mAV.addObject("local", new LocalModel());
+		
+		mAV.addObject("locales", localService.getAll());
+		mAV.addObject("empleados", empleadoService.getAll());
+		mAV.addObject("empleado", new EmpleadoModel());
+		return mAV;
+	}
+	
 
 	@RequestMapping(value="/deletecliente", method=RequestMethod.POST)
 	public ModelAndView deleteCliente(ClienteModel cliente, RedirectAttributes redirectAttrs) {
@@ -237,6 +255,29 @@ public ModelAndView sacardistancia(LocalesModel locales, Model model) {
 		return mAV;
 	}
 
-
+	@RequestMapping(value="/deleteempleado", method=RequestMethod.POST)
+	public ModelAndView deleteEmpleado(EmpleadoModel empleado, RedirectAttributes redirectAttrs) {
+		try {
+			for (Pedido p : pedidoService.getAll()) {
+				if(p.getVendedor().getIdPersona() == empleado.getIdPersona()) {
+					pedidoService.remove(p.getIdPedido());			
+					redirectAttrs.addFlashAttribute("mensaje","La persona ya no es empleado del local.");
+					redirectAttrs.addFlashAttribute("clase", "success");
+				}
+			}
+					
+	
+		}catch(Exception e) {
+			
+			System.out.println("Se produjo un error al querer eliminar un empleado de un local.");
+			redirectAttrs.addFlashAttribute("mensaje", "No se ha podido eliminar el empleado del local.");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+		}		
+		finally {
+			// TODO: handle finally clause
+		}
+		ModelAndView mAV = new ModelAndView("redirect:/locales");
+		return mAV;
+	}
 	
 }

@@ -37,6 +37,16 @@ body{
     margin-top: 40px;
 }
 
+.formulariocomp{
+    width: 30%;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    background-color: white;
+    margin-left: 672px;
+    margin-right: 672px;
+    margin-top: 0px;
+}
+
 .input-name{
     font-weight: 300;
 }

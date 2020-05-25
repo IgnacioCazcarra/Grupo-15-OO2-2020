@@ -67,19 +67,24 @@
 
         <input type="hidden" th:field="*{fechaAlta}" />
 
-        <div class="text-center">
-            <button type="submit" class="btn btn-primary button">Actualizar</button>
-        </div>
+
+            <input type="submit" value= "Actualizar" class="btn btn-success"/>
+
     </form>
 
-    <form action="#" class="formulario-delete" th:action="@{/productos/delete/{id}(id=${producto.idProducto})}" method="post">
-        <div class="text-center">
+    <form action="#" class="formulariocomp" th:action="@{/productos/delete/{id}(id=${producto.idProducto})}" method="post">
+
             <input type="submit" value="Eliminar Producto" class="btn btn-danger" />
-        </div>
+
 
     </form>
+    
+      <form action="#" class="formulariocomp" th:action="@{/productos/back}" method="post">
+
+            <input type="submit" value="Volver" class="btn btn-info" />
 
 
+    </form>
 
 
 </body>

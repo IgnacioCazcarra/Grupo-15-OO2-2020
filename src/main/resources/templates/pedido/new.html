@@ -3,58 +3,80 @@
 
 <head>
 <title>Agregar Pedido</title>
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-	integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
 
+<link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+<link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+
+<script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+<script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
 </head>
 
 <body>
 
-	<form action="#" th:action="@{/pedidos/create}" th:object="${pedido}"
-		method="post">
-		<p>
-			Fecha: <input type="date" th:field="*{fecha}" />
-		</p>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+        <a class="navbar-brand" th:href="@{/}">UNLa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/locales/}">Locales</a>
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
+        </form>
+        </div>
+    </nav>
 
-
-		<p>
-			Cantidad: <input type="number" min="1" th:field="*{cantidad}" />
-		</p>
-
-		<p>
-			Producto: <select placeholder="Producto"
-				th:field="*{producto.idProducto}">
-				<option th:each="p : ${productos}" th:value="${p.idProducto}"
-					th:text="${p.nombre}"></option>
-
+	<form action="#" class="formulario" th:action="@{/pedidos/create}" th:object="${pedido}" method="post">
+		<div class="text-center">
+			<h2>Agregar Pedido</h2>
+		</div>
+		<div class="form-group">
+            <strong>Fecha</strong>
+            <input type="date" class="form-control form-control-sm" th:field="*{fecha}" placeholder="Ingrese fecha" />
+        </div>
+		<div class="form-group">
+            <strong>Cantidad</strong>
+            <input type="number" min="1" class="form-control form-control-sm" th:field="*{cantidad}" placeholder="Ingrese cantidad" />
+        </div>
+		<div class="form-group">
+            <strong>Producto</strong>
+            <select placeholder="Producto" th:field="*{producto.idProducto}">
+				<option th:each="p : ${productos}" th:value="${p.idProducto}" th:text="${p.nombre}"></option>
 			</select>
-		</p>
-
-		<p>
-			Cliente: <select placeholder="Cliente"
-				th:field="*{cliente.idPersona}">
-				<option th:each="c : ${clientes}" th:value="${c.idPersona}"
-					th:text="${c.nombre} + '' + ${c.apellido}"></option>
-
+		</div>
+		<div class="form-group">
+            <strong>Cliente</strong>
+            <select placeholder="Cliente" th:field="*{cliente.idPersona}">
+				<option th:each="c : ${clientes}" th:value="${c.idPersona}" th:text="${c.nombre} + '' + ${c.apellido}"></option>
 			</select>
-		</p>
+		</div>
+		<div class="form-group">
+            <strong>Vendedor</strong>
+            <select placeholder="Empleado" th:field="*{vendedor.idPersona}"> 
+				<option th:each="e : ${empleados}" th:value="${e.idPersona}" th:text="${e.nombre} +' '+ ${e.apellido}"> </option>
+			</select>
+		</div>		
+		<div class="form-group">
+            <strong>Estado</strong>
+            <input type="checkbox" th:field="*{aceptado}" />
+        </div>		
 		
-		<p> Vendedor:
-        <select placeholder="Empleado" th:field="*{vendedor.idPersona}"> 
-			<option th:each="e : ${empleados}" th:value="${e.idPersona}" th:text="${e.nombre} +' '+ ${e.apellido}"> </option>
-		</select>
-		</p>
-		
-		<p> Estado: <input type="checkbox" th:field="*{aceptado}" /></p>
-		
-		<input type="hidden" th:field="*{vendedor.Local.idLocal}" /> <input
-			type="submit" value="Agregar" />
+		<input type="hidden" th:field="*{vendedor.Local.idLocal}" /> 
+		<div class="text-center">
+			<input type="submit" class= "btn btn-primary button" value="Crear" />
+        </div>
 	</form>
 
 

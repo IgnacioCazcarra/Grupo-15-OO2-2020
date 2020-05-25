@@ -3,16 +3,39 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Ranking de productos mas vendidos</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
 </head>
 <body>
 
-	<td>
-	<tr th:each="r : ${rankingProductos}">
-		<p>
-		<td>Nombre del producto: <span th:text="${r.nombre}" /></td>
-		<td>Cantidad vendida: <span th:text="${r.cantidadVendida}" /></td>
-		</p>
-	</tr>
+	<div class="container-fluid">
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
+        </div>
+
+        <table class="table table-striped">
+            <thead class="bg-info">
+                <tr>
+                    <th>Nombre del producto</th>
+                    <th>Cantidad vendida</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="r : ${rankingProductos}">
+                    <td><span th:text="${r.nombre}" /></td>
+                    <td><span th:text="${r.cantidadVendida}" /></td>
+                </tr>
+            </tbody>
+        </table>
+	</div>
+	
+	<form action="#" class="text-center" th:action="@{/productos/back}" method="post">
+	<input class="btn btn-info" type="submit" value="Volver" />
+	</form>
+	
 </body>
 </html>
 

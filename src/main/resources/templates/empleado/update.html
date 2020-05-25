@@ -5,47 +5,73 @@
     <title>Actualizar Empleado</title>
 
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+	<link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
 
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 
 </head>
 
 <body>
-    <form action="#" th:action="@{/empleados/update}" th:object="${empleado}" method="post">
+    <form action="#" class="formulario" th:action="@{/empleados/update}" th:object="${empleado}" method="post">
         <input type="hidden" th:field="*{idPersona}" />
-        <p>
-            Nombre: <input type="text" th:field="*{nombre}" />
-        </p>
-        <p>
-            Apellido: <input type="text" th:field="*{apellido}" />
-        </p>
-        <p>
-            Fecha de Nacimiento: <input type="date" th:field="*{fechaNacimiento}" />
-        </p>
-        <p>
-            DNI: <input type="text" th:field="*{dni}" />
-        </p>
-        <p>
-            Franja Horaria: <input type="text" th:field="*{franjaHoraria}" />
-        </p>
-        <p>
-			Es gerente: <input type="checkbox" th:field="*{gerente}" />
-		</p>
-		<p>Local:
-		<select placeholder="Local" th:field="*{local.idLocal}">
-			<option th:each="l : ${locales}" th:value="${l.idLocal}"
-				th:text="${l.idLocal}"></option>
-		</select> 
-		</p>
-        <br>
+        <div class="text-center">
+            <h2>Editar Empleado</h2>
+        </div>
 
-        <input type="submit" value="Editar" />
+        <div class="form-group">
+            <strong>Nombre</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{nombre}" placeholder="Ingrese nombre" />
+        </div>
+
+        <div class="form-group">
+            <strong>Apellido</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{apellido}" placeholder="Ingrese apellido" />
+        </div>
+
+        <div class="form-group">
+            <strong>Fecha de Nacimiento</strong>
+            <input type="date" class="form-control form-control-sm" th:field="*{fechaNacimiento}" placeholder="Ingrese fecha de nacimiento"/>
+        </div>
+
+        <div class="form-group">
+            <strong>DNI</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{dni}" placeholder="Ingrese DNI"/>
+        </div>
+
+        <div class="form-group">
+            <strong>Franja Horaria</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{franjaHoraria}" placeholder="Ingrese franja horaria" />
+        </div>
+
+        <div class="form-group">
+            <strong>Es gerente</strong>
+            <input type="checkbox" th:field="*{gerente}" />
+        </div>
+		<div class="form-group">
+            <strong> Local</strong>
+            
+                <select placeholder="Local" th:field="*{local.idLocal}">
+                    <option th:each="l : ${locales}" th:value="${l.idLocal}"
+                        th:text="${l.idLocal}"></option>
+                </select>
+            
+        </div>
+
+        <input class="btn btn-success" type="submit" value="Actualizar" />
 
     </form>
-    <form action="#" th:action="@{/empleados/delete/{id}(id=${empleado.idPersona})}" method="post">
-        <input type="submit" value="delete person" />
+    <form action="#" class="formulariocomp" th:action="@{/empleados/delete/{id}(id=${empleado.idPersona})}" method="post">
+
+        	<input class="btn btn-danger" type="submit" value="Eliminar persona" />
+
     </form>
-    <form action="#" th:action="@{/empleados/back}" method="post">
-        <input type="submit" value="volver" />
+    <form action="#" class="formulariocomp" th:action="@{/empleados/back}" method="post">
+
+        	<input class="btn btn-info" type="submit" value="Volver" />
+
     </form>
 
 </body>

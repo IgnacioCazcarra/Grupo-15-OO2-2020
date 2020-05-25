@@ -5,31 +5,43 @@
 <head>
     <title>Actualizar Local</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-    <form action="#" th:action="@{/locales/update}" th:object="${local}" method="post">
+    <form action="#" class="formulario" th:action="@{/locales/update}" th:object="${local}" method="post">
         <input type="hidden" th:field="*{idLocal}" />
-        <p>
-            Direccion: <input type="text" th:field="*{direccion}" />
-        </p>
-        <p>
-            Latitud: <input type="number" step="any" th:field="*{latitud}" />
-        </p>
-        <p>
-            Longitud: <input type="number" step="any" th:field="*{longitud}" />
-        </p>
-        <p>
-            Telefono: <input type="text" th:field="*{telefono}" />
-        </p>
-        <input type="submit" value="Editar" />
+        <div class="text-center">
+            <h2>Editar Local</h2>
+        </div>
+        <div class="form-group">
+            <strong>Direccion</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{direccion}" placeholder="Ingrese una direccion" />
+        </div>
+        <div class="form-group">
+            <strong>Latitud</strong>
+            <input type="number" step="any" class="form-control form-control-sm" th:field="*{latitud}" placeholder="Ingrese una latitud" />
+        </div>
+        <div class="form-group">
+            <strong>Longitud</strong>
+            <input type="number" step="any" class="form-control form-control-sm" th:field="*{longitud}" placeholder="Ingrese una longitud" />
+        </div>
+        <div class="form-group">
+            <strong>Telefono</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{telefono}" placeholder="Ingrese un telefono" />
+        </div>
+        <input class="btn btn-success" type="submit" value="Actualizar" />
     </form>
-    <form action="#" th:action="@{/locales/delete/{id}(id=${local.idLocal})}" method="post">
-        <input type="submit" value="delete local" />
+    <form action="#" class="formulariocomp" th:action="@{/locales/delete/{id}(id=${local.idLocal})}" method="post">
+        <input class="btn btn-danger" type="submit" value="Eliminar local" />
     </form>
-    <form action="#" th:action="@{/locales/atras}" method="post">
-        <input type="submit" value="volver" />
+    <form action="#" class="formulariocomp" th:action="@{/locales/atras}" method="post">
+        <input class="btn btn-info" type="submit" value="Volver" />
     </form>
 
 </body>

@@ -5,38 +5,48 @@
 <head>
     <title>Agregar Pedido</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
 
-    <form action="#" th:action="@{/lotes/update}" th:object="${lote}" method="post">
+    <form action="#" class="formulario" th:action="@{/lotes/update}" th:object="${lote}" method="post">
         <input type="hidden" th:field="*{idLote}" />
-        <p>
-            Cantidad: <input type="number" th:field="*{cantidadActual}" />
-        </p>
-
-        <p>
-            Fecha de ingreso: <input type="date" th:field="*{fechaIngreso}" />
-        </p>
-        <p> Producto 
-        <select placeholder="Producto" th:field="*{producto.idProducto}">
-				<option th:each= "p : ${productos}" th:value="${p.idProducto}" th:text= "${p.descripcion}"></option> 
-			</select>
-		</p>
-        <p> Stock 
-        <select placeholder="Stock" th:field="*{stock.idStock}">
-				<option th:each= "s : ${stocks}" th:value="${s.idStock}" th:text= "${s.idStock}"></option> 
-			</select>
-		</p>
-        <input type="submit" value="Editar" />
+        <div class="text-center">
+            <h2>Editar Lote</h2>
+        </div>
+        <div class="form-group">
+            <strong>Cantidad</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{cantidadActual}" placeholder="Ingrese cantidad" />
+        </div>
+        <div class="form-group">
+            <strong>Fecha de ingreso</strong>
+            <input type="date" class="form-control form-control-sm" th:field="*{fechaIngreso}" placeholder="Ingrese fecha de ingreso" />
+        </div>
+        <div class="form-group">
+            <strong>Producto</strong>
+            <select placeholder="Producto" th:field="*{producto.idProducto}">
+                <option th:each= "p : ${productos}" th:value="${p.idProducto}" th:text= "${p.descripcion}"></option> 
+            </select>
+        </div>
+        <div class="form-group"> 
+            <strong>Stock</strong>
+            <select placeholder="Stock" th:field="*{stock.idStock}">
+			    <option th:each= "s : ${stocks}" th:value="${s.idStock}" th:text= "${s.idStock}"></option> 
+		    </select>
+		</div>
+        <input class="btn btn-success" type="submit" value="Actualizar" />
     </form>
-    <form action="#" th:action="@{/lotes/delete/{id}(id=${lote.idLote})}" method="post">
-        <input type="submit" value="delete lote" />
+    <form action="#" class="formulariocomp" th:action="@{/lotes/delete/{id}(id=${lote.idLote})}" method="post">
+        <input class="btn btn-danger" type="submit" value="Eliminar lote" />
     </form>
-    <form action="#" th:action="@{/lotes/atras}" method="post">
-        <input type="submit" value="volver" />
+    <form action="#" class="formulariocomp" th:action="@{/lotes/atras}" method="post">
+        <input class="btn btn-info" type="submit" value="Volver" />
     </form>
 </body>
 

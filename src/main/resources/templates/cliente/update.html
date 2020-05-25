@@ -14,37 +14,39 @@
 
 <body>
 
-    <form action="#" th:action="@{/clientes/update}" th:object="${cliente}" method="post">
+    <form action="#" class="formulario" th:action="@{/clientes/update}" th:object="${cliente}" method="post">
         <input type="hidden" th:field="*{idPersona}" />
-        <p>
-            Nombre: <input type="text" th:field="*{nombre}" />
-        </p>
-        <p>
-            Apellido: <input type="text" th:field="*{apellido}" />
-        </p>
-        <p>
-            Fecha de Nacimiento: <input type="date" th:field="*{fechaNacimiento}" />
-        </p>
-        <p>
-            DNI: <input type="text" th:field="*{dni}" />
-        </p>
-        <p>
-            Email: <input type="text" th:field="*{email}" />
-        </p>
-        <input type="submit" value="Editar" />
-    </form>
-
-    <br>
-
-    <form action="#" th:action="@{/clientes/delete/{id}(id=${cliente.idPersona})}" method="post">
-        <input type="submit" value="delete person" />
-    </form>
-
-    <br>
-
-    <form action="#" th:action="@{/clientes/back}" method="post">
-        <input type="submit" value="volver" />
-    </form>
+        <div class="text-center">
+            <h2>Editar Cliente</h2>
+        </div>
+        <div class="form-group">
+            <strong>Nombre</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{nombre}" placeholder="Ingrese nombre" />
+        </div>
+        <div class="form-group">
+            <strong>Apellido</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{apellido}" placeholder="Ingrese apellido" />
+        </div>
+        <div class="form-group">
+            <strong>Fecha de nacimiento</strong>
+            <input type="date" class="form-control form-control-sm" th:field="*{fechaNacimiento}" placeholder="Ingrese la fecha de nacimiento" />
+        </div>
+        <div class="form-group">
+            <strong>DNI</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{dni}" placeholder="Ingrese DNI" />
+        </div>
+        <div class="form-group">
+            <strong>Email</strong>
+            <input type="text" class="form-control form-control-sm" th:field="*{email}" placeholder="Ingrese email" />
+        </div>
+        <input class="btn btn-success" type="submit" value="Actualizar" />
+    	</form>
+    	<form action="#" class="formulariocomp" th:action="@{/clientes/delete/{id}(id=${cliente.idPersona})}" method="post">
+        <input class="btn btn-danger" type="submit" value="Eliminar persona" />
+        </form>
+        <form action="#" class="formulariocomp" th:action="@{/clientes/back}" method="post">
+        <input class="btn btn-info" type="submit" value="Volver" />
+        </form>
 
 </body>
 

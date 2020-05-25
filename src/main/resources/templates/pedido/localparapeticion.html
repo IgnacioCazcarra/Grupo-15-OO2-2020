@@ -48,7 +48,7 @@
             <select placeholder="Local1" name="local1.idLocal">
 		<option  th:each= "l,iterStat  : ${localesConStockPorCantidad}"  th:value="${l.idLocal}" th:text="${l.direccion} + ' ' + ${listaDistancias[iterStat.index]} + ' km'"  ></option> 
 		</select>
-            <input type="submit" />
+            <input class="btn btn-success" type="submit" value="Guardar"/>
         </form>
 
         <!--DISTANCIA ENTRE LOS LOCALES
@@ -57,9 +57,9 @@
 </span>
 
 -->
-
+        <br>
         <form action="#" th:action="@{/pedidos/back}" method="post">
-            <input type="submit" value="volver" />
+            <input class="btn btn-info" type="submit" value="Volver" />
         </form>
 
     </div>
