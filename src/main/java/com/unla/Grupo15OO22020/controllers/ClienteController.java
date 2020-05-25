@@ -94,10 +94,14 @@ public class ClienteController {
 	
 	@PostMapping("/delete/{id}")
 	public RedirectView delete(@PathVariable("id") long idPersona, RedirectAttributes redirectAttrs) {
-		clienteService.remove(idPersona);
 
-		redirectAttrs.addFlashAttribute("mensaje","Eliminado Correctamente");
-		redirectAttrs.addFlashAttribute("clase", "success");
+		if(clienteService.remove(idPersona)) {
+			redirectAttrs.addFlashAttribute("mensaje","Eliminado Correctamente");
+			redirectAttrs.addFlashAttribute("clase", "success");			
+		} 	else{
+			redirectAttrs.addFlashAttribute("mensaje","No se ha podido eliminar, debido a que el cliente tiene dependencias con algún pedido o local.");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+		}
 
 		return new RedirectView(ViewRouteHelpers.CLIENT_ROOT);
 	}
