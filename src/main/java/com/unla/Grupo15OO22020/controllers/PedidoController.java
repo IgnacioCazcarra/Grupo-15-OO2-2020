@@ -294,7 +294,9 @@ public class PedidoController {
 		
 		return mAV;
 	}
-		
+	
+	//BUENARDAS
+	
 		@RequestMapping(value="/sacarprodfechas", method=RequestMethod.POST)
 		public ModelAndView sacardistancia(@RequestParam("fecha1") Date fecha1,
 				@RequestParam("fecha2") Date fecha2
