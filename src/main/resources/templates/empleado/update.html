@@ -15,6 +15,28 @@
 </head>
 
 <body>
+
+	    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+        <a class="navbar-brand" th:href="@{/}">UNLa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/locales/}">Locales</a>
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
+        </form>
+    	</nav>
+    	
     <form action="#" class="formulario" th:action="@{/empleados/update}" th:object="${empleado}" method="post">
         <input type="hidden" th:field="*{idPersona}" />
         <div class="text-center">
@@ -36,44 +58,45 @@
             <input type="date" class="form-control form-control-sm" th:field="*{fechaNacimiento}" placeholder="Ingrese fecha de nacimiento"/>
         </div>
 
-        <div class="form-group">
-            <strong>DNI</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{dni}" placeholder="Ingrese DNI"/>
+        <div class="form-group row">
+            <strong class="col-sm-2 col-form-label col-form-label-sm">DNI</strong>
+            <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" th:field="*{dni}" placeholder="Ingrese DNI" />
+            </div>
         </div>
 
-        <div class="form-group">
-            <strong>Franja Horaria</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{franjaHoraria}" placeholder="Ingrese franja horaria" />
+        <div class="form-group row">
+            <strong class="col-sm-2 col-form-label col-form-label-sm">Horario</strong>
+            <div class="col-sm-10">
+                <input type="text" class="form-control form-control-sm" th:field="*{franjaHoraria}" placeholder="Ingrese franja horaria" />
+            </div>
         </div>
 
         <div class="form-group">
             <strong>Es gerente</strong>
             <input type="checkbox" th:field="*{gerente}" />
         </div>
-		<div class="form-group">
-            <strong> Local</strong>
-            
+        
+		<div class="form-group row">
+            <strong class="col-sm-2 col-form-label col-form-label-sm">Local</strong>
+            <div class="col-sm-10">
                 <select placeholder="Local" th:field="*{local.idLocal}">
-                    <option th:each="l : ${locales}" th:value="${l.idLocal}"
-                        th:text="${l.idLocal}"></option>
+                    <option th:each="l : ${locales}" th:value="${l.idLocal}" th:text="${l.idLocal}"></option>
                 </select>
-            
+            </div>
         </div>
-
+		<div class="text-center">
         <input class="btn btn-success" type="submit" value="Actualizar" />
-
+		</div>
     </form>
-    <form action="#" class="formulariocomp" th:action="@{/empleados/delete/{id}(id=${empleado.idPersona})}" method="post">
+    
+    <div class="text-center">
+    	<form action="#" class="formulario-delete" th:action="@{/empleados/delete/{id}(id=${empleado.idPersona})}" method="post">
 
         	<input class="btn btn-danger" type="submit" value="Eliminar persona" />
 
-    </form>
-    <form action="#" class="formulariocomp" th:action="@{/empleados/back}" method="post">
-
-        	<input class="btn btn-info" type="submit" value="Volver" />
-
-    </form>
-
+    	</form>
+	</div>
 </body>
 
 </html>
