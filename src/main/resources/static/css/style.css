@@ -39,12 +39,10 @@ body{
 
 .formulariocomp{
     width: 30%;
-    padding-left: 20px;
-    padding-bottom: 20px;
     background-color: white;
-    margin-left: 672px;
-    margin-right: 672px;
-    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
 
 .input-name{

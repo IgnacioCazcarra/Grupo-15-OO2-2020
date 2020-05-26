@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo15OO22020.converters.LoteConverter;
 import com.unla.Grupo15OO22020.converters.ProductoConverter;
 import com.unla.Grupo15OO22020.converters.StockConverter;
+import com.unla.Grupo15OO22020.entities.Stock;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.implementation.LocalService;
 import com.unla.Grupo15OO22020.implementation.LoteService;
@@ -88,10 +90,28 @@ public class StockController {
 	}
 
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("stock") StockModel stockModel) {	
+	public RedirectView create(@ModelAttribute("stock") StockModel stockModel, RedirectAttributes redirectAttrs ) {	
+		int i=0;
+		boolean band = false;
 
+		while(i<stockService.getAll().size() && !band){
+			Stock s = stockService.getAll().get(i);
+				if(s.getLocal().getIdLocal() == stockModel.getLocal().getIdLocal()){
+					band = true;
+				}
+			i++;
+		}
 
-		stockService.insertOrUpdate(stockModel);
+		if(!band){
+			stockService.insertOrUpdate(stockModel);
+			redirectAttrs.addFlashAttribute("mensaje","Agregado Correctamente");
+			redirectAttrs.addFlashAttribute("clase", "success");
+		}else{
+			redirectAttrs.addFlashAttribute("mensaje","No se ha podido agregar debido a que ya existe stock en ese local");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+		}
+
+		
 		return new RedirectView(ViewRouteHelpers.STOCK_ROOT);
 	}
 
@@ -152,7 +172,7 @@ public class StockController {
 			@ModelAttribute("producto") ProductoModel productoModel,
 			Model model) {
 		model.addAttribute("stock", stockModel);
-		model.addAttribute("producto", productoModel);
+		model.addAttribute("producto", productoService.findByIdProducto(productoModel.getIdProducto()));
 		ModelAndView mAV = new ModelAndView("stock/mostrarStockPorProducto");
 		int i = 0;
 		int total = 0;
@@ -172,7 +192,7 @@ public class StockController {
 			i++;
 		}
 		total = total + stockModel.calcularStock(productoModel);
-
+		
 		model.addAttribute("total", total);
 		return mAV;
 	}

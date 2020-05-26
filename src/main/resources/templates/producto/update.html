@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Example</title>
+    <title>Actualizar Producto</title>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../static/css/bootstrap.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
 
@@ -67,22 +67,20 @@
 
         <input type="hidden" th:field="*{fechaAlta}" />
 
+        <div class="text-center">
 
-            <input type="submit" value= "Actualizar" class="btn btn-success"/>
+            <input type="submit" value="Actualizar" class="btn btn-success" />
+
+        </div>
+
 
     </form>
 
-    <form action="#" class="formulariocomp" th:action="@{/productos/delete/{id}(id=${producto.idProducto})}" method="post">
+    <form action="#" class="formulario-delete" th:action="@{/productos/delete/{id}(id=${producto.idProducto})}" method="post">
 
+        <div class="text-center">
             <input type="submit" value="Eliminar Producto" class="btn btn-danger" />
-
-
-    </form>
-    
-      <form action="#" class="formulariocomp" th:action="@{/productos/back}" method="post">
-
-            <input type="submit" value="Volver" class="btn btn-info" />
-
+        </div>
 
     </form>
 

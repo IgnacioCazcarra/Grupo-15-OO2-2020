@@ -41,6 +41,9 @@
 
     <div class="container-fluid">
 
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}" th:text="${mensaje}" class="alert"></div>
+
+
         <table class="table table-striped">
             <thead class="bg-info">
                 <tr>
