@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -313,8 +314,8 @@ public class PedidoController {
 	//BUENARDAS
 	
 		@RequestMapping(value="/sacarprodfechas", method=RequestMethod.POST)
-		public ModelAndView sacardistancia(@RequestParam("fecha1") Date fecha1,
-				@RequestParam("fecha2") Date fecha2
+		public ModelAndView sacarprodfechas(@RequestParam("fecha1") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha1,
+				@RequestParam("fecha2") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha2
 				, Model model) {
 		
 		

@@ -19,16 +19,12 @@
             <thead class="bg-info">
                 <tr>
                     <th>Nombre</th>
-                    <th>Fecha 1</th>
-                    <th>Fecha 2</th>
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="p : ${productosFecha}">
                     <td><span th:text="${p.nombre}" /></td>
                 </tr>
-                <span th:text="${fecha1}"/>
-                <span th:text="${fecha2}"/>
             </tbody>
         </table>
 </div>
