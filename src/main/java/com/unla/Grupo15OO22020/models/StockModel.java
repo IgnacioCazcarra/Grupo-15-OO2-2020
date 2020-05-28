@@ -13,15 +13,17 @@ public class StockModel {
 	private long idStock;
 	private List<LoteModel> lotes = new ArrayList<LoteModel>();
 	private LocalModel local;
+	private String codigo;
 	
 	public StockModel() {
 		
 	}
 	
-	public StockModel(long idStock, LocalModel local) {
+	public StockModel(long idStock, LocalModel local,String codigo) {
 		super();
 		this.idStock = idStock;
 		this.local = local;
+		this.codigo = codigo;
 
 	}
 
@@ -30,6 +32,7 @@ public class StockModel {
 		this.idStock = idStock;
 		this.local = local;
 		this.lotes = lotes;
+
 
 	}
 	
@@ -65,6 +68,13 @@ public class StockModel {
 		return lotes;
 	}
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 
 	public List<LoteModel> lotesDelProducto(ProductoModel producto){
 		List<LoteModel> lotesActivos = new ArrayList<LoteModel>();

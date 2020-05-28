@@ -87,17 +87,10 @@ public class LocalModel {
 		return listaEmpleados;
 	}
 
+
 	public void setListaEmpleados(List<EmpleadoModel> listaEmpleados) {
 		this.listaEmpleados = listaEmpleados;
 	}
-
-	/**********************************************************************************************************************************************/
-	/*public boolean altaEmpleado(String nombre, String apellido, LocalDate fechaNacimiento, long dni,
-			String franjaHoraria, boolean tipoEmpleado) throws Exception {
-		if (traerEmpleado(dni) != null)
-			throw new Exception("ERROR: El empleado ya existe");*/ //ERROR: obviamente tiene que retornar y el return esta comentado xD
-		//return listaEmpleados.add(new Empleado(nombre, apellido, fechaNacimiento, dni, franjaHoraria, tipoEmpleado,this)); ERROR: justamente se agrega en la lista que ya no esta
-	//}
 
 
 	@Override

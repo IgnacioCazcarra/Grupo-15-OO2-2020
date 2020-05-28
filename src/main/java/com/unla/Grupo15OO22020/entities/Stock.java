@@ -35,7 +35,8 @@ public class Stock {
 	@OneToOne(cascade = CascadeType.MERGE)
 	private Local local;
 	
-	
+	@Column(name="codigo")
+	private String codigo;
 	//@OneToOne(cascade = CascadeType.MERGE)
 //	private Local local;
 	
@@ -64,10 +65,11 @@ public class Stock {
 		super();
 	}
 
-	public Stock(long idStock, Local local ) {
+	public Stock(long idStock, Local local, String codigo) {
 		super();
 		this.idStock = idStock;
 		this.local = local;
+		this.codigo = codigo;
 	}
 
 	public long getIdStock() {
@@ -109,6 +111,14 @@ public class Stock {
 
 	public void setUpdatedAt(LocalTime updatedAt) {
 		this.updatedAt = updatedAt;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	

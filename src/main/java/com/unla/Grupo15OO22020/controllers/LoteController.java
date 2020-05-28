@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo15OO22020.converters.StockConverter;
@@ -83,7 +84,6 @@ public class LoteController {
 		stockModel.getLotes().add(loteModel);
 		stockService.insertOrUpdate(stockModel);
 		System.out.println("TRAIDO: " + stockModel.getLotes().get(0).getCantidadActual());
-		
 		
 		return new RedirectView(ViewRouteHelpers.LOTE_ROOT);
 	}

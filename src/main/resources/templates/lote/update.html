@@ -64,7 +64,7 @@
             <strong class="col-sm-2 col-form-label col-form-label-sm">Stock</strong>
             <div class="col-sm-10">
             	<select placeholder="Stock" th:field="*{stock.idStock}">
-			    	<option th:each= "s : ${stocks}" th:value="${s.idStock}" th:text= "${s.idStock}"></option> 
+			    	<option th:each= "s : ${stocks}" th:value="${s.idStock}" th:text= "${s.codigo}"></option> 
 		   		</select>
 		   	</div>
 		</div>

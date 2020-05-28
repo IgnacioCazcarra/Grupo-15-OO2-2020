@@ -51,7 +51,7 @@
     <div class="form-group">
             <strong>Stock</strong>
             <select placeholder="Stock" th:field="*{stock.idStock}" >
-				<option th:each= "s : ${stocks}" th:value="${s.idStock}" th:text= "${s.idStock}"></option> 
+				<option th:each= "s : ${stocks}" th:value="${s.idStock}" th:text= "${s.codigo}"></option> 
 			</select>
     </div>
 	<div class="text-center">
