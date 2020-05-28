@@ -18,11 +18,11 @@ public class StockConverter {
 	
 	
 	public StockModel entityToModel(Stock stock) {
-		return new StockModel(stock.getIdStock(), localConverter.entityToModel(stock.getLocal()));
+		return new StockModel(stock.getIdStock(), localConverter.entityToModel(stock.getLocal()),stock.getCodigo());
 	}
 	
 	public Stock modelToEntity(StockModel stockModel) {
-		return new Stock(stockModel.getIdStock(), localConverter.modelToEntity(stockModel.getLocal()));
+		return new Stock(stockModel.getIdStock(), localConverter.modelToEntity(stockModel.getLocal()),stockModel.getCodigo());
 	}
 
 	

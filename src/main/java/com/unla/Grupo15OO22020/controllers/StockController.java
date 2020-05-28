@@ -137,8 +137,6 @@ public class StockController {
 		}
 
 		stockModel.setLocal(localService.findByIdLocal(stockModel.getLocal().getIdLocal()));
-
-
 		stockService.insertOrUpdate(stockModel);
 		return new RedirectView(ViewRouteHelpers.STOCK_ROOT);
 	}
