@@ -336,10 +336,7 @@ public class PedidoController {
 		mAV.addObject("locales", localService.getAll());
 		
 		return mAV;
-	}
-	
-	//BUENARDAS
-	
+	}	
 
 	@RequestMapping(value="/sacarprodfechas", method=RequestMethod.POST)
 	public ModelAndView sacarprodfechas(@ModelAttribute("local") LocalModel local, @RequestParam("fecha1") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha1,
