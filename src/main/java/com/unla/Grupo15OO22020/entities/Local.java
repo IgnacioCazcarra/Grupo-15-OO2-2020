@@ -4,7 +4,9 @@ package com.unla.Grupo15OO22020.entities;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -22,6 +24,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 
 @Entity
 @Table(name="local")
@@ -43,16 +46,12 @@ public class Local {
 	private String telefono;
 	
 	@ManyToMany(mappedBy = "listaLocales")
-	private Set<Cliente> listaClientes = new HashSet<Cliente>();
+	private List<Cliente> listaClientes = new ArrayList<Cliente>();
 
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablaLocal")
-//	private Set<Cliente> listaClientes = new HashSet<Cliente>();
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "local")
-	private Set<Empleado> listaEmpleados = new HashSet<Empleado>();
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablaLocal")
-//	private Set<Factura> listaFacturas = new HashSet<Factura>();
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tablaLocal")
-//	private Set<SolicitudStock> listaSolicitudesStock = new HashSet<SolicitudStock>();
+	private List<Empleado> listaEmpleados = new ArrayList<Empleado>();
+
 
 
 	@OneToOne(mappedBy = "local")
@@ -132,21 +131,21 @@ public class Local {
 		this.telefono = telefono;
 	}
 
-	public Set<Cliente> getListaClientes() {
+	public List<Cliente> getListaClientes() {
 		return listaClientes;
 	}
 
-	public void setListaClientes(Set<Cliente> listaClientes) {
+	public void setListaClientes(List<Cliente> listaClientes) {
 		this.listaClientes = listaClientes;
 	}
 
 
-	public Set<Empleado> getListaEmpleados() {
+	public List<Empleado> getListaEmpleados() {
 		return listaEmpleados;
 	}
 
 
-	public void setListaEmpleados(Set<Empleado> listaEmpleados) {
+	public void setListaEmpleados(List<Empleado> listaEmpleados) {
 		this.listaEmpleados = listaEmpleados;
 	}
 

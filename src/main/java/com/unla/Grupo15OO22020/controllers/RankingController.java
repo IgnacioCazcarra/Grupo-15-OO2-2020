@@ -41,10 +41,8 @@ public class RankingController {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.RANKING_INDEX);
 		
 		List<RankingProductoModel> ranking = rankingProducto(pedidoService.getAll());
-		System.out.println(ranking.size());
 
 		mAV.addObject("rankingProductos",ranking);
-		System.out.println(ranking.size());
 		return mAV;		
 	}
 	
@@ -59,10 +57,8 @@ public class RankingController {
 	public ModelAndView get(@PathVariable("id") long idProducto) {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.RANKING_PRODUCTO);
 		List<RankingProductoModel> ranking = rankingProducto(pedidoService.getAll());
-		System.out.println(ranking.size());
 
 		mAV.addObject("rankingProductos",ranking);
-		System.out.println(ranking.size());
 
 		return mAV;
 	}	

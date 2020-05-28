@@ -66,7 +66,7 @@
             <strong class="col-sm-2 col-form-label col-form-label-sm">Cliente</strong>
             <div class="col-sm-10">
             	<select placeholder="Cliente" th:field="*{cliente.idPersona}">
-					<option th:each="c : ${clientes}" th:value="${c.idPersona}" th:text="${c.nombre} + '' + ${c.apellido}"></option>
+					<option th:each="c : ${clientes}" th:value="${c.idPersona}" th:text="${c.nombre} + ' ' + ${c.apellido}"></option>
 				</select>
 			</div>
 		</div>

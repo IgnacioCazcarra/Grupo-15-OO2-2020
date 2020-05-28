@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.unla.Grupo15OO22020.converters.EmpleadoConverter;
 import com.unla.Grupo15OO22020.entities.Empleado;
 import com.unla.Grupo15OO22020.models.EmpleadoModel;
+import com.unla.Grupo15OO22020.models.LocalModel;
 import com.unla.Grupo15OO22020.repositories.IEmpleadoRepository;
 import com.unla.Grupo15OO22020.services.IEmpleadoService;
 
@@ -65,6 +66,20 @@ public class EmpleadoService implements IEmpleadoService{
 			listaEmpleados.add(empleadoConverter.entityToModel(e));
 		}
 		return listaEmpleados;
+	}
+
+	@Override
+	public List<EmpleadoModel> findByLocal(LocalModel local) {
+		List<EmpleadoModel> empleadosDelLocal = new ArrayList<EmpleadoModel>();
+		List<Empleado> empleados = this.getAll();
+		
+		for(Empleado e : empleados) {
+			if(!empleadosDelLocal.contains(empleadoConverter.entityToModel(e)) && e.getLocal().getIdLocal()==local.getIdLocal()) {
+				empleadosDelLocal.add(empleadoConverter.entityToModel(e));
+			}
+			
+		}
+		return empleadosDelLocal;
 	}
 	
 	

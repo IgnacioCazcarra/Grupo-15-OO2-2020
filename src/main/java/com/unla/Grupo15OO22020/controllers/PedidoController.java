@@ -33,6 +33,7 @@ import com.unla.Grupo15OO22020.entities.Lote;
 import com.unla.Grupo15OO22020.entities.Pedido;
 import com.unla.Grupo15OO22020.entities.Producto;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
+import com.unla.Grupo15OO22020.models.EmpleadoModel;
 import com.unla.Grupo15OO22020.models.LocalModel;
 import com.unla.Grupo15OO22020.models.LoteModel;
 import com.unla.Grupo15OO22020.models.PedidoModel;
@@ -112,13 +113,14 @@ public class PedidoController {
 		mAV.addObject("productos", productoService.getAll());
 		mAV.addObject("clientes", clienteService.getAll());
 		mAV.addObject("empleados", empleadoService.getAll());
-
+		
 		return mAV;
 	}
 
 	@PostMapping("/create")
 	public ModelAndView create(@ModelAttribute("pedido") PedidoModel pedidoModel, Model model,
-			RedirectAttributes redirectAttrs) {		
+			RedirectAttributes redirectAttrs) {
+		
 		pedidoModel.setLocal(localService.findByIdLocal(
 				empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()));
 		pedidoModel.setSubtotal(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getPrecio()
@@ -128,6 +130,7 @@ public class PedidoController {
 		pedidoModel.getCantidad(), stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(),  pedidoModel.getFecha())) {
 			
 			pedidoService.insertOrUpdate(pedidoModel);
+
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
 			stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(), pedidoModel.getFecha());
 			
@@ -195,6 +198,8 @@ public class PedidoController {
 
 					model.addAttribute("locales", localService.getAll());
 					model.addAttribute("localesConStockPorCantidad", localesConCercania);
+					model.addAttribute("local1", new LocalModel());
+					model.addAttribute("pedido", pedidoModel);
 
 					model.addAttribute("localPrincipal", localService.findByIdLocal(empleadoService
 					.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getDireccion());
@@ -210,14 +215,23 @@ public class PedidoController {
 					}
 
 					model.addAttribute("listaDistancias", mostrarDistancias);
+					pedidoService.insertOrUpdate(pedidoModel);
+					System.out.println(pedidoModel.getCantidad());
 
 					ModelAndView mAV2 = new ModelAndView(ViewRouteHelpers.PEDIDO_LOCALPARAPETICION);
 
 					mAV2.addObject("locales", localService.getAll());
 
 					mAV2.addObject("localesConStockPorCantidad", localesConCercania);
+					mAV2.addObject("pedido", pedidoModel);
+					mAV2.addObject("local1", new LocalModel());
 
-					// Aca se deberia crear otra solicitudstock con el local q se eligio
+//					LocalModel l = localService.findByIdLocal(local.getIdLocal());
+//					System.out.println(local.getIdLocal());
+//					int empleadoSorteado = (int) Math.random()*(l.getListaEmpleados().size()-1);					
+//					pedidoModel.setColaborador(empleadoService.findByIdPersona(l.getListaEmpleados().get(empleadoSorteado).getIdPersona()));
+
+					
 					return mAV2;
 
 				}
@@ -263,14 +277,24 @@ public class PedidoController {
 
 	@PostMapping("/update")
 	public RedirectView update(@ModelAttribute("pedido") PedidoModel pedidoModel,RedirectAttributes redirectAttrs) {
-		if(pedidoModel.isAceptado()) {
+		System.out.println(pedidoModel.getIdPedido());
+		if(pedidoModel.isAceptado() && pedidoModel.getColaborador()==null) {
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
 					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(), pedidoModel.getFecha());
 			
 			redirectAttrs.addFlashAttribute("mensaje", "No se pudo actualizar su pedido debido a que ya fue confirmado.");
 			redirectAttrs.addFlashAttribute("clase", "danger");
 			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
-		}else {
+		}
+		else if(pedidoModel.isAceptado() && pedidoModel.getColaborador()!=null) {
+			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
+					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal()).getIdStock(), pedidoModel.getFecha());
+			
+			redirectAttrs.addFlashAttribute("mensaje", "No se pudo actualizar su pedido debido a que ya fue confirmado.");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+		}
+		else {
 			
 			java.util.Date utilDate = new java.util.Date();
 		    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
@@ -313,22 +337,62 @@ public class PedidoController {
 	
 	//BUENARDAS
 	
-		@RequestMapping(value="/sacarprodfechas", method=RequestMethod.POST)
-		public ModelAndView sacarprodfechas(@RequestParam("fecha1") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha1,
-				@RequestParam("fecha2") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha2
-				, Model model) {
-		
+	@RequestMapping(value="/sacarprodfechas", method=RequestMethod.POST)
+	public ModelAndView sacarprodfechas(@RequestParam("fecha1") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha1,
+			@RequestParam("fecha2") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha2, @RequestParam("local") LocalModel local
+			, Model model) {
 		
 		ModelAndView mAV = new ModelAndView("pedido/mostrarprodfechas");
-		List<Producto> listProduc = productosVendidosEntreFechas(fecha1, fecha2);
+		Set<Producto> listProduc = productosVendidosEntreFechas(fecha1, fecha2);
 		System.out.println(listProduc);
 		mAV.addObject("fecha1", fecha1);
 		mAV.addObject("fecha2", fecha2);
 		mAV.addObject("productosFecha", listProduc);
 		model.addAttribute("fecha1", fecha1);
 		model.addAttribute("fecha2", fecha2);
+		model.addAttribute("local", local);
 		model.addAttribute("productosFecha", listProduc);
 		return mAV;
+	}
+	
+	
+//	@GetMapping("/solicitudstock")
+//	public ModelAndView getPedidoExterno(){
+//		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_LOCALPARAPETICION);
+//
+//		mAV.addObject("locales", localService.getAll());
+//		mAV.addObject("localesConStockPorCantidad", localesConCercania);
+//		mAV.addObject("local1", new LocalModel());
+//
+//		return mAV;
+//	}
+	
+	@PostMapping("/solicitudstock")
+	public RedirectView pedidoExterno(@ModelAttribute PedidoModel pedidoModel, LocalModel local) {
+		
+		LocalModel l = localService.findByIdLocal(local.getIdLocal());
+
+
+		l.setListaEmpleados(empleadoService.findByLocal(l));
+		System.out.println(pedidoModel.getCantidad());
+		int empleadoSorteado = (int) Math.random()*(l.getListaEmpleados().size()-1);
+		EmpleadoModel empleadoColaborador = empleadoService.findByIdPersona(l.getListaEmpleados().get(empleadoSorteado).getIdPersona());
+		pedidoModel.setColaborador(empleadoColaborador);
+		
+//		java.util.Date utilDate = new java.util.Date();
+//	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+//		pedidoModel.setProducto(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()));
+//		pedidoModel.setCliente(clienteService.findByIdPersona(pedidoModel.getCliente().getIdPersona()));
+//		pedidoModel.setVendedor(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()));
+//		pedidoModel.setLocal(localService.findByIdLocal(
+//				empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()));
+//		pedidoModel.setSubtotal(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getPrecio() * pedidoModel.getCantidad());
+//		pedidoModel.setFecha(sqlDate);
+		
+
+		
+		pedidoService.insertOrUpdate(pedidoModel);
+		return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
 	}
 	
 	
@@ -342,7 +406,7 @@ public class PedidoController {
 		}
 		return lotesActivos;
 	}
-
+	
 	public int calcularStock(ProductoModel productoModel, long id, Date fecha) {
 		int total = 0;
 		for (Lote l : lotesDelProducto(productoModel, id, fecha)) {
@@ -391,14 +455,14 @@ public class PedidoController {
 
 	}
 	
-	public List<Producto> productosVendidosEntreFechas(Date comienzo, Date fin){
+	public Set<Producto> productosVendidosEntreFechas(Date comienzo, Date fin){
 		
 		List<Pedido> pedidos = pedidoService.getAll();
-		List<Producto> productoList = new ArrayList<Producto>();
+		Set<Producto> productoList = new HashSet<Producto>();
 		
 		for(Pedido p: pedidos) {
 			
-			if(p.isAceptado() == true) {
+			if(p.isAceptado()) {
 			
 			if(p.getFecha().after(comienzo) && p.getFecha().before(fin)) {
 				

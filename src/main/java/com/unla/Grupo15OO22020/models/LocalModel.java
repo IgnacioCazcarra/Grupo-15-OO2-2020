@@ -1,9 +1,8 @@
 package com.unla.Grupo15OO22020.models;
 
 
-import java.util.HashSet;
-
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LocalModel {
 
@@ -13,9 +12,8 @@ public class LocalModel {
 	private double longitud;
 	private String telefono;
 	private StockModel stock;
-	private Set<ClienteModel> listaClientes = new HashSet<ClienteModel>();
-	private Set<EmpleadoModel> listaEmpleados = new HashSet<EmpleadoModel>();
-//	private Set<SolicitudStockModel> listaSolicitudesStock = new HashSet<SolicitudStockModel>();
+	private List<ClienteModel> listaClientes = new ArrayList<ClienteModel>();
+	private List<EmpleadoModel> listaEmpleados = new ArrayList<EmpleadoModel>();
 	
 	public LocalModel() {
 	}
@@ -77,25 +75,21 @@ public class LocalModel {
 		this.telefono = telefono;
 	}
 
-//	public Set<FacturaModel> getListaFacturas() {
-//		return listaFacturas;
-//	}
+	public List<ClienteModel> getListaClientes() {
+		return listaClientes;
+	}
 
-//	public void setListaFacturas(Set<FacturaModel> listaFacturas) {
-//		this.listaFacturas = listaFacturas;
-//	}
-//
-//	public Set<SolicitudStockModel> getListaSolicitudesStock() {
-//		return listaSolicitudesStock;
-//	}
-//
-//	public void setListaSolicitudesStock(Set<SolicitudStockModel> listaSolicitudesStock) {
-//		this.listaSolicitudesStock = listaSolicitudesStock;
-//	}
-//
-//	
-	
+	public void setListaClientes(List<ClienteModel> listaClientes) {
+		this.listaClientes = listaClientes;
+	}
 
+	public List<EmpleadoModel> getListaEmpleados() {
+		return listaEmpleados;
+	}
+
+	public void setListaEmpleados(List<EmpleadoModel> listaEmpleados) {
+		this.listaEmpleados = listaEmpleados;
+	}
 
 	/**********************************************************************************************************************************************/
 	/*public boolean altaEmpleado(String nombre, String apellido, LocalDate fechaNacimiento, long dni,

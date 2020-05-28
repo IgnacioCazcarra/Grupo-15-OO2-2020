@@ -44,10 +44,12 @@
         <form action="solicitudstock" method="Post">
             <p> El local desde el que usted quiere realizar el pedido (<span th:text="${localPrincipal}"></span>) no dispone de suficiente stock.</p>
 
-            <p> Seleccione el local que desee que satisfaga su pedido: </p>
-            <select placeholder="Local1" name="local1.idLocal">
+            <p> Seleccione el local que desee que satisfaga su pedido:
+            <select placeholder="Local1" th:field="*{local1.idLocal}">
 		<option  th:each= "l,iterStat  : ${localesConStockPorCantidad}"  th:value="${l.idLocal}" th:text="${l.direccion} + ' ' + ${listaDistancias[iterStat.index]} + ' km'"  ></option> 
 		</select>
+		</p>
+			<input type="hidden" th:field="*{pedido.idPedido}"/>
             <input class="btn btn-success" type="submit" value="Guardar"/>
         </form>
 

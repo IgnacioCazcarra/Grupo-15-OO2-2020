@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.unla.Grupo15OO22020.entities.Empleado;
 import com.unla.Grupo15OO22020.models.EmpleadoModel;
+import com.unla.Grupo15OO22020.models.LocalModel;
 
 public interface IEmpleadoService {
 		
@@ -19,5 +20,8 @@ public interface IEmpleadoService {
 	public boolean remove(long idPersona);
 	
 	public List<EmpleadoModel> findByGerente(boolean gerente);
+	
+	public List<EmpleadoModel> findByLocal(LocalModel local);
+
 
 }
