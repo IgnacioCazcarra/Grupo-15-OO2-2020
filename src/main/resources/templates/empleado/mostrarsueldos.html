@@ -1,0 +1,16 @@
+<tr>
+	<th>Nombre</th>
+	<th>Apellido</th>
+	<th>DNI</th>
+	<th>Local</th>
+	<th>Sueldo</th>
+</tr>
+</thead>
+<tbody>
+	<tr th:each="empleado : ${listaSueldos}">
+		<td><span th:text="${empleado.nombre}" /></td>
+		<td><span th:text="${empleado.apellido}" /></td>
+		<td><span th:text="${empleado.dni}" /></td>
+		<td><span th:text="${empleado.Local.direccion}" /></td>
+		<td><span th:text="${empleado.sueldo}" /></td>
+	</tr>
