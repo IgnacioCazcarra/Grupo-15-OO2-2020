@@ -77,6 +77,8 @@ public class LocalModel {
 		this.telefono = telefono;
 	}
 
+	
+	
 //	public Set<FacturaModel> getListaFacturas() {
 //		return listaFacturas;
 //	}

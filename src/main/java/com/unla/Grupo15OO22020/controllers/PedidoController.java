@@ -29,6 +29,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.Grupo15OO22020.converters.LocalConverter;
 import com.unla.Grupo15OO22020.converters.PedidoConverter;
 import com.unla.Grupo15OO22020.converters.StockConverter;
+import com.unla.Grupo15OO22020.entities.Local;
 import com.unla.Grupo15OO22020.entities.Lote;
 import com.unla.Grupo15OO22020.entities.Pedido;
 import com.unla.Grupo15OO22020.entities.Producto;
@@ -307,6 +308,8 @@ public class PedidoController {
 		
 	//	mAV.addObject("fechasmodel", new FechasModel());
 		mAV.addObject("productos", productoService.getAll());
+		mAV.addObject("local", new LocalModel());
+		mAV.addObject("locales", localService.getAll());
 		
 		return mAV;
 	}
@@ -314,19 +317,23 @@ public class PedidoController {
 	//BUENARDAS
 	
 		@RequestMapping(value="/sacarprodfechas", method=RequestMethod.POST)
-		public ModelAndView sacarprodfechas(@RequestParam("fecha1") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha1,
+		public ModelAndView sacarprodfechas(@ModelAttribute("local") LocalModel local, @RequestParam("fecha1") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha1,
 				@RequestParam("fecha2") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha2
 				, Model model) {
 		
 		
 		ModelAndView mAV = new ModelAndView("pedido/mostrarprodfechas");
-		List<Producto> listProduc = productosVendidosEntreFechas(fecha1, fecha2);
+		Set<Producto> listProduc = productosVendidosEntreFechas(local, fecha1, fecha2);
 		System.out.println(listProduc);
 		mAV.addObject("fecha1", fecha1);
 		mAV.addObject("fecha2", fecha2);
+		mAV.addObject("local", local);
+		
 		mAV.addObject("productosFecha", listProduc);
 		model.addAttribute("fecha1", fecha1);
 		model.addAttribute("fecha2", fecha2);
+		model.addAttribute("local", local);
+
 		model.addAttribute("productosFecha", listProduc);
 		return mAV;
 	}
@@ -391,20 +398,28 @@ public class PedidoController {
 
 	}
 	
-	public List<Producto> productosVendidosEntreFechas(Date comienzo, Date fin){
+	public Set<Producto> productosVendidosEntreFechas(LocalModel l1, Date comienzo, Date fin){
 		
 		List<Pedido> pedidos = pedidoService.getAll();
-		List<Producto> productoList = new ArrayList<Producto>();
+		Set<Producto> productoList = new HashSet<Producto>();
+		
+		System.out.println(l1.getIdLocal());
 		
 		for(Pedido p: pedidos) {
 			
-			if(p.isAceptado() == true) {
+			if(p.isAceptado() && p.getLocal().equals(localConverter.modelToEntity(l1))) {
 			
-			if(p.getFecha().after(comienzo) && p.getFecha().before(fin)) {
+			
 				
-				productoList.add(p.getProducto());
+				if(p.getFecha().after(comienzo) && p.getFecha().before(fin)) {
+					
+					productoList.add(p.getProducto());
+					
+				}
 				
-			}
+			
+				
+			
 			
 		}
 		}
