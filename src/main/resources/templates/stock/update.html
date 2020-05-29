@@ -44,30 +44,28 @@
         <div class="text-center">
             <h2>Editar Stock</h2>
         </div>
-        
-        <div class="form-group row">
-            <strong class="col-sm-2 col-form-label col-form-label-sm">Stock del local</strong>
-            <div class="col-sm-10">
-            	<select placeholder="Local" th:field="*{local.idLocal}">
+
+        <div class="form-group">
+            <strong>Stock del local</strong>
+            <select placeholder="Local" th:field="*{local.idLocal}" class="form-control form-control-sm">
                 	<option th:each= "l : ${locales}" th:value="${l.idLocal}" th:text= "${l.direccion}"></option> 
             	</select>
-            </div>
         </div>
-        
+
         <div class="form-group">
             <strong>Codigo</strong>
             <input type="text" class="form-control form-control-sm" th:field="*{codigo}" placeholder="Ingrese codigo" />
         </div>
-        
+
         <div class="text-center">
-        <input type="submit" class="btn btn-success" value="Actualizar" />
+            <input type="submit" class="btn btn-success" value="Actualizar" />
         </div>
     </form>
     <div class="text-center">
-    	<form action="#" class="formulario-delete" th:action="@{/stocks/delete/{id}(id=${stock.idStock})}" method="post">
-        	<input class="btn btn-danger" type="submit" value="Eliminar stock" />
-    	</form>
-	</div>
+        <form action="#" class="formulario-delete" th:action="@{/stocks/delete/{id}(id=${stock.idStock})}" method="post">
+            <input class="btn btn-danger" type="submit" value="Eliminar stock" />
+        </form>
+    </div>
 </body>
 
 </html>

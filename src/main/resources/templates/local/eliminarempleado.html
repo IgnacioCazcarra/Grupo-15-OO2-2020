@@ -43,15 +43,14 @@
         <div class="text-center">
             <h2>Empleado a eliminar:</h2>
         </div>
-        
-     	<p> Empleado:
-        <select placeholder="Empleado" th:field="*{empleado.idPersona}"> 
-			<option th:each="e : ${empleados}" th:value="${e.idPersona}" th:text="${e.nombre} +' '+ ${e.apellido}"> </option>
-		</select>
-		</p>
+        <div class="form-group">
+            <select placeholder="Empleado" th:field="*{empleado.idPersona}" class="form-control form-control-sm"> 
+			<option th:each="e : ${empleados}" th:value="${e.idPersona}" th:text="${e.nombre} +' '+ ${e.apellido} + ' (' + ${e.Local.direccion} + ')'"> </option>
+        </select>
+        </div>
 
         <div class="text-center">
-            <input class="btn btn-primary button" type="submit" value="Eliminar"/>
+            <input class="btn btn-primary button" type="submit" value="Eliminar" />
         </div>
     </form>
 

@@ -43,21 +43,19 @@
         <div class="text-center">
             <h2>Productos vendidos entre fechas</h2>
         </div>
-        <div class="form-group row">
-            <strong class="col-sm-2 col-form-label col-form-label-sm">Local</strong>
-            <div class="col-sm-10">
-                <select placeholder="Local" th:field="*{local.idLocal}">
+        <div class="form-group">
+            <strong>Local</strong>
+            <select placeholder="Local" th:field="*{local.idLocal}" class="form-control form-control-sm">
                     <option th:each="l : ${locales}" th:value="${l.idLocal}" th:text="${l.direccion}"></option>
                 </select>
-            </div>
         </div>
         <div class="form-group">
             <strong>Fecha 1</strong>
-            <input name="fecha1" type="date" />
+            <input name="fecha1" class="form-control form-control-sm" type="date" />
         </div>
         <div class="form-group">
             <strong>Fecha 2</strong>
-            <input name="fecha2" type="date" />
+            <input name="fecha2" class="form-control form-control-sm" type="date" />
         </div>
         <div class="text-center">
             <input class="btn btn-primary button" type="submit" />

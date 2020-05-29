@@ -48,11 +48,77 @@
     <div class="container banner">
         <h1>Sistema de Democratizacion de Stock</h1>
         <p style="font-size: 18px;">Proyecto cuatrimestral para la catedra OO2 UNLa</p>
-        <a href="#" th:href="@{/info}" class="btn btn-dark button">Informacion</a>
+        <button type="button" class="btn btn-dark button" data-toggle="modal" data-target="#exampleModalCenter">
+            Informacion
+          </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Informacion</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa explicabo cupiditate qui ipsum dolores eaque consequatur natus sapiente molestias saepe.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ERROR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    Debe completar todos los campos para continuar
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
+    <form action="" id="form" method="post">
+        <input type="text" id="nombre" placeholder="Name">
+        <input type="submit" value="Send">
+    </form>
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var band = true;
+
+            $("#form").on("submit", function() {
+                var name = $("#nombre").val();
+                if (name.length == "") {
+                    $("#exampleModal").modal("toggle")
+                    band = false;
+                }
+
+                return band;
+            });
+        });
+    </script>
+
+    -->
 
 </body>
+
+
 
 </html>

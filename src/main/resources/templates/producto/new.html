@@ -3,12 +3,13 @@
 
 <head>
     <title>Agregar Producto</title>
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
 
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
-    <script src="../../js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
 
@@ -36,30 +37,68 @@
         </div>
     </nav>
 
-    <form class="formulario" action="#" th:action="@{/productos/create}" th:object="${producto}" method="post">
+    <form class="formulario" id="form" action="#" th:action="@{/productos/create}" th:object="${producto}" method="post">
         <div class="text-center">
             <h2>Agregar Producto</h2>
         </div>
 
         <div class="form-group">
             <strong>Nombre</strong>
-            <input type="text" class="form-control form-control-sm" placeholder="Ingrese nombre del producto" th:field="*{nombre}">
+            <input type="text" id="nombre" class="form-control form-control-sm" placeholder="Ingrese nombre del producto" th:field="*{nombre}">
         </div>
 
         <div class="form-group">
             <strong>Descripcion</strong>
-            <input type="text" class="form-control form-control-sm" placeholder="Ingrese descripcion" th:field="*{descripcion}">
+            <input type="text" id="descripcion" class="form-control form-control-sm" placeholder="Ingrese descripcion" th:field="*{descripcion}">
         </div>
 
         <div class="form-group">
             <strong>Precio</strong>
-            <input type="text" class="form-control form-control-sm" placeholder="Ingrese precio" th:field="*{precio}">
+            <input type="text" id="precio" min=1 class="form-control form-control-sm" placeholder="Ingrese precio" th:field="*{precio}">
         </div>
 
         <div class="text-center">
             <button type="submit" class="btn btn-primary button">Crear</button>
         </div>
     </form>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ERROR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    Debe completar todos los campos para continuar
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#form").on("submit", function() {
+
+                var name = $("#nombre").val();
+                var desc = $("#descripcion").val();
+                var precio = $("#precio").val();
+
+                if (name.length == "" || desc.length == "" || precio <= "1.0" || precio.length == "") {
+                    $("#exampleModal").modal("toggle");
+                    return false;
+                } else {
+                    return true;
+                }
+
+            });
+        });
+    </script>
 
 </body>
 

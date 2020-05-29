@@ -14,11 +14,14 @@
     <script src="../../js/bootstrap.min.js"></script>
 
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
+
 </head>
 
 <body>
-	
-	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
         <a class="navbar-brand" th:href="@{/}">UNLa</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -39,33 +42,72 @@
         </form>
         </div>
     </nav>
-	
-    <form action="#" class="formulario" th:action="@{/locales/create}" th:object="${local}" method="post">
-    	<div class="text-center">
+
+    <form action="#" id="form" class="formulario" th:action="@{/locales/create}" th:object="${local}" method="post">
+        <div class="text-center">
             <h2>Agregar Local</h2>
         </div>
         <div class="form-group">
             <strong>Direccion</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{direccion}" placeholder="Ingrese una direccion" />
+            <input type="text" id="direccion" class="form-control form-control-sm" th:field="*{direccion}" placeholder="Ingrese una direccion" />
         </div>
         <div class="form-group">
             <strong>Latitud</strong>
-            <input type="number" step="any" class="form-control form-control-sm" th:field="*{latitud}" placeholder="Ingrese una latitud" />
+            <input type="number" id="latitud" step="any" class="form-control form-control-sm" th:field="*{latitud}" placeholder="Ingrese una latitud" />
         </div>
         <div class="form-group">
             <strong>Longitud</strong>
-            <input type="number" step="any" class="form-control form-control-sm" th:field="*{longitud}" placeholder="Ingrese una longitud" />
+            <input type="number" id="longitud" step="any" class="form-control form-control-sm" th:field="*{longitud}" placeholder="Ingrese una longitud" />
         </div>
         <div class="form-group">
             <strong>Telefono</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{telefono}" placeholder="Ingrese un telefono" />
+            <input type="text" id="telefono" class="form-control form-control-sm" th:field="*{telefono}" placeholder="Ingrese un telefono" />
         </div>
         <input type="hidden" id="stock" name="stock" th:if="${stock}" th:value="${stock}" />
         <div class="text-center">
             <input class="btn btn-primary button" type="submit" value="Crear" />
         </div>
-        
+
     </form>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ERROR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    Debe completar todos los campos para continuar
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#form").on("submit", function() {
+
+                var direccion = $("#direccion").val();
+                var latitud = $("#latitud").val();
+                var longitud = $("#longitud").val();
+                var telefono = $("#telefono").val();
+
+                if (direccion.length == "" || latitud.length == "" || longitud.length == "" || telefono.length == "") {
+                    $("#exampleModal").modal("toggle");
+                    return false;
+                } else {
+                    return true;
+                }
+
+            });
+        });
+    </script>
 
 </body>
 

@@ -29,7 +29,7 @@ body{
 
 
 .formulario{
-    width: 30%;
+    width: 32%;
     padding: 20px;
     background-color: white;
     margin-left: auto;
@@ -47,7 +47,7 @@ body{
 }
 
 .formulario-delete{
-    width: 30%;
+    width: 32%;
     background-color: white;
     padding-bottom: 20px;
     margin-left: auto;

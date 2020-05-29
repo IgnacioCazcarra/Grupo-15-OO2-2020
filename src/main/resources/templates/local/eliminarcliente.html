@@ -43,15 +43,16 @@
         <div class="text-center">
             <h2>Cliente a eliminar:</h2>
         </div>
-        
-     	<p> Cliente:
-        <select placeholder="Cliente" th:field="*{cliente.idPersona}"> 
-			<option th:each="c : ${clientes}" th:value="${c.idPersona}" th:text="${c.nombre} +' '+ ${c.apellido}"> </option>
-		</select>
-		</p>
+
+
+        <div class="form-group">
+            <select placeholder="Cliente" th:field="*{cliente.idPersona}" class="form-control form-control-sm"> 
+			<option th:each="c : ${clientes}" th:value="${c.idPersona}" th:text="${c.nombre} +' '+ ${c.apellido} " > </option>
+        </select>
+        </div>
 
         <div class="text-center">
-            <input class="btn btn-primary button" type="submit" value="Eliminar"/>
+            <input class="btn btn-primary button" type="submit" value="Eliminar" />
         </div>
     </form>
 

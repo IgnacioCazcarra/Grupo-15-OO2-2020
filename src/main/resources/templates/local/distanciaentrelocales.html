@@ -38,7 +38,7 @@
         </div>
     </nav>
 
-    <form action="sacardistancia" class="formulario" method="Post" onsubmit="return validar()">
+    <form action="sacardistancia" id="form" class="formulario" method="Post" onsubmit="return validar()">
 
         <div class="text-center">
             <h2>Distancia entre locales</h2>
@@ -64,10 +64,41 @@
         </div>
     </form>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ERROR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    Debe ingresar dos locales diferentes
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
-        function validar() {
-            return (document.getElementById("local1").value == document.getElementById("local2").value) ? false : true;
-        }
+        $(document).ready(function() {
+            $("#form").on("submit", function() {
+
+                var local1 = $("#local1").val();
+                var local2 = $("#local2").val();
+
+                if (local1 == local2) {
+                    $("#exampleModal").modal("toggle");
+                    return false;
+                } else {
+                    return true;
+                }
+
+            });
+        });
     </script>
 
 </body>

@@ -3,13 +3,17 @@
 
 <head>
     <title>Actualizar Pedido</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
 
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
 
 <body>
@@ -35,57 +39,57 @@
         </form>
     </nav>
 
-	<form action="#" class="formulario" th:action="@{/pedidos/update}" th:object="${pedido}" method="post">
-		<input type="hidden" th:field="*{idPedido}" />
-		<div class="text-center">
-			<h2>Editar Pedido</h2>
-		</div>
-		
-		<div class="form-group">
+    <form action="#" class="formulario" th:action="@{/pedidos/update}" th:object="${pedido}" method="post">
+        <input type="hidden" th:field="*{idPedido}" />
+        <div class="text-center">
+            <h2>Editar Pedido</h2>
+        </div>
+
+        <div class="form-group">
             <strong>Cantidad</strong>
             <input type="number" min="1" class="form-control form-control-sm" th:field="*{cantidad}" placeholder="Ingrese cantidad" />
         </div>
-		<div class="form-group row">
+        <div class="form-group row">
             <strong class="col-sm-2 col-form-label col-form-label-sm">Producto</strong>
             <div class="col-sm-10">
-            	<select placeholder="Producto" th:field="*{producto.idProducto}">
+                <select placeholder="Producto" th:field="*{producto.idProducto}">
                 	<option th:each= "p : ${productos}" th:value="${p.idProducto}" th:text= "${p.descripcion}"></option> 
             	</select>
             </div>
         </div>
-		
-		<div class="form-group row">
+
+        <div class="form-group row">
             <strong class="col-sm-2 col-form-label col-form-label-sm">Cliente</strong>
             <div class="col-sm-10">
-            	<select placeholder="Cliente" th:field="*{cliente.idPersona}">
+                <select placeholder="Cliente" th:field="*{cliente.idPersona}">
 					<option th:each="c : ${clientes}" th:value="${c.idPersona}" th:text="${c.nombre} + ' ' + ${c.apellido}"></option>
 				</select>
-			</div>
-		</div>
-		
-		<div class="form-group row">
+            </div>
+        </div>
+
+        <div class="form-group row">
             <strong class="col-sm-2 col-form-label col-form-label-sm">Vendedor</strong>
             <div class="col-sm-10">
-            	<select placeholder="Empleado" th:field="*{vendedor.idPersona}"> 
+                <select placeholder="Empleado" th:field="*{vendedor.idPersona}"> 
 					<option th:each="e : ${empleados}" th:value="${e.idPersona}" th:text="${e.nombre} +' '+ ${e.apellido}"> </option>
 				</select>
-			</div>
-		</div>
-		
-		<div class="form-group">
+            </div>
+        </div>
+
+        <div class="form-group">
             <strong>Estado</strong>
             <input type="checkbox" th:field="*{aceptado}" />
-        </div>		
-	<input type="hidden" th:field="*{vendedor.Local.idLocal}"/>
-	<div class="text-center">
-	<input class="btn btn-success" type="submit" value="Actualizar" />
-	</div>
-	</form>
-	<div class="text-center">
-		<form action="#" class="formulario-delete" th:action="@{/pedidos/delete/{id}(id=${pedido.idPedido})}" method="post">
-			<input type="submit" class="btn btn-danger" value="Eliminar Pedido" />
-		</form>
-	</div>
+        </div>
+        <input type="hidden" th:field="*{vendedor.Local.idLocal}" />
+        <div class="text-center">
+            <input class="btn btn-success" type="submit" value="Actualizar" />
+        </div>
+    </form>
+    <div class="text-center">
+        <form action="#" class="formulario-delete" th:action="@{/pedidos/delete/{id}(id=${pedido.idPedido})}" method="post">
+            <input type="submit" class="btn btn-danger" value="Eliminar Pedido" />
+        </form>
+    </div>
 
 </body>
 
