@@ -4,17 +4,23 @@
 
 <head>
     <title>Actualizar Local</title>
+
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
 
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
-    <script src="../../js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
 
 <body>
-	
-	<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
         <a class="navbar-brand" th:href="@{/}">UNLa</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -23,6 +29,7 @@
             <div class="navbar-nav">
                 <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/stocks/}">Stock</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
                 <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
@@ -33,8 +40,9 @@
             <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
             <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
         </form>
-    	</nav>
-	
+        </div>
+    </nav>
+
     <form action="#" class="formulario" th:action="@{/locales/update}" th:object="${local}" method="post">
         <input type="hidden" th:field="*{idLocal}" />
         <div class="text-center">
@@ -57,14 +65,14 @@
             <input type="text" class="form-control form-control-sm" th:field="*{telefono}" placeholder="Ingrese un telefono" />
         </div>
         <div class="text-center">
-        <input class="btn btn-success" type="submit" value="Actualizar" />
+            <input class="btn btn-success" type="submit" value="Actualizar" />
         </div>
     </form>
-    	<div class="text-center">
-    		<form action="#" class="formulario-delete" th:action="@{/locales/delete/{id}(id=${local.idLocal})}" method="post">
-        		<input class="btn btn-danger" type="submit" value="Eliminar local" />
-    		</form>
-		</div>
+    <div class="text-center">
+        <form action="#" class="formulario-delete" th:action="@{/locales/delete/{id}(id=${local.idLocal})}" method="post">
+            <input class="btn btn-danger" type="submit" value="Eliminar local" />
+        </form>
+    </div>
 </body>
 
 </html>

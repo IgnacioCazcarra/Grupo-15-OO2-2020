@@ -10,6 +10,7 @@
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
 
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
@@ -61,16 +62,16 @@
                     <td><span th:text="${local.latitud}" /></td>
                     <td><span th:text="${local.longitud}" /></td>
                     <td><span th:text="${local.telefono}" /></td>
-                    <td><a th:href="@{/locales/{id}(id=${local.idLocal})}">Ver</a></td>
+                    <td><a class="button-edit" th:href="@{/locales/{id}(id=${local.idLocal})}"><i class="far fa-edit"></i></a></td>
                 </tr>
             </tbody>
         </table>
-        <a class="btn btn-success" href="/locales/new">Crear</a>
+        <a class="btn btn-success" href="/locales/new">Agregar</a>
         <a class="btn btn-info" href="/locales/distanciaentrelocales">Distancia entre locales</a>
-		<p></p>
-	    <a class="btn btn-danger" href="/locales/eliminarcliente">Eliminar cliente</a>
-	    <p></p>
-	    <a class="btn btn-danger" href="/locales/eliminarempleado">Eliminar empleado</a>
+        <p></p>
+        <a class="btn btn-danger" href="/locales/eliminarcliente">Eliminar cliente</a>
+        <p></p>
+        <a class="btn btn-danger" href="/locales/eliminarempleado">Eliminar empleado</a>
     </div>
 
 </body>

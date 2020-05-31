@@ -12,6 +12,8 @@
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+
 
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
@@ -73,7 +75,7 @@
                     <td><span th:if="${pedido.colaborador}" th:text="${pedido.colaborador.nombre} +' '+ ${pedido.colaborador.apellido}" /></td>
                     <td><span th:text="${pedido.aceptado}" /></td>
                     <td><span th:text="${pedido.fecha}" /></td>
-                    <td><a th:href="@{/pedidos/{id}(id=${pedido.idPedido})}">Ver</a></td>
+                    <td><a class="button-edit" th:href="@{/pedidos/{id}(id=${pedido.idPedido})}"><i class="far fa-edit"></i></a></td>
 
                 </tr>
             </tbody>

@@ -4,15 +4,14 @@
 <head>
     <title>Lotes</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Merienda+One&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
 
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+
 
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
@@ -65,7 +64,7 @@
                     <td><span th:text="${lote.estado}" /></td>
                     <td><span th:text="${lote.stock.local.direccion}" /></td>
                     <td><span th:text="${lote.stock.codigo}" /></td>
-                    <td><a th:href="@{/lotes/{id}(id=${lote.idLote})}">Ver</a></td>
+                    <td><a class="button-edit" th:href="@{/lotes/{id}(id=${lote.idLote})}"><i class="far fa-edit"></i></a></td>
                 </tr>
             </tbody>
         </table>

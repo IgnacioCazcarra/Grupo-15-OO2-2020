@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 *{
     font-family: 'Roboto', sans-serif;
 }
@@ -14,11 +16,17 @@ body{
 
 .button{
     background-color: rgb(0, 0, 0) !important;
+    padding: 6px 17px !important;
 }
 
-.button2{
-    background-color: #50d890 !important;
+.button-edit{
+    background-color: #0a8997 !important;
+    padding: 6px 17px;
+    color: rgb(255, 255, 255) !important;
+    border-radius: 0.25rem;
+
 }
+
 
 .banner h1{
     font-family: 'monospace';
@@ -35,6 +43,7 @@ body{
     margin-left: auto;
     margin-right: auto;
     margin-top: 40px;
+    box-shadow: 0 0 1.4rem rgba(53, 49, 49, 0.40);
 }
 
 .input-name{
@@ -52,4 +61,38 @@ body{
     padding-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
+    box-shadow: 0 0 1.4rem rgba(53, 49, 49, 0.40);
+
 }
+
+.btn-info, .btn-info:hover, .btn-info:active, .btn-info:visited {
+    background-color: #035aa6 !important;
+    border: none !important;
+}
+
+.btn-success, .btn-success, .btn-success:active, .btn-success:visited {
+    background-color: #06623b !important;
+    border: none !important;
+}
+
+.btn-danger, .btn-danger, .btn-danger:active, .btn-danger:visited {
+    background-color: #9d0b0b !important;
+    border: none !important;
+}
+
+.btn-warning, .btn-warning, .btn-warning:active, .btn-danger:visited {
+    background-color: #46185f !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-dark, .btn-dark, .btn-dark:active, .btn-dark:visited {
+    background-color: #000000 !important;
+    color: white !important;
+    border: none !important;
+}
+
+a{
+    text-decoration: none !important;
+}
+

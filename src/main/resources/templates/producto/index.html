@@ -12,6 +12,7 @@
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
 
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
@@ -61,7 +62,7 @@
                     <td><span th:text="${producto.descripcion} " /></td>
                     <td><span th:text="${producto.precio} " /></td>
                     <td><span th:text="${producto.fechaAlta} " /></td>
-                    <td><a th:href="@{/productos/{id}(id=${producto.idProducto})} ">Ver</a></td>
+                    <td><a class="button-edit" th:href="@{/productos/{id}(id=${producto.idProducto})} "><i class="far fa-edit"></i></a></td>
 
                 </tr>
             </tbody>
@@ -69,6 +70,7 @@
 
         <a class="btn btn-success " href="# " th:href="@{/productos/new} ">Agregar</a>
         <a class="btn btn-info" href="# " th:href="@{/ranking/} ">Ranking de Productos</a>
+
 
     </div>
 

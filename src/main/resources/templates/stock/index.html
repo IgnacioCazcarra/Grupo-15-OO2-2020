@@ -10,6 +10,8 @@
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+
 
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
@@ -56,7 +58,7 @@
                 <tr th:each="stock : ${stocks}">
                     <td><span th:text="${stock.codigo}" /></td>
                     <td><span th:text="${stock.local.direccion}" /></td>
-                    <td><a th:href="@{/stocks/{id}(id=${stock.idStock})}">Ver</a></td>
+                    <td><a class="button-edit" th:href="@{/stocks/{id}(id=${stock.idStock})}"><i class="far fa-edit"></i></a></td>
                 </tr>
             </tbody>
         </table>
@@ -65,7 +67,7 @@
 
         <a class="btn btn-info" href="/lotes/new">Agregar Lote</a>
 
-        <a class="btn btn-warning" href="/stocks/calcularStockPorProducto">Calcular stock por producto: </a>
+        <a class="btn btn-warning" href="/stocks/calcularStockPorProducto">Calcular stock por producto </a>
 
         <hr>
 

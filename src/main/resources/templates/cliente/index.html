@@ -10,6 +10,9 @@
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
     <script src="../../js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+
+
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
 
@@ -60,7 +63,9 @@
                     <td><span th:text="${cliente.fechaNacimiento}" /></td>
                     <td><span th:text="${cliente.dni}" /></td>
                     <td><span th:text="${cliente.email}" /></td>
-                    <td><a th:href="@{/clientes/{id}(id=${cliente.idPersona})}">Ver</a></td>
+                    <td>
+                        <a class="button-edit" th:href="@{/clientes/{id}(id=${cliente.idPersona})}"><i class="far fa-edit"></i></a>
+                    </td>
                 </tr>
             </tbody>
         </table>

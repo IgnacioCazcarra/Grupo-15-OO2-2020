@@ -10,6 +10,8 @@
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+
 
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 
@@ -68,12 +70,14 @@
                     <td><span th:text="${empleado.gerente}" /></td>
                     <td><span th:text="${empleado.Local.direccion}" /></td>
 
-                    <td><a th:href="@{/empleados/{id}(id=${empleado.idPersona})}">Ver</a></td>
+                    <td><a class="button-edit" th:href="@{/empleados/{id}(id=${empleado.idPersona})}"><i class="far fa-edit"></i></a></td>
 
                 </tr>
             </tbody>
         </table>
         <a class="btn btn-success" href="/empleados/new">Agregar</a>
+        <a class="btn btn-info" th:href="@{/empleados/sueldos}">Sueldo de empleados</a>
+
 
     </div>
 
