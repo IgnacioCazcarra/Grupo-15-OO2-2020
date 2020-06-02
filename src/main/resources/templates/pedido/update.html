@@ -83,7 +83,7 @@
             <input type="checkbox" th:field="*{aceptado}" />
         </div>
         <input type="hidden" th:field="*{vendedor.Local.idLocal}" />
-        <div class="text-center">
+        <div th:if="${not pedido.aceptado}" class="text-center">
             <input class="btn btn-success" type="submit" value="Actualizar" />
         </div>
     </form>
