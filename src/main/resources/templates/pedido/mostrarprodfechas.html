@@ -42,13 +42,14 @@
     </nav>
 
     <div class="container-fluid">
-        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
+        <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${fecha2 != null}" th:text="'Los productos vendidos entre las fechas '+ ${fecha1} +' y '+ ${fecha2}" class="alert">
         </div>
 
         <table class="table table-striped">
             <thead class="bg-info">
                 <tr>
                     <th>Nombre</th>
+                    <th>Descripcion</th>
                     <th>Precio</th>
 
                 </tr>
@@ -56,6 +57,7 @@
             <tbody>
                 <tr th:each="p : ${productosFecha}">
                     <td><span th:text="${p.nombre}" /></td>
+                    <td><span th:text="${p.descripcion}" /></td>
                     <td><span th:text="${p.precio}" /></td>
                 </tr>
             </tbody>

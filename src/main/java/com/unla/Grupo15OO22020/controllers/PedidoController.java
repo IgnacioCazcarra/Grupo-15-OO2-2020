@@ -2,6 +2,7 @@ package com.unla.Grupo15OO22020.controllers;
 
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -346,16 +347,17 @@ public class PedidoController {
 		
 		ModelAndView mAV = new ModelAndView("pedido/mostrarprodfechas");
 		Set<Producto> listProduc = productosVendidosEntreFechas(local, fecha1, fecha2);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-		mAV.addObject("fecha1", fecha1);
-		mAV.addObject("fecha2", fecha2);
+		mAV.addObject("fecha1", formatter.format(fecha1));
+		mAV.addObject("fecha2", formatter.format(fecha2));
 		mAV.addObject("local", local);
 		mAV.addObject("productosFecha", listProduc);
-		
+		/*
 		model.addAttribute("fecha1", fecha1);
 		model.addAttribute("fecha2", fecha2);
 		model.addAttribute("local", local);
-		model.addAttribute("productosFecha", listProduc);
+		model.addAttribute("productosFecha", listProduc);*/
 		
 		return mAV;
 	}

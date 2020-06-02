@@ -34,10 +34,10 @@
                 <a class="nav-item nav-link" href="#" th:href="@{/locales/}">Locales</a>
             </div>
         </div>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+        <div class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" id="search" type="search" placeholder="Buscar" aria-label="Search">
             <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
-        </form>
+        </div>
         </div>
     </nav>
 
@@ -45,7 +45,7 @@
         <div th:classappend="'alert-' + (${clase != null} ? ${clase} : info)" th:if="${mensaje != null}" th:text="${mensaje}" class="alert">
         </div>
 
-        <table class="table table-striped">
+        <table class="table table-striped" id="client-table">
             <thead class="bg-info">
                 <tr>
                     <th>Nombre</th>
@@ -72,6 +72,31 @@
         <a class="btn btn-success" href="/clientes/new">Agregar</a>
 
     </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#search').keyup(function() { //Cuando suelto una tecla
+                search_table($(this).val()); //Llamo a la funcion y paso el valor del input search
+            });
+
+            function search_table(value) {
+
+                $('#client-table tbody tr').each(function() { //Por cada registro 
+                    var found = 'false';
+                    $(this).each(function() { // Por cada dato del registro
+                        if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) { // Paso las dos a minuscula y comparo 
+                            found = 'true'; // Si son iguales cambio la bandera a TRUE
+                        }
+                    });
+                    if (found == 'true') {
+                        $(this).show(); // Muestro los registros que coinciden con lo ingresado
+                    } else {
+                        $(this).hide(); // Escondo los registros que coinciden con lo ingresado
+                    }
+                });
+            }
+        });
+    </script>
 
 </body>
 
