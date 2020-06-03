@@ -165,11 +165,13 @@ public class EmpleadoController{
 	}
 	
 	//O(n)
-	public Set<SueldoEmpleadoModel> sueldoEmpleados(int mes, int año,List<Pedido> pedidos, List<Empleado> empleados){
+	public Set<SueldoEmpleadoModel> sueldoEmpleados(int mes, int año, List<Pedido> pedidos, List<Empleado> empleados){
 		
 		Map<Long, Double> map = new HashMap<Long, Double>();
 		
-		int porcentaje = 0;
+		int porcentaje=0;
+		int porcentaje2=0;
+		
 		Set<SueldoEmpleadoModel> empleadosConSueldo = new HashSet<SueldoEmpleadoModel>();
 	
 		//Pasamos al mapa todos los empleados con un sueldo base de 20k.
@@ -191,11 +193,14 @@ public class EmpleadoController{
 				else if(map.containsKey(p.getVendedor().getIdPersona()) && p.getColaborador()!=null){
 					porcentaje = (int) (0.03*p.getSubtotal());
 					map.replace(p.getVendedor().getIdPersona(), map.get(p.getVendedor().getIdPersona())+porcentaje);
+					
+					porcentaje2 = (int) (0.02*p.getSubtotal());
+					map.replace(p.getColaborador().getIdPersona(), map.get(p.getColaborador().getIdPersona())+porcentaje2);
 				}
-				else if(map.containsKey(p.getColaborador().getIdPersona())) {
-					porcentaje = (int) (0.02*p.getSubtotal());
-					map.replace(p.getVendedor().getIdPersona(), map.get(p.getVendedor().getIdPersona())+porcentaje);
-				}
+//				else if(map.containsKey(p.getColaborador().getIdPersona())) {
+//					porcentaje = (int) (0.02*p.getSubtotal());
+//					map.replace(p.getColaborador().getIdPersona(), map.get(p.getColaborador().getIdPersona())+porcentaje);
+//				}
 				
 			}
 		}
