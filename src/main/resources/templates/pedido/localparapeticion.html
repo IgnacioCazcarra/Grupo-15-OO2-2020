@@ -49,6 +49,12 @@
 		<option  th:each= "l,iterStat  : ${localesConStockPorCantidad}"  th:value="${l.idLocal}" th:text="${l.direccion} + ' ' + ${listaDistancias[iterStat.index]} + ' km'"  ></option> 
 		</select>
 		</p>
+		<p>PEDIDO A RESOLVER:</p>
+		 <select placeholder="Pedido" th:field="*{pedido.idPedido}" class="form-control form-control-sm">
+          <option th:each= "p : ${pedidos}" th:value="${p.idPedido}" th:text= "${p.fecha}"></option> 
+           </select>
+		
+		
 			<input type="hidden" th:field="*{pedido.idPedido}"/>
             <input class="btn btn-success" type="submit" value="Guardar"/>
         </form>

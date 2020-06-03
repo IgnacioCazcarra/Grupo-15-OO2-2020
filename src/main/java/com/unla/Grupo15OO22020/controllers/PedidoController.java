@@ -201,7 +201,7 @@ public class PedidoController {
 					model.addAttribute("locales", localService.getAll());
 					model.addAttribute("localesConStockPorCantidad", localesConCercania);
 					model.addAttribute("local1", new LocalModel());
-					model.addAttribute("pedido", pedidoModel);
+					
 
 					model.addAttribute("localPrincipal", localService.findByIdLocal(empleadoService
 					.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getDireccion());
@@ -217,19 +217,19 @@ public class PedidoController {
 					}
 
 					model.addAttribute("listaDistancias", mostrarDistancias);
-					
-					
-//					pedidoService.insertOrUpdate(pedidoModel);
 
 					ModelAndView mAV2 = new ModelAndView(ViewRouteHelpers.PEDIDO_LOCALPARAPETICION);
 
 					mAV2.addObject("locales", localService.getAll());
 
 					mAV2.addObject("localesConStockPorCantidad", localesConCercania);
-					mAV2.addObject("pedido", pedidoModel);
+					pedidoService.insertOrUpdate(pedidoModel);
+					mAV2.addObject("pedidos", pedidoService.findByIdPedido(pedidoService.getAll().get(pedidoService.getAll().size()-1).getIdPedido()));
+					model.addAttribute("pedidos", pedidoService.findByIdPedido(pedidoService.getAll().get(pedidoService.getAll().size()-1).getIdPedido()));
+	
 					mAV2.addObject("local1", new LocalModel());
 
-
+					
 					
 					return mAV2;
 
@@ -372,9 +372,10 @@ public class PedidoController {
 	
 	@PostMapping("/solicitudstock")
 	public RedirectView pedidoExterno(@ModelAttribute PedidoModel pedidoModel, LocalModel local) {
-		System.out.println(pedidoModel.getIdPedido());
+		
+		System.out.println("PEDIDO LLEGA BIEN: "+ pedidoModel.getIdPedido());
 		LocalModel l = localService.findByIdLocal(local.getIdLocal());
-		System.out.println(pedidoModel.getCantidad());
+	//	System.out.println(pedidoModel.getCantidad());
 		l.setListaEmpleados(empleadoService.findByLocal(l));
 		int empleadoSorteado = (int) Math.random()*(l.getListaEmpleados().size()-1);
 		EmpleadoModel empleadoColaborador = empleadoService.findByIdPersona(l.getListaEmpleados().get(empleadoSorteado).getIdPersona());
