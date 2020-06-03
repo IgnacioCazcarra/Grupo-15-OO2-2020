@@ -60,7 +60,7 @@
             <strong class="col-sm-2 col-form-label col-form-label-sm">Producto</strong>
             <div class="col-sm-10">
                 <select placeholder="Producto" th:field="*{producto.idProducto}" class="form-control form-control-sm">
-                	<option th:each= "p : ${productos}" th:value="${p.idProducto}" th:text= "${p.descripcion}"></option> 
+                	<option th:each= "p : ${productos}" th:value="${p.idProducto}" th:text= "${p.nombre}"></option> 
             	</select>
             </div>
         </div>
