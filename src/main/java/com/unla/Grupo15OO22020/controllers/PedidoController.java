@@ -1,6 +1,5 @@
 package com.unla.Grupo15OO22020.controllers;
 
-
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
@@ -91,8 +90,6 @@ public class PedidoController {
 	@Autowired
 	@Qualifier("pedidoConverter")
 	private PedidoConverter pedidoConverter;
-	
-	
 
 	@GetMapping("")
 	public ModelAndView index() {
@@ -115,29 +112,35 @@ public class PedidoController {
 		mAV.addObject("productos", productoService.getAll());
 		mAV.addObject("clientes", clienteService.getAll());
 		mAV.addObject("empleados", empleadoService.getAll());
-		
+
 		return mAV;
 	}
 
 	@PostMapping("/create")
 	public ModelAndView create(@ModelAttribute("pedido") PedidoModel pedidoModel, Model model,
 			RedirectAttributes redirectAttrs) {
-		
+
 		pedidoModel.setLocal(localService.findByIdLocal(
 				empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()));
 		pedidoModel.setSubtotal(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getPrecio()
 				* pedidoModel.getCantidad());
 
 		if (stockValido(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
-		pedidoModel.getCantidad(), stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(),  pedidoModel.getFecha())) {
-			
+				pedidoModel.getCantidad(),
+				stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona())
+						.getLocal().getIdLocal()).getIdStock(),
+				pedidoModel.getFecha())) {
+
 			pedidoService.insertOrUpdate(pedidoModel);
 
-			if(pedidoModel.isAceptado()) {
-				consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
-						stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(), pedidoModel.getFecha());
+			if (pedidoModel.isAceptado()) {
+				consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
+						pedidoModel.getCantidad(),
+						stockService.findByIdStock(empleadoService
+								.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal())
+								.getIdStock(),
+						pedidoModel.getFecha());
 			}
-			
 
 		} else { // EN CASO DE QUE NO HAYA STOCK EN EL LOCAL PRINCIPAL
 
@@ -147,13 +150,14 @@ public class PedidoController {
 				int cantidadFaltante = pedidoModel.getCantidad() - cantidadLocalPrincipal(pedidoModel.getProducto(),
 						stockService.findByIdStock(empleadoService
 								.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal())
-								.getIdStock(), pedidoModel.getFecha());
+								.getIdStock(),
+						pedidoModel.getFecha());
 
 				if (localesConStockConDistancia(
 						localService.findByIdLocal(empleadoService
 								.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()),
-						productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
-						cantidadFaltante, pedidoModel.getFecha()) != null) {
+						productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()), cantidadFaltante,
+						pedidoModel.getFecha()) != null) {
 					localesConStock = localesConStockConDistancia(pedidoModel.getLocal(), pedidoModel.getProducto(),
 							cantidadFaltante, pedidoModel.getFecha());
 
@@ -203,19 +207,27 @@ public class PedidoController {
 					model.addAttribute("locales", localService.getAll());
 					model.addAttribute("localesConStockPorCantidad", localesConCercania);
 					model.addAttribute("local1", new LocalModel());
-					
 
-					model.addAttribute("localPrincipal", localService.findByIdLocal(empleadoService
-					.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getDireccion());
-					
+					model.addAttribute("localPrincipal",
+							localService.findByIdLocal(empleadoService
+									.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal())
+									.getDireccion());
+
 					ArrayList<Double> mostrarDistancias = new ArrayList<Double>();
 
-					for(LocalModel l : localesConCercania){
-						double distancia = l.distanciaCoord(localService.findByIdLocal(empleadoService
-						.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getLatitud(),localService.findByIdLocal(empleadoService
-						.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getLongitud(),l.getLatitud(), l.getLongitud());
-						
-						mostrarDistancias.add(Math.round(distancia*100)/100.00);
+					for (LocalModel l : localesConCercania) {
+						double distancia = l.distanciaCoord(
+								localService.findByIdLocal(
+										empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona())
+												.getLocal().getIdLocal())
+										.getLatitud(),
+								localService.findByIdLocal(
+										empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona())
+												.getLocal().getIdLocal())
+										.getLongitud(),
+								l.getLatitud(), l.getLongitud());
+
+						mostrarDistancias.add(Math.round(distancia * 100) / 100.00);
 					}
 
 					model.addAttribute("listaDistancias", mostrarDistancias);
@@ -225,19 +237,18 @@ public class PedidoController {
 					mAV2.addObject("locales", localService.getAll());
 
 					mAV2.addObject("localesConStockPorCantidad", localesConCercania);
-					
-					if(!localesConCercania.isEmpty()) {
+
+					if (!localesConCercania.isEmpty()) {
 						pedidoService.insertOrUpdate(pedidoModel);
 					}
-					
-					
-					mAV2.addObject("pedidos", pedidoService.findByIdPedido(pedidoService.getAll().get(pedidoService.getAll().size()-1).getIdPedido()));
-					model.addAttribute("pedidos", pedidoService.findByIdPedido(pedidoService.getAll().get(pedidoService.getAll().size()-1).getIdPedido()));
-	
+
+					mAV2.addObject("pedidos", pedidoService.findByIdPedido(
+							pedidoService.getAll().get(pedidoService.getAll().size() - 1).getIdPedido()));
+					model.addAttribute("pedidos", pedidoService.findByIdPedido(
+							pedidoService.getAll().get(pedidoService.getAll().size() - 1).getIdPedido()));
+
 					mAV2.addObject("local1", new LocalModel());
 
-					
-					
 					return mAV2;
 
 				}
@@ -282,51 +293,129 @@ public class PedidoController {
 //	}
 
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("pedido") PedidoModel pedidoModel,RedirectAttributes redirectAttrs) {
-			
+	public RedirectView update(@ModelAttribute("pedido") PedidoModel pedidoModel, RedirectAttributes redirectAttrs,
+			Model model) {
+
 		java.util.Date utilDate = new java.util.Date();
-	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		pedidoModel.setProducto(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()));
 		pedidoModel.setCliente(clienteService.findByIdPersona(pedidoModel.getCliente().getIdPersona()));
 		pedidoModel.setVendedor(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()));
 		pedidoModel.setLocal(localService.findByIdLocal(
 				empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()));
-		pedidoModel.setSubtotal(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getPrecio() * pedidoModel.getCantidad());
+		pedidoModel.setSubtotal(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getPrecio()
+				* pedidoModel.getCantidad());
 		pedidoModel.setFecha(sqlDate);
-		
-		if(pedidoModel.getColaborador().getIdPersona()!=0) {
+
+		if (pedidoModel.getColaborador().getIdPersona() != 0) {
 			pedidoModel.setColaborador(empleadoService.findByIdPersona(pedidoModel.getColaborador().getIdPersona()));
-			pedidoModel.getColaborador().setLocal(localService.findByIdLocal(
-				empleadoService.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal()));
-		}
-		else {
+			pedidoModel.getColaborador().setLocal(localService.findByIdLocal(empleadoService
+					.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal()));
+		} else {
 			pedidoModel.setColaborador(null);
 		}
 
-		pedidoService.insertOrUpdate(pedidoModel);
-		
-		if(pedidoModel.isAceptado() && pedidoModel.getColaborador()==null) {
-			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
-					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(), pedidoModel.getFecha());
-			
-//			redirectAttrs.addFlashAttribute("mensaje", "No se pudo actualizar su pedido debido a que ya fue confirmado.");
-//			redirectAttrs.addFlashAttribute("clase", "danger");
-//			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
-		}
-		else if(pedidoModel.isAceptado() && pedidoModel.getColaborador()!=null) {
-			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),pedidoModel.getCantidad(),
-					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal()).getIdStock(), pedidoModel.getFecha());
-			
-//			redirectAttrs.addFlashAttribute("mensaje", "No se pudo actualizar su pedido debido a que ya fue confirmado.");
-//			redirectAttrs.addFlashAttribute("clase", "danger");
-//			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
-		}
-			
-			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
-		
+		if (!stockValido(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
+				pedidoModel.getCantidad(),
+				stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona())
+						.getLocal().getIdLocal()).getIdStock(),
+				pedidoModel.getFecha()) && pedidoModel.getColaborador() == null) {
 
-		
-		
+			if (calcularStock(pedidoModel.getProducto(), stockService.findByIdStock(
+					empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal())
+					.getIdStock(), pedidoModel.getFecha()) == 0) {
+
+				redirectAttrs.addFlashAttribute("mensaje",
+						"No se pudo realizar el pedido debido a que no hay stock de " + productoService
+								.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getNombre()
+								+ " en ningun local.");
+				redirectAttrs.addFlashAttribute("clase", "danger");
+
+				return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+
+			} else {
+
+				redirectAttrs.addFlashAttribute("mensaje",
+						"El pedido excede la capacidad del local. Si desea comprar una cantidad superior a "
+								+ calcularStock(pedidoModel.getProducto(),
+										stockService.findByIdStock(empleadoService
+												.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal()
+												.getIdLocal()).getIdStock(),
+										pedidoModel.getFecha())
+								+ " realice otro pedido.");
+				redirectAttrs.addFlashAttribute("clase", "danger");
+				return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+
+			}
+
+		} else if (pedidoModel.getColaborador() != null) {
+
+			if (!stockValido(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
+					pedidoModel.getCantidad(),
+					stockService.findByIdStock(empleadoService
+							.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal())
+							.getIdStock(),
+					pedidoModel.getFecha())) {
+
+				if (calcularStock(pedidoModel.getProducto(),
+						stockService.findByIdStock(empleadoService
+								.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal())
+								.getIdStock(),
+						pedidoModel.getFecha()) == 0) {
+
+					redirectAttrs.addFlashAttribute("mensaje",
+							"No se pudo realizar el pedido debido a que no hay stock de " + productoService
+									.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getNombre()
+									+ " en ningun local.");
+					redirectAttrs.addFlashAttribute("clase", "danger");
+					return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+
+				} else {
+
+					redirectAttrs.addFlashAttribute("mensaje",
+							"El pedido excede la capacidad del local. Si desea comprar una cantidad superior a "
+									+ calcularStock(pedidoModel.getProducto(),
+											stockService.findByIdStock(empleadoService
+													.findByIdPersona(pedidoModel.getColaborador().getIdPersona())
+													.getLocal().getIdLocal()).getIdStock(),
+											pedidoModel.getFecha())
+									+ " realice otro pedido.");
+					redirectAttrs.addFlashAttribute("clase", "danger");
+					return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+
+				}
+
+			}
+
+		}
+
+		pedidoService.insertOrUpdate(pedidoModel);
+
+		if (pedidoModel.isAceptado() && pedidoModel.getColaborador() == null) {
+			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
+					pedidoModel.getCantidad(),
+					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona())
+							.getLocal().getIdLocal()).getIdStock(),
+					pedidoModel.getFecha());
+
+//			redirectAttrs.addFlashAttribute("mensaje", "No se pudo actualizar su pedido debido a que ya fue confirmado.");
+//			redirectAttrs.addFlashAttribute("clase", "danger");
+//			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+		} else if (pedidoModel.isAceptado() && pedidoModel.getColaborador() != null) {
+			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
+					pedidoModel.getCantidad(),
+					stockService.findByIdStock(empleadoService
+							.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal())
+							.getIdStock(),
+					pedidoModel.getFecha());
+
+//			redirectAttrs.addFlashAttribute("mensaje", "No se pudo actualizar su pedido debido a que ya fue confirmado.");
+//			redirectAttrs.addFlashAttribute("clase", "danger");
+//			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+		}
+
+		return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
+
 	}
 
 	@PostMapping("/delete/{id}")
@@ -339,25 +428,24 @@ public class PedidoController {
 	public RedirectView back() {
 		return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
 	}
-	
+
 	@GetMapping("/productosentrefechas")
 	public ModelAndView productosentrefechas() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_DATE);
-		
-	//	mAV.addObject("fechasmodel", new FechasModel());
+
+		// mAV.addObject("fechasmodel", new FechasModel());
 		mAV.addObject("productos", productoService.getAll());
 		mAV.addObject("local", new LocalModel());
 		mAV.addObject("locales", localService.getAll());
-		
-		return mAV;
-	}	
 
-	@RequestMapping(value="/sacarprodfechas", method=RequestMethod.POST)
-	public ModelAndView sacarprodfechas(@ModelAttribute("local") LocalModel local, @RequestParam("fecha1") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha1,
-			@RequestParam("fecha2") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha2
-			, Model model) {
-		
-		
+		return mAV;
+	}
+
+	@RequestMapping(value = "/sacarprodfechas", method = RequestMethod.POST)
+	public ModelAndView sacarprodfechas(@ModelAttribute("local") LocalModel local,
+			@RequestParam("fecha1") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha1,
+			@RequestParam("fecha2") @DateTimeFormat(pattern = "yy-MM-dd") Date fecha2, Model model) {
+
 		ModelAndView mAV = new ModelAndView("pedido/mostrarprodfechas");
 		Set<Producto> listProduc = productosVendidosEntreFechas(local, fecha1, fecha2);
 		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -367,15 +455,14 @@ public class PedidoController {
 		mAV.addObject("local", local);
 		mAV.addObject("productosFecha", listProduc);
 		/*
-		model.addAttribute("fecha1", fecha1);
-		model.addAttribute("fecha2", fecha2);
-		model.addAttribute("local", local);
-		model.addAttribute("productosFecha", listProduc);*/
-		
+		 * model.addAttribute("fecha1", fecha1); model.addAttribute("fecha2", fecha2);
+		 * model.addAttribute("local", local); model.addAttribute("productosFecha",
+		 * listProduc);
+		 */
+
 		return mAV;
 	}
-	
-	
+
 //	@GetMapping("/solicitudstock")
 //	public ModelAndView getPedidoExterno(){
 //		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_LOCALPARAPETICION);
@@ -386,40 +473,43 @@ public class PedidoController {
 //
 //		return mAV;
 //	}
-	
+
 	@PostMapping("/solicitudstock")
 	public RedirectView pedidoExterno(@ModelAttribute PedidoModel pedidoModel, LocalModel local) {
-		
+
 		PedidoModel p = pedidoService.findByIdPedido(pedidoModel.getIdPedido());
 		LocalModel l = localService.findByIdLocal(local.getIdLocal());
 		l.setListaEmpleados(empleadoService.findByLocal(l));
-		int empleadoSorteado = (int) Math.random()*(l.getListaEmpleados().size()-1);
-		EmpleadoModel empleadoColaborador = empleadoService.findByIdPersona(l.getListaEmpleados().get(empleadoSorteado).getIdPersona());
+		int empleadoSorteado = (int) Math.random() * (l.getListaEmpleados().size() - 1);
+		EmpleadoModel empleadoColaborador = empleadoService
+				.findByIdPersona(l.getListaEmpleados().get(empleadoSorteado).getIdPersona());
 		pedidoModel.setColaborador(empleadoColaborador);
-		
+
 		java.util.Date utilDate = new java.util.Date();
-	    java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+		java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 		pedidoModel.setProducto(productoService.findByIdProducto(p.getProducto().getIdProducto()));
 		pedidoModel.setCliente(clienteService.findByIdPersona(p.getCliente().getIdPersona()));
 		pedidoModel.setVendedor(empleadoService.findByIdPersona(p.getVendedor().getIdPersona()));
 		pedidoModel.setLocal(localService.findByIdLocal(
 				empleadoService.findByIdPersona(p.getVendedor().getIdPersona()).getLocal().getIdLocal()));
-		pedidoModel.setSubtotal(productoService.findByIdProducto(p.getProducto().getIdProducto()).getPrecio() * p.getCantidad());
+		pedidoModel.setSubtotal(
+				productoService.findByIdProducto(p.getProducto().getIdProducto()).getPrecio() * p.getCantidad());
 		pedidoModel.setFecha(sqlDate);
 		pedidoModel.setCantidad(p.getCantidad());
 		pedidoModel.setAceptado(p.isAceptado());
-		
-		if(pedidoModel.isAceptado()) {
+
+		if (pedidoModel.isAceptado()) {
 			consumoStock(pedidoModel.getProducto(), pedidoModel.getCantidad(),
-					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal()).getIdStock(), 
+					stockService.findByIdStock(empleadoService
+							.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal())
+							.getIdStock(),
 					pedidoModel.getFecha());
 		}
 
 		pedidoService.insertOrUpdate(pedidoModel);
 		return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
 	}
-	
-	
+
 	public List<Lote> lotesDelProducto(ProductoModel productoModel, long id, Date fecha) {
 		List<Lote> lotesActivos = new ArrayList<Lote>();
 		for (Lote l : loteService.getAll()) {
@@ -430,7 +520,7 @@ public class PedidoController {
 		}
 		return lotesActivos;
 	}
-	
+
 	public int calcularStock(ProductoModel productoModel, long id, Date fecha) {
 		int total = 0;
 		for (Lote l : lotesDelProducto(productoModel, id, fecha)) {
@@ -440,8 +530,9 @@ public class PedidoController {
 	}
 
 	public boolean stockValido(ProductoModel productoModel, int cantidad, long id, Date fecha) {
-		return (calcularStock(productoModel, id, fecha) >= cantidad) ? true : false; // SI EL STOCK DISPONIBLE ES MAYOR O IGUAL
-																				// A LA CANTIDAD
+		return (calcularStock(productoModel, id, fecha) >= cantidad) ? true : false; // SI EL STOCK DISPONIBLE ES MAYOR
+																						// O IGUAL
+		// A LA CANTIDAD
 	}
 
 	public int cantidadLocalPrincipal(ProductoModel productoModel, long id, Date fecha) {
@@ -478,24 +569,23 @@ public class PedidoController {
 		}
 
 	}
-	
 
-	public Set<Producto> productosVendidosEntreFechas(LocalModel l1, Date comienzo, Date fin){
-		
+	public Set<Producto> productosVendidosEntreFechas(LocalModel l1, Date comienzo, Date fin) {
+
 		List<Pedido> pedidos = pedidoService.getAll();
 		Set<Producto> productoList = new HashSet<Producto>();
-				
-		for(Pedido p: pedidos) {
-			if(p.getFecha().before(fin) && p.getFecha().after(comienzo)) {
-				if(p.isAceptado() && p.getLocal().equals(localConverter.modelToEntity(l1))) {
-						productoList.add(p.getProducto());
+
+		for (Pedido p : pedidos) {
+			if (p.getFecha().before(fin) && p.getFecha().after(comienzo)) {
+				if (p.isAceptado() && p.getLocal().equals(localConverter.modelToEntity(l1))) {
+					productoList.add(p.getProducto());
 				}
 			}
 		}
 		return productoList;
-		
+
 	}
-	
+
 	public Set<LocalModel> localesConStock(ProductoModel producto, int cantidad, Date fecha) {
 		Set<LocalModel> locales = new HashSet<LocalModel>();
 		List<Lote> lotes = loteService.getAll();
@@ -510,7 +600,7 @@ public class PedidoController {
 
 		if (total >= cantidad) {
 			for (Lote l : lotes) {
-				if (l.getProducto().getIdProducto() == producto.getIdProducto()  && l.getFechaIngreso().before(fecha)) {
+				if (l.getProducto().getIdProducto() == producto.getIdProducto() && l.getFechaIngreso().before(fecha)) {
 					locales.add(localService.findByIdLocal(l.getStock().getIdStock()));
 				}
 			}
@@ -520,7 +610,8 @@ public class PedidoController {
 		return locales;
 	}
 
-	public Set<LocalModel> localesConStockConDistancia(LocalModel local, ProductoModel producto, int cantidad, Date fecha) {
+	public Set<LocalModel> localesConStockConDistancia(LocalModel local, ProductoModel producto, int cantidad,
+			Date fecha) {
 		Set<LocalModel> listaLocales = new HashSet<LocalModel>();
 		for (LocalModel l : this.localesConStock(producto, cantidad, fecha)) {
 			// CALCULAR DISTANCIA.
@@ -541,7 +632,8 @@ public class PedidoController {
 		return radioTierra * va2;
 	}
 
-	public LocalModel localesConStockConDistanciaPorLocal(ProductoModel producto, int cantidad, LocalModel local, Date fecha) {
+	public LocalModel localesConStockConDistanciaPorLocal(ProductoModel producto, int cantidad, LocalModel local,
+			Date fecha) {
 		LocalModel localModel = null;
 		try {
 			localModel = this.localesConStockPorLocal(producto, cantidad, local, fecha);
@@ -603,6 +695,5 @@ public class PedidoController {
 		return localesConStockPorCantidad;
 
 	}
-	
 
 }
