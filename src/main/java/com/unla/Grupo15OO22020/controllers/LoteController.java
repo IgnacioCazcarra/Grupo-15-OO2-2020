@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.unla.Grupo15OO22020.converters.StockConverter;
+import com.unla.Grupo15OO22020.entities.Producto;
 import com.unla.Grupo15OO22020.helpers.ViewRouteHelpers;
 import com.unla.Grupo15OO22020.implementation.LocalService;
 import com.unla.Grupo15OO22020.implementation.ProductoService;
@@ -76,16 +77,17 @@ public class LoteController {
 	
 	
 	@PostMapping("/create")
-	public RedirectView create(@ModelAttribute("lote") LoteModel loteModel) {
+	public RedirectView create(@ModelAttribute("lote") LoteModel loteModel, RedirectAttributes redirectAttrs ) {
 		loteModel.setCantidadInicial(loteModel.getCantidadActual());
 		loteService.insertOrUpdate(loteModel);
 	StockModel stockModel =	stockService.findByIdStock(loteModel.getStock().getIdStock());
 	System.out.println("Se trajo bien: " + stockService.findByIdStock(loteModel.getStock().getIdStock()).getIdStock());
 		stockModel.getLotes().add(loteModel);
 		stockService.insertOrUpdate(stockModel);
-		System.out.println("TRAIDO: " + stockModel.getLotes().get(0).getCantidadActual());
+		redirectAttrs.addFlashAttribute("mensaje","Agregado Correctamente");
+		redirectAttrs.addFlashAttribute("clase", "success");
 		
-		return new RedirectView(ViewRouteHelpers.LOTE_ROOT);
+		return new RedirectView(ViewRouteHelpers.LOTE_ROOT);		
 	}
 	
 	
@@ -101,11 +103,13 @@ public class LoteController {
 	
 	
 	@PostMapping("/update")
-	public RedirectView update(@ModelAttribute("lote") LoteModel loteModel) {
+	public RedirectView update(@ModelAttribute("lote") LoteModel loteModel, RedirectAttributes redirectAttrs) {
 		loteModel.setCantidadInicial(loteService.findByIdLote(loteModel.getIdLote()).getCantidadInicial());		
 		loteModel.setProducto(productoService.findByIdProducto(loteModel.getProducto().getIdProducto()));
 		loteModel.setStock(stockConverter.modelToEntity(stockService.findByIdStock(loteModel.getStock().getIdStock())));		
 		loteService.insertOrUpdate(loteModel);
+		redirectAttrs.addFlashAttribute("mensaje","Actualizado Correctamente");
+		redirectAttrs.addFlashAttribute("clase", "success");
 		return new RedirectView(ViewRouteHelpers.LOTE_ROOT);
 	}
 
