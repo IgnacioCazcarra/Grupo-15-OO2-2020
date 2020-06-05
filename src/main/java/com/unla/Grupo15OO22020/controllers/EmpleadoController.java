@@ -143,8 +143,6 @@ public class EmpleadoController{
 	@GetMapping("/sueldos")
 	public ModelAndView sueldos() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.EMPLEADO_SUELDOS);
-//		mAV.addObject("mes", mes);
-//		mAV.addObject("año", año);
 		return mAV;		
 	}
 	
@@ -164,7 +162,6 @@ public class EmpleadoController{
 		return mAV;
 	}
 	
-	//O(n)
 	public Set<SueldoEmpleadoModel> sueldoEmpleados(int mes, int año, List<Pedido> pedidos, List<Empleado> empleados){
 		
 		Map<Long, Double> map = new HashMap<Long, Double>();
@@ -196,12 +193,7 @@ public class EmpleadoController{
 					
 					porcentaje2 = (int) (0.02*p.getSubtotal());
 					map.replace(p.getColaborador().getIdPersona(), map.get(p.getColaborador().getIdPersona())+porcentaje2);
-				}
-//				else if(map.containsKey(p.getColaborador().getIdPersona())) {
-//					porcentaje = (int) (0.02*p.getSubtotal());
-//					map.replace(p.getColaborador().getIdPersona(), map.get(p.getColaborador().getIdPersona())+porcentaje);
-//				}
-				
+				}				
 			}
 		}
 		

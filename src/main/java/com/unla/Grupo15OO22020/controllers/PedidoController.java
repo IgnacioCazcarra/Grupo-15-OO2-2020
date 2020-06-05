@@ -286,12 +286,6 @@ public class PedidoController {
 		return mAV;
 	}
 
-//	@GetMapping("/resolverPedido/{id}")
-//	public ModelAndView resolverPedido(@PathVariable("id") long idPedido) {
-//		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_LOCALPARAPETICION);
-//		return mAV;
-//	}
-
 	@PostMapping("/update")
 	public RedirectView update(@ModelAttribute("pedido") PedidoModel pedidoModel, RedirectAttributes redirectAttrs,
 			Model model) {
@@ -398,9 +392,6 @@ public class PedidoController {
 							.getLocal().getIdLocal()).getIdStock(),
 					pedidoModel.getFecha());
 
-//			redirectAttrs.addFlashAttribute("mensaje", "No se pudo actualizar su pedido debido a que ya fue confirmado.");
-//			redirectAttrs.addFlashAttribute("clase", "danger");
-//			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
 		} else if (pedidoModel.isAceptado() && pedidoModel.getColaborador() != null) {
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
 					pedidoModel.getCantidad(),
@@ -409,9 +400,6 @@ public class PedidoController {
 							.getIdStock(),
 					pedidoModel.getFecha());
 
-//			redirectAttrs.addFlashAttribute("mensaje", "No se pudo actualizar su pedido debido a que ya fue confirmado.");
-//			redirectAttrs.addFlashAttribute("clase", "danger");
-//			return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
 		}
 
 		return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
@@ -432,8 +420,6 @@ public class PedidoController {
 	@GetMapping("/productosentrefechas")
 	public ModelAndView productosentrefechas() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_DATE);
-
-		// mAV.addObject("fechasmodel", new FechasModel());
 		mAV.addObject("productos", productoService.getAll());
 		mAV.addObject("local", new LocalModel());
 		mAV.addObject("locales", localService.getAll());
@@ -454,25 +440,10 @@ public class PedidoController {
 		mAV.addObject("fecha2", formatter.format(fecha2));
 		mAV.addObject("local", local);
 		mAV.addObject("productosFecha", listProduc);
-		/*
-		 * model.addAttribute("fecha1", fecha1); model.addAttribute("fecha2", fecha2);
-		 * model.addAttribute("local", local); model.addAttribute("productosFecha",
-		 * listProduc);
-		 */
 
 		return mAV;
 	}
 
-//	@GetMapping("/solicitudstock")
-//	public ModelAndView getPedidoExterno(){
-//		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.PEDIDO_LOCALPARAPETICION);
-//
-//		mAV.addObject("locales", localService.getAll());
-//		mAV.addObject("localesConStockPorCantidad", localesConCercania);
-//		mAV.addObject("local1", new LocalModel());
-//
-//		return mAV;
-//	}
 
 	@PostMapping("/solicitudstock")
 	public RedirectView pedidoExterno(@ModelAttribute PedidoModel pedidoModel, LocalModel local) {

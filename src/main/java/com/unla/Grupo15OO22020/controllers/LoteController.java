@@ -81,7 +81,6 @@ public class LoteController {
 		loteModel.setCantidadInicial(loteModel.getCantidadActual());
 		loteService.insertOrUpdate(loteModel);
 	StockModel stockModel =	stockService.findByIdStock(loteModel.getStock().getIdStock());
-	System.out.println("Se trajo bien: " + stockService.findByIdStock(loteModel.getStock().getIdStock()).getIdStock());
 		stockModel.getLotes().add(loteModel);
 		stockService.insertOrUpdate(stockModel);
 		redirectAttrs.addFlashAttribute("mensaje","Agregado Correctamente");

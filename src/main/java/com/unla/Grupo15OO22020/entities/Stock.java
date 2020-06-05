@@ -37,17 +37,6 @@ public class Stock {
 	
 	@Column(name="codigo")
 	private String codigo;
-	//@OneToOne(cascade = CascadeType.MERGE)
-//	private Local local;
-	
-	
-	//@OneToOne(cascade = CascadeType.MERGE)
-	//private Local local;
-
-	
-//	@OneToOne
-  //  @JoinColumn(name = "FK_STOCK", updatable = false, nullable = false)
-  //  private Local local;
 	
 	@Column(name="createdat")
 	@CreationTimestamp

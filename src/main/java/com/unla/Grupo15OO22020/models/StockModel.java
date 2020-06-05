@@ -105,41 +105,7 @@ public class StockModel {
 		return (calcularStock(producto)>=cantidad)? true:false; //SI EL STOCK DISPONIBLE ES MAYOR O IGUAL A LA CANTIDAD
 	}															//SOLICITADA RETORNA TRUE
 	
-	/*public Lote traerLote(int idLote) {
-        int i = 0;
-        Lote loteEncontrado = null;
-
-        while(i<lotes.size() && loteEncontrado == null) {
-            Lote l = lotes.get(i);
-            if(l.getIdLote()==idLote) {
-                loteEncontrado = l;
-            }
-            i++;
-        }
-
-        return loteEncontrado;
-    }
-	*/ //Error: de nuevo los get de las listas al cambiar a set
-    /**/
-
-    /*public void altaStock(int idLote) throws Exception {
-
-        if(traerLote(idLote)==null) throw new Exception("Lote inexistente");
-
-        setCantidad(cantidad+traerLote(idLote).getCantidadInicial());
-
-
-    }/* ERROR: el traerLote esta comentado
-    /**/
-
-    /*public boolean agregarLote(int cantidadInicial, LocalDate fechaIngreso, Producto producto) {
-        int id =1;
-        if(!lotes.isEmpty()) {
-            id = lotes.get(lotes.size()-1).getIdLote()+1;
-        }
-
-        return lotes.add(new Lote(id,cantidadInicial,cantidadInicial,fechaIngreso,producto));
-    }*///ERROR: de nuevo error con el Set y en el add del set lotes
+	
 	
 	public boolean consumoStock(ProductoModel producto, int cantidad) throws Exception{
 		if (!stockValido(producto, cantidad)) throw new Exception("No alcanza el stock");

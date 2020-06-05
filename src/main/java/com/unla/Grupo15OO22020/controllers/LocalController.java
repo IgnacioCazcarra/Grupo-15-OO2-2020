@@ -150,34 +150,13 @@ public class LocalController {
 		return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
 	}
 
-	
-//	@RequestParam double lat1
 	@GetMapping("/distanciaentrelocales")
 	public ModelAndView distanciaentrelocales() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.LOCAL_DISTANCE);
-	//	mAV.addObject("locales", localService.getAll());
-	//	mAV.addObject("local", new LocalModel());
 		mAV.addObject("locales", localService.getAll());
 		
 		return mAV;
 	}
-	
-
-//@RequestMapping(value="/sacardistancia", method=RequestMethod.POST)
-//public ModelAndView sacardistancia(@RequestParam("lat1") double lat1,
-//		@RequestParam("lng1") double lng1,
-//		@RequestParam("lat2") double lat2,
-//		@RequestParam("lng2") double lng2
-//		, Model model) {
-//	model.addAttribute("lat1", lat1);
-//	model.addAttribute("lng1", lng1);
-//	model.addAttribute("lat2", lat2);
-//	model.addAttribute("lng2", lng2);
-//	ModelAndView mAV = new ModelAndView("local/mostrarDistancia");
-//	double distancia=	distanciaCoord(lat1, lng1, lat2, lng2);
-//	model.addAttribute("distancia", distancia);
-//	return mAV;
-//}
 
 @RequestMapping(value="/sacardistancia", method=RequestMethod.POST)
 public ModelAndView sacardistancia(LocalesModel locales, Model model) {
@@ -216,9 +195,6 @@ public ModelAndView sacardistancia(LocalesModel locales, Model model) {
 	@GetMapping("/eliminarcliente")
 	public ModelAndView eliminarcliente() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.LOCAL_ELIMINARCLIENTE);
-	//	mAV.addObject("locales", localService.getAll());
-	//	mAV.addObject("local", new LocalModel());
-		
 		mAV.addObject("locales", localService.getAll());
 		mAV.addObject("clientes", clienteService.getAll());
 		mAV.addObject("cliente", new ClienteModel());
@@ -228,9 +204,6 @@ public ModelAndView sacardistancia(LocalesModel locales, Model model) {
 	@GetMapping("/eliminarempleado")
 	public ModelAndView eliminarempleado() {
 		ModelAndView mAV = new ModelAndView(ViewRouteHelpers.LOCAL_ELIMINAREMPLEADO);
-	//	mAV.addObject("locales", localService.getAll());
-	//	mAV.addObject("local", new LocalModel());
-		
 		mAV.addObject("locales", localService.getAll());
 		mAV.addObject("empleados", empleadoService.getAll());
 		mAV.addObject("empleado", new EmpleadoModel());

@@ -174,9 +174,6 @@ public class StockController {
 		ModelAndView mAV = new ModelAndView("stock/mostrarStockPorProducto");
 		int i = 0;
 		int total = 0;
-		
-		System.out.println("----------------------------------------------------------------------\n");
-		//System.out.println("Local:" +stockService.findByIdStock(stockModel.getIdStock()).getLocal().getIdLocal());
 
 		while(i < stockService.getAll().size()) {
 			if(stockService.getAll().get(i).getIdStock() == stockService.findByIdStock(stockModel.getIdStock()).getIdStock()) {

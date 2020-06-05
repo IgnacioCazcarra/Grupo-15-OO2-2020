@@ -34,12 +34,9 @@ public class Lote {
 	private int cantidadActual;
 	
 	@Column(name="fechaIngreso")
-	//@CreationTimestamp
 	private Date fechaIngreso;
 	
-	//@OneToOne(cascade = CascadeType.ALL)
 	@OneToOne(cascade = CascadeType.MERGE)
-  // @JoinColumn(name = "producto_idProducto", referencedColumnName = "idProducto")
     private Producto producto;
 	
 	
