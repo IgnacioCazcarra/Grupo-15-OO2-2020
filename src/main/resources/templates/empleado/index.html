@@ -4,14 +4,22 @@
 <head>
     <title>Empleados</title>
 
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <!--  Datatables  -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css" />
+
+    <!--  extension responsive  -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.dataTables.min.css">
+
+    <!--  Bootstrap JS  -->
 
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
-
 
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 
@@ -81,30 +89,46 @@
 
     </div>
 
+
+    <!--   Datatables-->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
+
+    <!-- extension responsive -->
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#search').keyup(function() { //Cuando suelto una tecla
-                search_table($(this).val()); //Llamo a la funcion y paso el valor del input search
+            $('#employee-table').dataTable({
+                "oLanguage": {
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron registros ",
+                    "oPaginate": {
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+
+                },
+                "iDisplayLength": 5,
+                "aLengthMenu": [
+                    [5, 10, 25, -1],
+                    [5, 10, 25, "All"]
+                ],
+
+                "bInfo": false,
+                dom: '<"float-left"B><"float-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>'
             });
 
-            function search_table(value) {
+            var table = $('#employee-table').DataTable();
+            var s = $(".dataTables_wrapper .dataTables_filter");
+            s.hide();
 
-                $('#employee-table tbody tr').each(function() { //Por cada registro 
-                    var found = 'false';
-                    $(this).each(function() { // Por cada dato del registro
-                        if ($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0) { // Paso las dos a minuscula y comparo 
-                            found = 'true'; // Si son iguales cambio la bandera a TRUE
-                        }
-                    });
-                    if (found == 'true') {
-                        $(this).show(); // Muestro los registros que coinciden con lo ingresado
-                    } else {
-                        $(this).hide(); // Escondo los registros que coinciden con lo ingresado
-                    }
-                });
-            }
+            $('#search').on('keyup', function() {
+                table.search(this.value).draw();
+            });
+
         });
     </script>
+
 
 </body>
 
