@@ -116,8 +116,10 @@ public class LoteController {
 	
 	
 	@PostMapping("/delete/{id}")
-	public RedirectView delete(@PathVariable("id") long idLote) {
+	public RedirectView delete(@PathVariable("id") long idLote, RedirectAttributes redirectAttrs) {
 		loteService.remove(idLote);
+		redirectAttrs.addFlashAttribute("mensaje","Eliminado Correctamente");
+		redirectAttrs.addFlashAttribute("clase", "success");
 		return new RedirectView(ViewRouteHelpers.LOTE_ROOT);
 	}
 
