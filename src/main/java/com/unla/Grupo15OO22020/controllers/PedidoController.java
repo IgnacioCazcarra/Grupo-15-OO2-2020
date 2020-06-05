@@ -343,36 +343,33 @@ public class PedidoController {
 			}
 
 		} else if (pedidoModel.getColaborador() != null) {
-
-			if (!stockValido(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
-					pedidoModel.getCantidad(),
-					stockService.findByIdStock(empleadoService
-							.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal())
-							.getIdStock(),
+			
+			int cantLocal = calcularStock(pedidoModel.getProducto(),stockService.findByIdStock(empleadoService
+					.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(),pedidoModel.getFecha());
+			
+			
+			if (!stockValido(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),(pedidoModel.getCantidad()-cantLocal),
+					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal()).getIdStock(),
 					pedidoModel.getFecha())) {
 
-				if (calcularStock(pedidoModel.getProducto(),
-						stockService.findByIdStock(empleadoService
-								.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal())
-								.getIdStock(),
-						pedidoModel.getFecha()) == 0) {
+				if ((calcularStock(pedidoModel.getProducto(),stockService.findByIdStock(empleadoService
+					.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal()).getIdStock(),pedidoModel.getFecha())
+						+calcularStock(pedidoModel.getProducto(),stockService.findByIdStock(empleadoService
+								.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(),pedidoModel.getFecha())) == 0) {
 
-					redirectAttrs.addFlashAttribute("mensaje",
-							"No se pudo realizar el pedido debido a que no hay stock de " + productoService
-									.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getNombre()
-									+ " en ningun local.");
+					redirectAttrs.addFlashAttribute("mensaje","No se pudo realizar el pedido debido a que no hay stock de " + productoService
+						.findByIdProducto(pedidoModel.getProducto().getIdProducto()).getNombre()+ " en ningun local.");
 					redirectAttrs.addFlashAttribute("clase", "danger");
 					return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
 
 				} else {
 
 					redirectAttrs.addFlashAttribute("mensaje",
-							"El pedido excede la capacidad del local. Si desea comprar una cantidad superior a "
-									+ calcularStock(pedidoModel.getProducto(),
-											stockService.findByIdStock(empleadoService
-													.findByIdPersona(pedidoModel.getColaborador().getIdPersona())
-													.getLocal().getIdLocal()).getIdStock(),
-											pedidoModel.getFecha())
+							"El pedido excede la capacidad del stock de los dos locales juntos. Si desea comprar una cantidad superior a "
+									+ (calcularStock(pedidoModel.getProducto(),stockService.findByIdStock(empleadoService
+											.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal()).getIdStock(),pedidoModel.getFecha())
+											+calcularStock(pedidoModel.getProducto(),stockService.findByIdStock(empleadoService
+													.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(),pedidoModel.getFecha()))
 									+ " realice otro pedido.");
 					redirectAttrs.addFlashAttribute("clase", "danger");
 					return new RedirectView(ViewRouteHelpers.PEDIDO_ROOT);
@@ -386,6 +383,7 @@ public class PedidoController {
 		pedidoService.insertOrUpdate(pedidoModel);
 
 		if (pedidoModel.isAceptado() && pedidoModel.getColaborador() == null) {
+
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
 					pedidoModel.getCantidad(),
 					stockService.findByIdStock(empleadoService.findByIdPersona(pedidoModel.getVendedor().getIdPersona())
@@ -393,6 +391,7 @@ public class PedidoController {
 					pedidoModel.getFecha());
 
 		} else if (pedidoModel.isAceptado() && pedidoModel.getColaborador() != null) {
+			
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
 					pedidoModel.getCantidad(),
 					stockService.findByIdStock(empleadoService
