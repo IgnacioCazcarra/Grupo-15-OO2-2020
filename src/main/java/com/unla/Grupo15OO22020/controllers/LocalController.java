@@ -129,9 +129,17 @@ public class LocalController {
 	
 	
 	@PostMapping("/delete/{id}")
-	public RedirectView delete(@PathVariable("id") long idLocal) {
+	public RedirectView delete(@PathVariable("id") long idLocal, RedirectAttributes redirectAttrs) {
+		if(localService.remove(idLocal)) {
+			redirectAttrs.addFlashAttribute("mensaje","Eliminado Correctamente");
+			redirectAttrs.addFlashAttribute("clase", "success");			
+		}else 
+		{
+			
+			redirectAttrs.addFlashAttribute("mensaje","No se ha podido eliminar, debido a que esta vinculado con algun pedido");
+			redirectAttrs.addFlashAttribute("clase", "danger");
+		}
 
-		localService.remove(idLocal);
 		return new RedirectView(ViewRouteHelpers.LOCAL_ROOT);
 	}
 
