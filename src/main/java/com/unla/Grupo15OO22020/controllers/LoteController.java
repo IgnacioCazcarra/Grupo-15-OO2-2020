@@ -102,6 +102,7 @@ public class LoteController {
 	
 	@PostMapping("/update")
 	public RedirectView update(@ModelAttribute("lote") LoteModel loteModel) {
+		loteModel.setCantidadInicial(loteService.findByIdLote(loteModel.getIdLote()).getCantidadInicial());		
 		loteModel.setProducto(productoService.findByIdProducto(loteModel.getProducto().getIdProducto()));
 		loteModel.setStock(stockConverter.modelToEntity(stockService.findByIdStock(loteModel.getStock().getIdStock())));		
 		loteService.insertOrUpdate(loteModel);
