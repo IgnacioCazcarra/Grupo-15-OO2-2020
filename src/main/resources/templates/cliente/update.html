@@ -37,31 +37,51 @@
         </div>
     </nav>
 
-    <form action="#" class="formulario" th:action="@{/clientes/update}" th:object="${cliente}" method="post">
+    <form action="#" class="formulario" novalidate th:action="@{/clientes/update}" th:object="${cliente}" method="post">
         <input type="hidden" th:field="*{idPersona}" />
         <div class="text-center">
             <h2>Editar Cliente</h2>
         </div>
         <div class="form-group">
             <strong>Nombre</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{nombre}" placeholder="Ingrese nombre" />
+            <input type="text" class="form-control form-control-sm" th:field="*{nombre}" placeholder="Ingrese nombre" required />
+            <div class="invalid-feedback">
+                Debe ingresar el nombre
+            </div>
         </div>
+
         <div class="form-group">
             <strong>Apellido</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{apellido}" placeholder="Ingrese apellido" />
+            <input type="text" class="form-control form-control-sm" th:field="*{apellido}" placeholder="Ingrese apellido" required />
+            <div class="invalid-feedback">
+                Debe ingresar el apellido
+            </div>
         </div>
+
         <div class="form-group">
             <strong>Fecha de nacimiento</strong>
-            <input type="date" class="form-control form-control-sm" th:field="*{fechaNacimiento}" placeholder="Ingrese la fecha de nacimiento" />
+            <input type="date" class="form-control form-control-sm" th:field="*{fechaNacimiento}" placeholder="Ingrese la fecha de nacimiento" required />
+            <div class="invalid-feedback">
+                Debe ingresar la fecha de nacimiento
+            </div>
         </div>
+
         <div class="form-group">
             <strong>DNI</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{dni}" placeholder="Ingrese DNI" />
+            <input type="text" class="form-control form-control-sm" th:field="*{dni}" placeholder="Ingrese DNI" required />
+            <div class="invalid-feedback">
+                Debe ingresar el DNI
+            </div>
         </div>
+
         <div class="form-group">
             <strong>Email</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{email}" placeholder="Ingrese email" />
+            <input type="email" class="form-control form-control-sm" th:field="*{email}" placeholder="Ingrese email" required />
+            <div class="invalid-feedback">
+                Debe ingresar el email
+            </div>
         </div>
+
         <div class="text-center">
             <input class="btn btn-success" type="submit" value="Actualizar" />
         </div>
@@ -71,6 +91,27 @@
             <input class="btn btn-danger" type="submit" value="Eliminar persona" />
         </form>
     </div>
+
+    <script type="text/javascript">
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('formulario');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </body>
 
 </html>

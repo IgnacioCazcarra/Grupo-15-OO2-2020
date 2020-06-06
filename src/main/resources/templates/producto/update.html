@@ -43,7 +43,7 @@
     </nav>
 
 
-    <form class="formulario" action="#" th:action="@{/productos/update}" th:object="${producto}" method="post">
+    <form class="formulario" novalidate action="#" th:action="@{/productos/update}" th:object="${producto}" method="post">
         <div class="text-center">
             <h2>Actualizar Producto</h2>
         </div>
@@ -53,17 +53,26 @@
 
         <div class="form-group">
             <strong>Nombre</strong>
-            <input type="text" class="form-control form-control-sm" placeholder="Ingrese nombre del producto" th:field="*{nombre}">
+            <input type="text" class="form-control form-control-sm" placeholder="Ingrese nombre del producto" th:field="*{nombre}" required>
+            <div class="invalid-feedback">
+                Debe ingresar el nombre
+            </div>
         </div>
 
         <div class="form-group">
             <strong>Descripcion</strong>
-            <input type="text" class="form-control form-control-sm" placeholder="Ingrese descripcion" th:field="*{descripcion}">
+            <input type="text" class="form-control form-control-sm" placeholder="Ingrese descripcion" th:field="*{descripcion}" required>
+            <div class="invalid-feedback">
+                Debe ingresar la descripcion
+            </div>
         </div>
 
         <div class="form-group">
             <strong>Precio</strong>
-            <input type="number" min="1" class="form-control form-control-sm" placeholder="Ingrese precio" th:field="*{precio}">
+            <input type="number" min="1" class="form-control form-control-sm" placeholder="Ingrese precio" th:field="*{precio}" required>
+            <div class="invalid-feedback">
+                Debe ingresar un precio valido
+            </div>
         </div>
 
         <input type="hidden" th:field="*{fechaAlta}" />
@@ -84,7 +93,26 @@
         </div>
 
     </form>
-
+    <script type="text/javascript">
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('formulario');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 
 </body>
 

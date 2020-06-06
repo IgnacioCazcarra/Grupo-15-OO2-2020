@@ -43,27 +43,43 @@
         </div>
     </nav>
 
-    <form action="#" class="formulario" th:action="@{/locales/update}" th:object="${local}" method="post">
+    <form action="#" class="formulario" novalidate th:action="@{/locales/update}" th:object="${local}" method="post">
         <input type="hidden" th:field="*{idLocal}" />
         <div class="text-center">
             <h2>Editar Local</h2>
         </div>
         <div class="form-group">
             <strong>Direccion</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{direccion}" placeholder="Ingrese una direccion" />
+            <input type="text" class="form-control form-control-sm" th:field="*{direccion}" placeholder="Ingrese una direccion" required/>
+            <div class="invalid-feedback">
+                Debe ingresar la direccion
+            </div>
         </div>
+
         <div class="form-group">
             <strong>Latitud</strong>
-            <input type="number" step="any" class="form-control form-control-sm" th:field="*{latitud}" placeholder="Ingrese una latitud" />
+            <input type="number" step="any" class="form-control form-control-sm" th:field="*{latitud}" placeholder="Ingrese una latitud" required />
+            <div class="invalid-feedback">
+                Debe ingresar la latitud
+            </div>
         </div>
+
         <div class="form-group">
             <strong>Longitud</strong>
-            <input type="number" step="any" class="form-control form-control-sm" th:field="*{longitud}" placeholder="Ingrese una longitud" />
+            <input type="number" step="any" class="form-control form-control-sm" th:field="*{longitud}" placeholder="Ingrese una longitud" required />
+            <div class="invalid-feedback">
+                Debe ingresar la longitud
+            </div>
         </div>
+
         <div class="form-group">
             <strong>Telefono</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{telefono}" placeholder="Ingrese un telefono" />
+            <input type="text" class="form-control form-control-sm" th:field="*{telefono}" placeholder="Ingrese un telefono" required/>
+            <div class="invalid-feedback">
+                Debe ingresar el telefono
+            </div>
         </div>
+
         <div class="text-center">
             <input class="btn btn-success" type="submit" value="Actualizar" />
         </div>
@@ -73,6 +89,28 @@
             <input class="btn btn-danger" type="submit" value="Eliminar local" />
         </form>
     </div>
+
+
+    <script type="text/javascript">
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('formulario');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </body>
 
 </html>
