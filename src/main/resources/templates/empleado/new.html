@@ -44,24 +44,33 @@
     </nav>
 
 
-    <form action="#" id="form" class="formulario" th:action="@{/empleados/create}" th:object="${empleado}" method="post">
+    <form action="#" id="form" class="formulario" novalidate th:action="@{/empleados/create}" th:object="${empleado}" method="post">
         <div class="text-center">
             <h2>Agregar Empleado</h2>
         </div>
 
         <div class="form-group">
             <strong>Nombre</strong>
-            <input type="text" id="nombre" class="form-control form-control-sm" th:field="*{nombre}" placeholder="Ingrese nombre" />
+            <input type="text" id="nombre" class="form-control form-control-sm" th:field="*{nombre}" placeholder="Ingrese nombre" / required>
+            <div class="invalid-feedback">
+                Debe ingresar el nombre
+            </div>
         </div>
 
         <div class="form-group">
             <strong>Apellido</strong>
-            <input type="text" id="apellido" class="form-control form-control-sm" th:field="*{apellido}" placeholder="Ingrese apellido" />
+            <input type="text" id="apellido" class="form-control form-control-sm" th:field="*{apellido}" placeholder="Ingrese apellido" / required>
+            <div class="invalid-feedback">
+                Debe ingresar el apellido
+            </div>
         </div>
 
         <div class="form-group">
             <strong>Fecha de Nacimiento</strong>
-            <input type="date" id="fecha" class="form-control form-control-sm" th:field="*{fechaNacimiento}" placeholder="Ingrese fecha de nacimiento" />
+            <input type="date" id="fecha" class="form-control form-control-sm" th:field="*{fechaNacimiento}" placeholder="Ingrese fecha de nacimiento" required/>
+            <div class="invalid-feedback">
+                Debe ingresar la fecha de nacimiento
+            </div>
         </div>
 
         <div class="form-group row">
@@ -69,12 +78,18 @@
             <div class="col-sm-10">
                 <input type="text" id="dni" class="form-control form-control-sm" th:field="*{dni}" placeholder="Ingrese DNI" />
             </div>
+            <div class="invalid-feedback">
+                Debe ingresar el DNI
+            </div>
         </div>
 
         <div class="form-group row">
             <strong class="col-sm-2 col-form-label col-form-label-sm">Horario</strong>
             <div class="col-sm-10">
-                <input type="text" id="horario" class="form-control form-control-sm" th:field="*{franjaHoraria}" placeholder="Ingrese franja horaria" />
+                <input type="text" id="horario" class="form-control form-control-sm" th:field="*{franjaHoraria}" placeholder="Ingrese franja horaria" required/>
+            </div>
+            <div class="invalid-feedback">
+                Debe ingresar la franja horaria
             </div>
         </div>
 
@@ -97,48 +112,25 @@
         </div>
     </form>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">ERROR</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                </div>
-                <div class="modal-body">
-                    Debe completar todos los campos para continuar
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script type="text/javascript">
-        $(document).ready(function() {
-            $("#form").on("submit", function() {
-
-                var nombre = $("#nombre").val();
-                var apellido = $("#apellido").val();
-                var fecha = $("#fecha").val();
-                var dni = $("#dni").val();
-                var fecha = $("#fecha").val();
-                var horario = $("#horario").val();
-                var local = $("#local").val();
-                var exp = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-
-
-                if (nombre.length == "" || apellido.length == "" || dni.length != 8 || fecha.length == "" || horario.length == "" || local.length == "") {
-                    $("#exampleModal").modal("toggle");
-                    return false;
-                } else {
-                    return true;
-                }
-
-            });
-        });
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('formulario');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
     </script>
 
 </body>

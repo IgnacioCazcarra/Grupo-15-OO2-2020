@@ -4,9 +4,7 @@
 
 <head>
     <title>Agregar Stock</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
 
     <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
@@ -14,6 +12,8 @@
     <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
     <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
     <script src="../../js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 </head>
 
 <body>
@@ -49,7 +49,7 @@
         <div class="form-group">
 
             <strong>Stock del local</strong>
-            <select placeholder="Local" th:field="*{local.idLocal}" class="form-control form-control-sm">
+            <select placeholder="Local" th:field="*{local.idLocal}" class="form-control form-control-sm" required>
                 	<option th:each= "l : ${locales}" th:value="${l.idLocal}" th:text= "${l.direccion}"></option> 
             	</select>
         </div>
@@ -57,13 +57,38 @@
 
         <div class="form-group">
             <strong>Codigo</strong>
-            <input type="text" class="form-control form-control-sm" th:field="*{codigo}" placeholder="Ingrese codigo" />
+            <input type="text" class="form-control form-control-sm" th:field="*{codigo}" placeholder="Ingrese codigo" required />
+            <div class="invalid-feedback">
+                Debe ingresar un codigo para el stock
+            </div>
         </div>
 
         <div class="text-center">
             <input class="btn btn-primary button" type="submit" value="Agregar" />
         </div>
     </form>
+
+
+    <script type="text/javascript">
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('formulario');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 
 </body>
 
