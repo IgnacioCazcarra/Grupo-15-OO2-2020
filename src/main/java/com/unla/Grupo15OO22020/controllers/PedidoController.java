@@ -392,8 +392,18 @@ public class PedidoController {
 
 		} else if (pedidoModel.isAceptado() && pedidoModel.getColaborador() != null) {
 			
+			int cantidadMaxLP = calcularStock(pedidoModel.getProducto(),stockService.findByIdStock(empleadoService
+					.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal()).getIdStock(),pedidoModel.getFecha());
+			
 			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
-					pedidoModel.getCantidad(),
+					cantidadMaxLP,
+					stockService.findByIdStock(empleadoService
+							.findByIdPersona(pedidoModel.getVendedor().getIdPersona()).getLocal().getIdLocal())
+							.getIdStock(),
+					pedidoModel.getFecha());
+			
+			consumoStock(productoService.findByIdProducto(pedidoModel.getProducto().getIdProducto()),
+					(pedidoModel.getCantidad()-cantidadMaxLP),
 					stockService.findByIdStock(empleadoService
 							.findByIdPersona(pedidoModel.getColaborador().getIdPersona()).getLocal().getIdLocal())
 							.getIdStock(),
