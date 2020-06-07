@@ -1,11 +1,10 @@
 package com.unla.Grupo15OO22020.controllers;
 
-import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +28,6 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.unla.Grupo15OO22020.converters.LocalConverter;
 import com.unla.Grupo15OO22020.converters.PedidoConverter;
 import com.unla.Grupo15OO22020.converters.StockConverter;
-import com.unla.Grupo15OO22020.entities.Local;
 import com.unla.Grupo15OO22020.entities.Lote;
 import com.unla.Grupo15OO22020.entities.Pedido;
 import com.unla.Grupo15OO22020.entities.Producto;
@@ -494,7 +492,7 @@ public class PedidoController {
 		List<Lote> lotesActivos = new ArrayList<Lote>();
 		for (Lote l : loteService.getAll()) {
 			if (l.getProducto().getIdProducto() == productoModel.getIdProducto() && l.isEstado()
-					&& l.getStock().getIdStock() == id && l.getFechaIngreso().before(fecha)) {
+					&& l.getStock().getIdStock() == id && l.getFechaIngreso().before(fecha)  || l.equalsFechas(fecha)) {
 				lotesActivos.add(l);
 			}
 		}

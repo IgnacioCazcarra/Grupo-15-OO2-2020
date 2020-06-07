@@ -129,6 +129,21 @@ public class Lote {
 	public void setStock(Stock stock) {
 		this.stock = stock;
 	}
+
+
+	public boolean equalsFechas(java.util.Date fecha) {
+		if (this.getFechaIngreso().getDay() == fecha.getDay() &&  this.getFechaIngreso().getMonth() == fecha.getMonth() && this.getFechaIngreso().getYear() == fecha.getYear()) {
+			return true;
+		}
+		if (fecha == null)
+			return false;
+		if (fechaIngreso == null) {
+			if (fecha != null)
+				return false;
+		} else if (!fechaIngreso.equals(fecha))
+			return false;
+		return true;
+	}
 	
 	
 		
