@@ -64,5 +64,7 @@ public class ViewRouteHelpers {
 	public final static String PEDIDO_LOCALPARAPETICION = "pedido/localparapeticion";
 	public final static String PEDIDO_DATE = "pedido/productosentrefechas";
 
-
+    public final static String USER_LOGIN = "user/login";	
+    public final static String USER_LOGOUT = "user/logout";
+	
 }
