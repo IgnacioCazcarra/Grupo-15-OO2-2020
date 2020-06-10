@@ -150,7 +150,7 @@ public class EmpleadoController{
 	public ModelAndView calcularSueldos(@RequestParam("mes") int mes, @RequestParam("anio") int anio, Model model) {
 
 		ModelAndView mAV = new ModelAndView("empleado/mostrarsueldos");
-		Set<SueldoEmpleadoModel> listaSueldos = sueldoEmpleados(mes,anio, pedidoService.getAll(), empleadoService.getAll());
+		Set<SueldoEmpleadoModel> listaSueldos = sueldoEmpleados(mes,anio, pedidoService.getAll(), empleadoService.getAll(),0.05,0.03,0.02);
 		System.out.println(listaSueldos.size());
 		mAV.addObject("listaSueldos", listaSueldos);
 		mAV.addObject("mes", mes);
@@ -162,7 +162,8 @@ public class EmpleadoController{
 		return mAV;
 	}
 	
-	public Set<SueldoEmpleadoModel> sueldoEmpleados(int mes, int año, List<Pedido> pedidos, List<Empleado> empleados){
+	public Set<SueldoEmpleadoModel> sueldoEmpleados(int mes, int año, List<Pedido> pedidos, List<Empleado> empleados, double porcentajeCompleto, double porcentajeConPedidoExterno,
+			double porcentajeComoColaborador){
 		
 		Map<Long, Double> map = new HashMap<Long, Double>();
 		
@@ -184,14 +185,14 @@ public class EmpleadoController{
 
 				
 				if(map.containsKey(p.getVendedor().getIdPersona()) && p.getColaborador()==null) {
-					porcentaje = (int) (0.05*p.getSubtotal());
+					porcentaje = (int) (porcentajeCompleto*p.getSubtotal());
 					map.replace(p.getVendedor().getIdPersona(), map.get(p.getVendedor().getIdPersona())+porcentaje);
 				}
 				else if(map.containsKey(p.getVendedor().getIdPersona()) && p.getColaborador()!=null){
-					porcentaje = (int) (0.03*p.getSubtotal());
+					porcentaje = (int) (porcentajeConPedidoExterno*p.getSubtotal());
 					map.replace(p.getVendedor().getIdPersona(), map.get(p.getVendedor().getIdPersona())+porcentaje);
 					
-					porcentaje2 = (int) (0.02*p.getSubtotal());
+					porcentaje2 = (int) (porcentajeComoColaborador*p.getSubtotal());
 					map.replace(p.getColaborador().getIdPersona(), map.get(p.getColaborador().getIdPersona())+porcentaje2);
 				}				
 			}
