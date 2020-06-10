@@ -1,0 +1,25 @@
+<!DOCTYPE html>	
+<html lang="en">	
+	<head>	
+		<meta charset="utf-8" />	
+		<title>UNLa</title>	
+		<!-- Bootstrap core CSS -->	
+		<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />	
+		<link rel="stylesheet" th:href="@{/css/style.css}" />	
+	</head>	
+	<body>	
+	    <!-- Page Content -->	
+	    <div class="divPrincipal">	
+	      	<h1 class="display-5 alert alert-info">Saliste de tu cuenta.</h1>	
+	        <h1 class="display-5">Login</h1>	
+	        <form th:action="@{/loginprocess}" method="post">	
+		      	<input type="text" name="username" id="username" placeholder="Usuario" />	
+		      	<input type="password" name="password" id="password" placeholder="Contraseña" />	
+				<input class="btn btn-primary" style="background-color: #EE7D00" type="submit" value="Entrar" />	
+	      	</form>	
+		</div>	
+		<!-- Bootstrap core JavaScript -->	
+		<script src="/vendor/jquery/jquery.min.js"></script>	
+		<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
+	</body>	
+</html>
