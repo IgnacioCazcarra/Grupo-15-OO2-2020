@@ -1,25 +1,115 @@
-<!DOCTYPE html>	
-<html lang="en">	
-	<head>	
-		<meta charset="utf-8" />	
-		<title>UNLa</title>	
-		<!-- Bootstrap core CSS -->	
-		<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />	
-		<link rel="stylesheet" th:href="@{/css/style.css}" />	
-	</head>	
-	<body>	
-	    <!-- Page Content -->	
-	    <div class="divPrincipal">	
-	      	<h1 class="display-5 alert alert-info">Saliste de tu cuenta.</h1>	
-	        <h1 class="display-5">Login</h1>	
-	        <form th:action="@{/loginprocess}" method="post">	
-		      	<input type="text" name="username" id="username" placeholder="Usuario" />	
-		      	<input type="password" name="password" id="password" placeholder="Contraseña" />	
-				<input class="btn btn-primary" style="background-color: #EE7D00" type="submit" value="Entrar" />	
-	      	</form>	
-		</div>	
-		<!-- Bootstrap core JavaScript -->	
-		<script src="/vendor/jquery/jquery.min.js"></script>	
-		<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>	
-	</body>	
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <!-- Bootstrap core CSS -->
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/styleLogin.css}">
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
+
+</head>
+
+<body>
+
+    <div class="container banner">
+        <h1>Sistema de Democratizacion de Stock</h1>
+        <p style="font-size: 18px;">Proyecto cuatrimestral para la catedra OO2 UNLa</p>
+        <a href="#myModal" class="btn btn-dark" data-toggle="modal">Login</a>
+
+    </div>
+
+
+    <!--
+    <div class="divPrincipal">
+        <h1 class="display-5">Login</h1>
+        <form th:action="@{/loginprocess}" method="post">
+            <input type="text" name="username" id="username" placeholder="Usuario" />
+            <input type="password" name="password" id="password" placeholder="Contraseña" />
+            <input class="btn btn-primary" style="background-color: #EE7D00" type="submit" value="Entrar" />
+        </form>
+        <br></br>
+        
+        <div th:if="${error != null}" class="alert alert-danger">
+            Usuario o contraseña invalido.
+		</div>
+		
+    </div>
+-->
+
+    <!-- Modal HTML -->
+    <div id="myModal" class="modal fade">
+        <div class="modal-dialog modal-login">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="avatar">
+                        <i class="far fa-user" style="font-size: 73px; width: 100%; color: black;"></i>
+                    </div>
+                    <h4 class="modal-title">Member Login</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-header">
+                <h5 class="modal-title">Salió de su cuenta</h5>
+                </div>
+                <div class="modal-body">
+                    <form th:action="@{/loginprocess}" method="post" class="form-login" novalidate>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Usuario" required="required">
+                            <div class="invalid-feedback">
+                                Debe ingresar nombre de usuario
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" name="password" id="password" placeholder="Contraseña" required="required">
+                            <div class="invalid-feedback">
+                                Debe ingresar nombre su contraseña
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block login-btn" value="Entrar">Login</button>
+
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <div th:if="${error != null}" class="alert alert-danger">
+                        Usuario o contraseña invalido.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('form-login');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+
 </html>
