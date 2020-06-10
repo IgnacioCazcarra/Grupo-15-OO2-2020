@@ -31,10 +31,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/css/*", "/imgs/*", "/js/*", "/vendor/bootstrap/css/*", "/vendor/jquery/*", "/vendor/bootstrap/js/*").permitAll()
-				.antMatchers("/empleados","/empleados/*").hasRole("ADMIN")  // GERENTE
-				.antMatchers("/locales","/locales/*").hasRole("ADMIN")	    // GERENTE	
-
-				.antMatchers("/pedidos","/pedidos/*").authenticated()		// TIENE QUE ESTAR LOGUEADO PARA INGRESAR
+				.antMatchers("/locales/new","/locales/create","/locales/update","/empleados/new","/empleados/create","/empleados/update").hasRole("ADMIN")// GERENTE	
+				.antMatchers("/pedidos","/pedidos/*","pedidos/solicitudstock").authenticated()		// TIENE QUE ESTAR LOGUEADO PARA INGRESAR
 				.antMatchers("/productos","/productos/*").authenticated()   // TIENE QUE ESTAR LOGUEADO PARA INGRESAR
 				.antMatchers("/lotes","/lotes/*").authenticated()           // TIENE QUE ESTAR LOGUEADO PARA INGRESAR
 				.antMatchers("/stocks","/stocks/*").authenticated()         // TIENE QUE ESTAR LOGUEADO PARA INGRESAR 
