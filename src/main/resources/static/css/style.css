@@ -97,10 +97,10 @@ body{
 a{
     text-decoration: none !important;
 }
-
+/*
 .modal-header {
     background-color: #e0e4b8 !important;
-  }
+  }*/
 
 table.dataTable {
     padding-top: 3px !important;  
