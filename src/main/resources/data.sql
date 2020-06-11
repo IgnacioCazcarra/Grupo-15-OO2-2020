@@ -1,9 +1,18 @@
 USE grupo15oo22020;
 
-INSERT INTO user (id,createdat,enabled,password,updatedat,username) VALUES(1, "2020-03-22 00:00:01", 1, "$2a$10$K.f.ngFv7MMbt/7MoTiQKOVukLWTJ4/AF82Ntl9Z/T34EOSEdhyai", "2020-03-22 00:00:01", "cliente");
+/*INSERT INTO user (id,createdat,enabled,password,updatedat,username) VALUES(1, "2020-03-22 00:00:01", 1, "$2a$10$K.f.ngFv7MMbt/7MoTiQKOVukLWTJ4/AF82Ntl9Z/T34EOSEdhyai", "2020-03-22 00:00:01", "cliente");
 INSERT INTO user (id,createdat,enabled,password,updatedat,username) VALUES(2, "2020-03-22 00:00:01", 1, "$2a$10$52wlrwEjLnoYujLGpWuV/OeIFnQKGZkJfbomnBXtHVKcrip7Y3eg2", "2020-03-22 00:00:01", "admin");
+*/
+INSERT INTO user (id,createdat,enabled,password,updatedat,username) VALUES(1, "2020-03-22 00:00:01", 1, "$2a$10$zUXqm9ehdGj7I6f1M8HNRugErdA5SJ06sJUo7dTLty8q7tbKBklPi", "2020-03-22 00:00:01", "empleado");
+INSERT INTO user (id,createdat,enabled,password,updatedat,username) VALUES(2, "2020-03-22 00:00:01", 1, "$2a$10$k6whblCKsrbE3rKHsMejZ.LX6wNtjX2tOdwwa/VSdrZ47zUzxLgk6", "2020-03-22 00:00:01", "gerente");
+
+/* 
 INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(1, "2020-03-22 00:00:01", "ROLE_USER", "2020-03-22 00:00:01", 1);
 INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(2, "2020-03-22 00:00:01", "ROLE_ADMIN", "2020-03-22 00:00:01", 2);
+*/
+INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(1, "2020-03-22 00:00:01", "ROLE_USER", "2020-03-22 00:00:01", 1);
+INSERT INTO user_role (id,createdat,role,updatedat,user_id) VALUES(2, "2020-03-22 00:00:01", "ROLE_ADMIN", "2020-03-22 00:00:01", 2);
+
 
 INSERT INTO `local` (id_local,direccion,latitud,longitud,telefono) VALUES(1,"Alto Avellaneda Shopping, Gral. Güemes 897",3.15,1,"1111111111");
 INSERT INTO `local` (direccion,latitud,longitud,telefono) VALUES("Abasto Shopping, Av. Corrientes 3247",-3.15,1,"2222222222");
