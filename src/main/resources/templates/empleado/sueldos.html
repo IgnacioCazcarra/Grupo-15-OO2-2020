@@ -15,12 +15,10 @@
 
     <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
 
-    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
-
 </head>
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+<nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" th:href="@{/}">UNLa</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -51,25 +49,54 @@
 
     <body>
 
-        <form action="calcularSueldos" id="form" class="formulario" method="Post">
+        <form action="calcularSueldos" id="form" class="formulario" novalidate method="Post">
 
             <div class="text-center">
                 <h2>Sueldos</h2>
             </div>
             <div class="form-group">
                 <strong>Mes</strong>
-                <input type="number" name="mes" min="1" max="12" class="form-control form-control-sm" placeholder="Ingrese un mes" />
+                <input type="number" name="mes" min="1" max="12" class="form-control form-control-sm" placeholder="Ingrese un mes" required />
+                <div class="invalid-feedback">
+                    Debe ingresar el mes
+                </div>
             </div>
+
             <div class="form-group">
                 <strong>A&ntilde;o</strong>
-                <input type="number" name="anio" class="form-control form-control-sm" placeholder="Ingrese un a&ntilde;o" />
+                <input type="number" name="anio" class="form-control form-control-sm" placeholder="Ingrese un a&ntilde;o" required />
+                <div class="invalid-feedback">
+                    Debe ingresar el año
+                </div>
             </div>
             <div class="text-center">
                 <input class="btn btn-primary button" type="submit" />
             </div>
         </form>
 
+
 </div>
+
+<script type="text/javascript">
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('formulario');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 </body>
 
 </html>

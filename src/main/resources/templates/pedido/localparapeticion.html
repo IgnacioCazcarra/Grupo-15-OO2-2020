@@ -17,7 +17,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: transparent !important;">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" th:href="@{/}">UNLa</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -41,36 +41,63 @@
     </nav>
 
     <div class="container-fluid">
-        <form action="solicitudstock" method="Post">
+        <form action="solicitudstock" novalidate class="form-Solicitud" method="Post">
             <p> El local desde el que usted quiere realizar el pedido (<span th:text="${localPrincipal}"></span>) no dispone de suficiente stock.</p>
+            <div class="form-inline">
 
-            <p> Seleccione el local que desee que satisfaga su pedido:
-            <select placeholder="Local1" th:field="*{local1.idLocal}">
+                <p> Seleccione el local que desee que satisfaga su pedido:
+                    <select placeholder="Local1" th:field="*{local1.idLocal}" class="form-control form-control-sm" required>
 		<option  th:each= "l,iterStat  : ${localesConStockPorCantidad}"  th:value="${l.idLocal}" th:text="${l.direccion} + ' ' + ${listaDistancias[iterStat.index]} + ' km'"  ></option> 
 		</select>
-		</p>
-		<p>PEDIDO A RESOLVER:</p>
-		 <select placeholder="Pedido" th:field="*{pedido.idPedido}" class="form-control form-control-sm">
-          <option th:each= "p : ${pedidos}" th:value="${p.idPedido}" th:text= "${p.fecha}"></option> 
+                </p>
+
+            </div>
+
+
+            <div class="form-inline">
+
+                <p>Pedido a resolver:
+
+
+                    <select placeholder="Pedido" th:field="*{pedido.idPedido}" class="form-control form-control-sm" required>
+          <option th:each= "p : ${pedidos}" th:value="${p.idPedido}" th:text= "${p.fecha} + ' Cantidad:' + ${p.cantidad} + ' Subtotal:$' + ${p.subtotal} "></option> 
            </select>
-		
-		
-			<input type="hidden" th:field="*{pedido.idPedido}"/>
-            <input class="btn btn-success" type="submit" value="Guardar"/>
+
+                </p>
+
+            </div>
+
+            <input type="hidden" th:field="*{pedido.idPedido}" />
+            <input class="btn btn-success" type="submit" value="Guardar" />
         </form>
 
-        <!--DISTANCIA ENTRE LOS LOCALES
-<span th:each="ld : ${listaDistancias}">
-  <P th:text="${ld}"></P>
-</span>
-
--->
         <br>
         <form action="#" th:action="@{/pedidos/back}" method="post">
             <input class="btn btn-info" type="submit" value="Volver" />
         </form>
 
     </div>
+
+    <script type="text/javascript">
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('form-Solicitud');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 
 </body>
 
