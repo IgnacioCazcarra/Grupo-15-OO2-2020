@@ -1,24 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 *{
     font-family: 'Roboto', sans-serif;
 }
 
 body{
-    height: 100vh;
-    background: linear-gradient(to bottom, #44a08d, #093637) no-repeat;
+    background-color: #50d890 !important;
 }
 
 .banner{
     text-align: center;
-    margin-top: 160px;
+    margin-top: 130px;
     color: rgb(0, 0, 0);
 }
 
 .button{
     background-color: rgb(0, 0, 0) !important;
+    padding: 6px 17px !important;
 }
 
+.button-edit{
+    background-color: #0a8997 !important;
+    padding: 6px 17px;
+    color: rgb(255, 255, 255) !important;
+    border-radius: 0.25rem;
+
+}
+
+
 .banner h1{
-    font-family: 'Merienda One', cursive;
+    font-family: 'monospace';
     font-size: 47px;
     margin-bottom: 18px;
     font-weight: 600;
@@ -31,11 +42,82 @@ body{
     background-color: white;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 100px;
+    margin-top: 30px;
+    box-shadow: 0 0 1.4rem rgba(53, 49, 49, 0.40);
 }
 
-.formulario h2{
-    font-weight: 600;
+.input-name{
+    font-weight: 300;
+}
+
+.formulario h2 {
+    font-weight: 700;
     padding-bottom: 10px;
 }
 
+.formulario-delete{
+    width: 32%;
+    background-color: white;
+    padding-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 0 1.4rem -1.4rem rgba(53, 49, 49, 0.40); 
+}
+
+.btn-info, .btn-info:hover, .btn-info:active, .btn-info:visited {
+    background-color: #035aa6 !important;
+    border: none !important;
+}
+
+.btn-success, .btn-success, .btn-success:active, .btn-success:visited {
+    background-color: #06623b !important;
+    border: none !important;
+}
+
+.btn-danger, .btn-danger, .btn-danger:active, .btn-danger:visited {
+    background-color: #9d0b0b !important;
+    border: none !important;
+}
+
+.btn-warning, .btn-warning, .btn-warning:active, .btn-danger:visited {
+    background-color: #46185f !important;
+    color: white !important;
+    border: none !important;
+}
+
+.btn-dark, .btn-dark, .btn-dark:active, .btn-dark:visited {
+    background-color: #000000 !important;
+    color: white !important;
+    border: 1px white solid !important;
+}
+
+a{
+    text-decoration: none !important;
+}
+/*
+.modal-headerh{
+    background-color: #e0e4b8 !important;
+  }*/
+
+table.dataTable {
+    padding-top: 10px !important;  
+  }
+
+.container-fluid .row{
+    padding-bottom: 10px !important;  
+}
+
+.nav-link {
+    color: white !important;
+    }
+
+.navbar-light {
+        background-color: #000000 !important;
+}
+.nav-link:active, .nav-link:hover, .nav-link:visited  {
+        color: rgba(255, 255, 255, 0.582) !important;
+    }
+
+.navbar-brand {
+        color: #ffffff  !important;
+    }

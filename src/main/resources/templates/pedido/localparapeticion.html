@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Agregar Pedido</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" th:href="@{/}">UNLa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/stocks/}">Stock</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/locales/}">Locales</a>
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
+        </form>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <form action="solicitudstock" novalidate class="form-Solicitud" method="Post">
+            <p> El local desde el que usted quiere realizar el pedido (<span th:text="${localPrincipal}"></span>) no dispone de suficiente stock.</p>
+            <div class="form-inline">
+
+                <p> Seleccione el local que desee que satisfaga su pedido:
+                    <select placeholder="Local1" th:field="*{local1.idLocal}" class="form-control form-control-sm" required>
+		<option  th:each= "l,iterStat  : ${localesConStockPorCantidad}"  th:value="${l.idLocal}" th:text="${l.direccion} + ' ' + ${listaDistancias[iterStat.index]} + ' km'"  ></option> 
+		</select>
+                </p>
+
+            </div>
+
+
+            <div class="form-inline">
+
+                <p>Pedido a resolver:
+
+
+                    <select placeholder="Pedido" th:field="*{pedido.idPedido}" class="form-control form-control-sm" required>
+          <option th:each= "p : ${pedidos}" th:value="${p.idPedido}" th:text= "${p.fecha} + ' Cantidad:' + ${p.cantidad} + ' Subtotal:$' + ${p.subtotal} "></option> 
+           </select>
+
+                </p>
+
+            </div>
+
+            <input type="hidden" th:field="*{pedido.idPedido}" />
+            <input class="btn btn-success" type="submit" value="Guardar" />
+        </form>
+
+        <br>
+        <form action="#" th:action="@{/pedidos/back}" method="post">
+            <input class="btn btn-info" type="submit" value="Volver" />
+        </form>
+
+    </div>
+
+    <script type="text/javascript">
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('form-Solicitud');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+
+</body>
+
+</html>

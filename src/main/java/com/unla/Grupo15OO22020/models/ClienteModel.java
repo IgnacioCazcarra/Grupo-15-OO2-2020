@@ -1,6 +1,7 @@
 package com.unla.Grupo15OO22020.models;
 
-import java.time.LocalDate;
+
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,11 +13,10 @@ public class ClienteModel extends PersonaModel {
 	public ClienteModel() {
 	}
 
-	public ClienteModel(String nombre, String apellido, LocalDate fechaNacimiento, long dni, String email) {
-		super(nombre, apellido, fechaNacimiento, dni);
+	public ClienteModel(long idPersona, String nombre, String apellido, Date fechaNacimiento, long dni, String email) {
+		super(idPersona, nombre, apellido, fechaNacimiento, dni);
 		this.email = email;
 	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -31,14 +31,6 @@ public class ClienteModel extends PersonaModel {
 
 	protected void setIdCliente(long idCliente) {
 		this.idCliente = idCliente;
-	}
-
-	public boolean rechazarEspera() {
-		return false;
-	}
-
-	public boolean aceptarEspera() {
-		return true;
 	}
 
 	public Set<LocalModel> getListaLocales() {

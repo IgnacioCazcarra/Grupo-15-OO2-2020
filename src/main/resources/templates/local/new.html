@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Agregar Local</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../static/css/style.css">
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" th:href="@{/}">UNLa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/stocks/}">Stock</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/locales/}">Locales</a>
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
+        </form>
+        </div>
+    </nav>
+
+    <form action="#" id="form" class="formulario" novalidate th:action="@{/locales/create}" th:object="${local}" method="post">
+        <div class="text-center">
+            <h2>Agregar Local</h2>
+        </div>
+        <div class="form-group">
+            <strong>Direccion</strong>
+            <input type="text" id="direccion" class="form-control form-control-sm" th:field="*{direccion}" placeholder="Ingrese una direccion" required/>
+            <div class="invalid-feedback">
+                Debe ingresar la direccion
+            </div>
+        </div>
+        <div class="form-group">
+            <strong>Latitud</strong>
+            <input type="number" id="latitud" step="any" class="form-control form-control-sm" th:field="*{latitud}" placeholder="Ingrese una latitud" required />
+            <div class="invalid-feedback">
+                Debe ingresar la latitud
+            </div>
+        </div>
+        <div class="form-group">
+            <strong>Longitud</strong>
+            <input type="number" id="longitud" step="any" class="form-control form-control-sm" th:field="*{longitud}" placeholder="Ingrese una longitud" required />
+            <div class="invalid-feedback">
+                Debe ingresar la longitud
+            </div>
+        </div>
+        <div class="form-group">
+            <strong>Telefono</strong>
+            <input type="text" id="telefono" class="form-control form-control-sm" th:field="*{telefono}" placeholder="Ingrese un telefono" required />
+            <div class="invalid-feedback">
+                Debe ingresar el telefono
+            </div>
+        </div>
+        <input type="hidden" id="stock" name="stock" th:if="${stock}" th:value="${stock}" />
+        <div class="text-center">
+            <input class="btn btn-primary button" type="submit" value="Agregar" />
+        </div>
+
+    </form>
+
+    <script type="text/javascript">
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('formulario');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
+</body>
+
+</html>

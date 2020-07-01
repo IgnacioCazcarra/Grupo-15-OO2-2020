@@ -1,31 +1,40 @@
 package com.unla.Grupo15OO22020.models;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.unla.Grupo15OO22020.entities.Local;
+import com.unla.Grupo15OO22020.entities.Lote;
+
 public class StockModel {
 
 	private long idStock;
-	private Set<LoteModel> lotes = new HashSet<LoteModel>();
-	private int cantidad;
-	private long idLocal;
-	
-	//REVISAR SI IDLOCAL VA, Y SI VA EN EL CONSTRUCTOR.
+	private List<LoteModel> lotes = new ArrayList<LoteModel>();
+	private LocalModel local;
+	private String codigo;
 	
 	public StockModel() {
 		
 	}
 	
-	public StockModel(long idLocal) {
+	public StockModel(long idStock, LocalModel local,String codigo) {
 		super();
-		this.cantidad = 0;
-		this.idLocal = idLocal;
+		this.idStock = idStock;
+		this.local = local;
+		this.codigo = codigo;
 
 	}
 
+	public StockModel(long idStock, LocalModel local, List<LoteModel> lotes) {
+		super();
+		this.idStock = idStock;
+		this.local = local;
+		this.lotes = lotes;
+
+
+	}
 	
 	
 	public long getIdStock() {
@@ -34,40 +43,46 @@ public class StockModel {
 
 
 
-	protected void setIdStock(long idStock) {
+	public void setIdStock(long idStock) {
 		this.idStock = idStock;
 	}
 
 
 
-	public long getIdLocal() {
-		return idLocal;
+	
+
+
+	public LocalModel getLocal() {
+		return local;
 	}
 
-
-
-	protected void setIdLocal(long idLocal) {
-		this.idLocal = idLocal;
+	public void setLocal(LocalModel local) {
+		this.local = local;
 	}
 
+	public void setLotes(List<LoteModel> lotes) {
+		this.lotes = lotes;
+	}
 
-
-	public Set<LoteModel> getLotes() {
+	public List<LoteModel> getLotes() {
 		return lotes;
 	}
 
-	public int getCantidad() {
-		return cantidad;
+	public String getCodigo() {
+		return codigo;
 	}
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 
 	public List<LoteModel> lotesDelProducto(ProductoModel producto){
 		List<LoteModel> lotesActivos = new ArrayList<LoteModel>();
+		System.out.println("cantidad LOTE: "  + lotes.size());
 		for(LoteModel l : lotes) {
-			if(l.getProducto().equals(producto) && l.isEstado()) {
+		//	if(l.getProducto().equals(producto) && l.isEstado()) {
+			if(l.getProducto().getIdProducto() == producto.getIdProducto() && l.isEstado()) {				
+				System.out.println("ENTRO BUCLE INTERNO: " );
 				lotesActivos.add(l);
 				
 			}
@@ -80,49 +95,17 @@ public class StockModel {
 		for(LoteModel l : lotesDelProducto(producto)) {
 			total += l.getCantidadActual();
 		}
+		System.out.println("TOTAL DESDE CALCULAR STOCK: " + total);
 		return total;
 	}
+
 	
 
 	public boolean stockValido(ProductoModel producto, int cantidad) {
 		return (calcularStock(producto)>=cantidad)? true:false; //SI EL STOCK DISPONIBLE ES MAYOR O IGUAL A LA CANTIDAD
 	}															//SOLICITADA RETORNA TRUE
 	
-	/*public Lote traerLote(int idLote) {
-        int i = 0;
-        Lote loteEncontrado = null;
-
-        while(i<lotes.size() && loteEncontrado == null) {
-            Lote l = lotes.get(i);
-            if(l.getIdLote()==idLote) {
-                loteEncontrado = l;
-            }
-            i++;
-        }
-
-        return loteEncontrado;
-    }
-	*/ //Error: de nuevo los get de las listas al cambiar a set
-    /**/
-
-    /*public void altaStock(int idLote) throws Exception {
-
-        if(traerLote(idLote)==null) throw new Exception("Lote inexistente");
-
-        setCantidad(cantidad+traerLote(idLote).getCantidadInicial());
-
-
-    }/* ERROR: el traerLote esta comentado
-    /**/
-
-    /*public boolean agregarLote(int cantidadInicial, LocalDate fechaIngreso, Producto producto) {
-        int id =1;
-        if(!lotes.isEmpty()) {
-            id = lotes.get(lotes.size()-1).getIdLote()+1;
-        }
-
-        return lotes.add(new Lote(id,cantidadInicial,cantidadInicial,fechaIngreso,producto));
-    }*///ERROR: de nuevo error con el Set y en el add del set lotes
+	
 	
 	public boolean consumoStock(ProductoModel producto, int cantidad) throws Exception{
 		if (!stockValido(producto, cantidad)) throw new Exception("No alcanza el stock");

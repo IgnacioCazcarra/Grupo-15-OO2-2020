@@ -1,41 +1,48 @@
 package com.unla.Grupo15OO22020.models;
 
+import java.sql.Date;
+
+import com.sun.istack.Nullable;
+
 public class PedidoModel {
 
 	private long idPedido;
-	private ProductoModel producto;
 	private int cantidad;
-	private LocalModel local;
-	private ClienteModel cliente;
-	private EmpleadoModel vendedorOriginal;
-	private EmpleadoModel vendedorAuxiliar;
 	private float subtotal;
+	private Date fecha;
+	private ProductoModel producto;
+	private ClienteModel cliente;
+	private LocalModel local;
 	private boolean aceptado;
+	private EmpleadoModel vendedor;
+	@Nullable
+	private EmpleadoModel colaborador;
 
 	public PedidoModel() {
-		
+
 	}
-	
-	public PedidoModel(ProductoModel producto, int cantidad, LocalModel local, ClienteModel cliente,
-			EmpleadoModel vendedorOriginal, EmpleadoModel vendedorAuxiliar, boolean aceptado) {
+
+	public PedidoModel(long idPedido, int cantidad, Date fecha, ProductoModel producto, ClienteModel cliente,  LocalModel local, float subtotal, EmpleadoModel vendedor, EmpleadoModel colaborador,
+			boolean aceptado) {
 		super();
-		
-		this.producto = producto;
+		this.idPedido = idPedido;
 		this.cantidad = cantidad;
+		this.setProducto(producto);
+		this.setCliente(cliente);
 		this.local = local;
-		this.cliente = cliente;
-		this.vendedorOriginal = vendedorOriginal;
-		this.vendedorAuxiliar = vendedorAuxiliar;
+		this.subtotal = subtotal;
+		this.vendedor = vendedor;
+		this.colaborador = colaborador;
 		this.aceptado = aceptado;
-		this.subtotal = CalcularSubtotal();
+		this.fecha = fecha;
 	}
 
-	public ProductoModel getProducto() {
-		return producto;
+	public long getIdPedido() {
+		return idPedido;
 	}
 
-	public void setProducto(ProductoModel producto) {
-		this.producto = producto;
+	public void setIdPedido(long idPedido) {
+		this.idPedido = idPedido;
 	}
 
 	public int getCantidad() {
@@ -54,12 +61,28 @@ public class PedidoModel {
 		this.aceptado = aceptado;
 	}
 
-	public LocalModel getLocal() {
-		return local;
+	public EmpleadoModel getVendedor() {
+		return vendedor;
 	}
 
-	public void setLocal(LocalModel local) {
-		this.local = local;
+	public void setVendedor(EmpleadoModel vendedor) {
+		this.vendedor = vendedor;
+	}
+
+	public EmpleadoModel getColaborador() {
+		return colaborador;
+	}
+
+	public void setColaborador(EmpleadoModel colaborador) {
+		this.colaborador = colaborador;
+	}
+
+	public ProductoModel getProducto() {
+		return producto;
+	}
+
+	public void setProducto(ProductoModel producto) {
+		this.producto = producto;
 	}
 
 	public ClienteModel getCliente() {
@@ -70,42 +93,29 @@ public class PedidoModel {
 		this.cliente = cliente;
 	}
 
-	public EmpleadoModel getVendedorOriginal() {
-		return vendedorOriginal;
+	public LocalModel getLocal() {
+		return local;
 	}
 
-	public void setVendedorOriginal(EmpleadoModel vendedorOriginal) {
-		this.vendedorOriginal = vendedorOriginal;
+	public void setLocal(LocalModel local) {
+		this.local = local;
 	}
 
-	public EmpleadoModel getVendedorAuxiliar() {
-		return vendedorAuxiliar;
-	}
-
-	public void setVendedorAuxiliar(EmpleadoModel vendedorAuxiliar) {
-		this.vendedorAuxiliar = vendedorAuxiliar;
-	}
-
-	public long getIdPedido() {
-		return idPedido;
-	}
-
-	protected void setIdPedido(long idPedido) {
-		this.idPedido = idPedido;
-	}
-
-	public float getTotal() {
+	public float getSubtotal() {
 		return subtotal;
 	}
 
-	public void setTotal(float subtotal) {
+	public void setSubtotal(float subtotal) {
 		this.subtotal = subtotal;
 	}
-	
-	public float CalcularSubtotal() {
-		return producto.getPrecio()*cantidad;
+
+	public Date getFecha() {
+		return fecha;
 	}
-	
-	
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+
 
 }

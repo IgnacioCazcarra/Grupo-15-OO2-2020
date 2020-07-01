@@ -19,7 +19,7 @@ public class CarritoModel {
 		
 		this.fecha = fecha;
 		
-		this.total = this.calcularTotal();
+		//this.total = this.calcularTotal();
 
 	}
 
@@ -77,7 +77,7 @@ public class CarritoModel {
 	//}
 
 	/**********************************************************************************************************************************************/
-	public void modificarPedido(int idPedido, ProductoModel producto, int cantidad, LocalModel local, ClienteModel cliente,
+	/*public void modificarPedido(int idPedido, ProductoModel producto, int cantidad, LocalModel local, ClienteModel cliente,
 			EmpleadoModel vendedorOriginal, EmpleadoModel vendedorAuxiliar) throws Exception {
 		if (traerPedido(idPedido) == null)
 			throw new Exception("ERROR: No se encontro el pedido");
@@ -91,7 +91,7 @@ public class CarritoModel {
 	}
 
 	/**********************************************************************************************************************************************/
-	public boolean bajaPedido(int idPedido) throws Exception {
+	/*public boolean bajaPedido(int idPedido) throws Exception {
 		if (traerPedido(idPedido) == null)
 			throw new Exception("ERROR: La ID ingresada no pertenece a ningun pedido");
 		return listaPedidos.remove(traerPedido(idPedido));
@@ -113,7 +113,7 @@ public class CarritoModel {
 
 	/**********************************************************************************************************************************************/
 
-	public float calcularTotal() {
+	/*public float calcularTotal() {
 		float total = 0;
 
 		for (PedidoModel p : listaPedidos) {
@@ -121,6 +121,6 @@ public class CarritoModel {
 		}
 
 		return total;
-	}
+	}*/
 
 }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Distancia entre locales</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="../../static/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}" href="../../static/css/bootstrap.css">
+
+    <script th:src="@{/js/jquery.js}" src="../../static/js/jquery.js"></script>
+    <script th:src="@{/js/popper.min.js}" src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+    <link rel="icon" href="../../static/img/logo.ico" th:href="@{/img/logo.ico}">
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" th:href="@{/}">UNLa</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-item nav-link" href="#" th:href="@{/productos/}">Productos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/pedidos/}">Pedidos</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/stocks/}">Stock</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/lotes/}">Lotes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/empleados/}">Empleados</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/clientes/}">Clientes</a>
+                <a class="nav-item nav-link" href="#" th:href="@{/locales/}">Locales</a>
+            </div>
+        </div>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-dark my-2 my-sm-0 " type="submit">Buscar</button>
+        </form>
+        </div>
+    </nav>
+
+    <form action="sacardistancia" id="form" class="formulario" method="Post" onsubmit="return validar()">
+
+        <div class="text-center">
+            <h2>Distancia entre locales</h2>
+        </div>
+
+        <div class="form-group">
+            <label class="input-name">Local 1:</label>
+            <select placeholder="Local1" name="local1.idLocal" id="local1" class="form-control">
+			<option  th:each= "l : ${locales}" th:value="${l.idLocal}" th:text= "${l.direccion}" ></option> 
+			</select>
+        </div>
+
+        <div class="form-group">
+            <label class="input-name">Local 2:</label>
+            <select placeholder="Local2" name="local2.idLocal" id="local2" class="form-control">
+			<option th:each= "l : ${locales}" th:value="${l.idLocal}" th:text= "${l.direccion}" > </option> 
+			</select>
+        </div>
+
+
+        <div class="text-center">
+            <input class="btn btn-primary button" type="submit" />
+        </div>
+    </form>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">ERROR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    Debe ingresar dos locales diferentes
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#form").on("submit", function() {
+
+                var local1 = $("#local1").val();
+                var local2 = $("#local2").val();
+
+                if (local1 == local2) {
+                    $("#exampleModal").modal("toggle");
+                    return false;
+                } else {
+                    return true;
+                }
+
+            });
+        });
+    </script>
+
+</body>
+
+</html>
